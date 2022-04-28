@@ -3,31 +3,31 @@
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
-    player = new Player();
-    frog = new Frog();
+    player = std::unique_ptr<Player>(new Player());
+    frog = std::unique_ptr<Frog>(new Frog());
 
-    enemies.push_back(new GreenEnemy(650.f, 200.f));
-    enemies.push_back(new GreenEnemy(150.f, 100.f));
-    enemies.push_back(new BlueEnemy(400.f, 500.f));
+    enemies.push_back(std::unique_ptr<Entity>(new GreenEnemy(650.f, 200.f)));
+    enemies.push_back(std::unique_ptr<Entity>(new GreenEnemy(150.f, 100.f)));
+    enemies.push_back(std::unique_ptr<Entity>(new BlueEnemy(400.f, 500.f)));
 
-    quackCounter = new TextCounter(50.f, 50.f, "Quack", sf::Color::Red);
-    frogCounter = new TextCounter(500.f, 50.f, "Frog", sf::Color::Green);
+    quackCounter = std::unique_ptr<TextCounter>(new TextCounter(50.f, 50.f, "Quack", sf::Color::Red));
+    frogCounter = std::unique_ptr<TextCounter>(new TextCounter(500.f, 50.f, "Frog", sf::Color::Green));
 
-    updateGroup.push_back(player);
-    updateGroup.push_back(frog);
+    updateGroup.push_back(player.get());
+    updateGroup.push_back(frog.get());
 
-    drawGroup.push_back(player);
-    drawGroup.push_back(quackCounter);
-    drawGroup.push_back(frogCounter);
+    drawGroup.push_back(player.get());
+    drawGroup.push_back(quackCounter.get());
+    drawGroup.push_back(frogCounter.get());
 
 #ifdef _DEBUG
-    drawGroup.push_back(frog);
+    drawGroup.push_back(frog.get());
 #endif // _DEBUG
 
-    for (Entity* e : enemies)
+    for (std::unique_ptr<Entity>& e : enemies)
     {
-        updateGroup.push_back(e);
-        drawGroup.push_back(e);
+        updateGroup.push_back(e.get());
+        drawGroup.push_back(e.get());
     }
 }
 
@@ -51,7 +51,7 @@ void Scene::CheckCollisions()
 
     // check collisions with enemies
     bool collided = false;
-    for (Entity* e : enemies)
+    for (std::unique_ptr<Entity>& e : enemies)
     {
         if (duckyShape.intersects(e->GetBounds()))
         {
@@ -85,17 +85,4 @@ void Scene::Draw()
     }
 
     renderWindow.display();
-}
-
-void Scene::ClearStuff()
-{
-    delete player;
-    delete frog;
-    delete quackCounter;
-    delete frogCounter;
-
-    for (Entity* e : enemies)
-    {
-        delete e;
-    }
 }

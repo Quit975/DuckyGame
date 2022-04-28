@@ -20,6 +20,4 @@ int main()
         scene.CheckCollisions();
         scene.Draw();
     }
-
-    scene.ClearStuff();
 }
