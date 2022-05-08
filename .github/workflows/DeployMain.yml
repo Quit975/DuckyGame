@@ -6,55 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: .
-
-permissions:
-  contents: read
-
 jobs:
-  CheckoutCode:
-    name: Checkout Code
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    
-  BuildDebug:
-    name: Build Debug Configuration
-    needs: CheckoutCode
-    runs-on: windows-latest
-
-    steps:
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Build Debug
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
-      
-  BuildRelease:
-    name: Build Release Configuration
-    needs: CheckoutCode
-    runs-on: windows-latest 
-    
-    steps:
-    - name: Build Release
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
-  
-  DeployGame:
-    name: Deploy Game Package
-    needs: [BuildDebug, BuildRelease]
-    runs-on: windows-latest
-  
-    steps:
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Game
-        path: ${{env.SOLUTION_FILE_PATH}}\bin
+  BuildGame:
+    uses: ./.github/workflows/BuildGame.yml

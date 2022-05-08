@@ -3,16 +3,7 @@ name: Build Game
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
-  workflow_dispatch:
-  # Inputs the workflow accepts.
-    inputs:
-      BuildName:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Build name so you can easily recognize it'
-        # Default value if no value is explicitly provided
-        default: 'TestBuild'
-        # Input has to be provided for the workflow to run
-        required: true
+  workflow_call:
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -22,18 +13,14 @@ permissions:
   contents: read
 
 jobs:
-  CheckoutCode:
-    name: Checkout Code
+  BuildDebug:
     runs-on: windows-latest
-
+    
+    name: Checkout Code
     steps:
     - uses: actions/checkout@v3
     
-  BuildDebug:
     name: Build Debug Configuration
-    needs: CheckoutCode
-    runs-on: windows-latest
-
     steps:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
@@ -45,9 +32,16 @@ jobs:
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
       
   BuildRelease:
-    name: Build Release Configuration
-    needs: CheckoutCode
     runs-on: windows-latest 
+    
+    name: Checkout Code
+    steps:
+    - uses: actions/checkout@v3
+    
+    name: Build Release Configuration
+    steps:
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
     
     steps:
     - name: Build Release
