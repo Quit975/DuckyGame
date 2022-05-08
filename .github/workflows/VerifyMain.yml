@@ -1,4 +1,4 @@
-name: Verify Main
+name: Verify_Main
 
 on:
   pull_request:

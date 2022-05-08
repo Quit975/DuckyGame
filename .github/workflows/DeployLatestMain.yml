@@ -1,4 +1,4 @@
-name: Deploy Latest Main
+name: Deploy_Latest_Main
 
 on:
   push:

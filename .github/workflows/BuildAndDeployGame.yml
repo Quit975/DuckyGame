@@ -1,4 +1,4 @@
-name: Build and Deploy Game
+name: Build_and_Deploy_Game
 
 on:
   workflow_call:

@@ -1,4 +1,4 @@
-name: Create Package
+name: Create_Package
 
 on:
   workflow_dispatch:
