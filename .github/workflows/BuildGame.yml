@@ -1,4 +1,4 @@
-name: Build_Game
+name: Build Game
 
 on:
   workflow_call:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  Build Game:
+  Build_Game:
     runs-on: windows-latest
     
     steps:

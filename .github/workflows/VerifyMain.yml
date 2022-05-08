@@ -1,9 +1,9 @@
-name: Verify_Main
+name: Verify Main
 
 on:
   pull_request:
     branches: [ main ]
 
 jobs:
-  BuildGame:
+  Verify_Main:
     uses: ./.github/workflows/BuildGame.yml
