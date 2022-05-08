@@ -1,10 +1,8 @@
 name: Create Package
 
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
 on:
   workflow_dispatch:
 
 jobs:
   BuildGame:
-    uses: ./.github/workflows/BuildGame.yml
+    uses: ./.github/workflows/BuildAndDeployGame.yml

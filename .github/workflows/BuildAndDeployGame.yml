@@ -1,4 +1,4 @@
-name: Build Game
+name: Build and Deploy Game
 
 on:
   workflow_call:
@@ -28,3 +28,9 @@ jobs:
     - name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
+  
+    - name: Deploy Game
+      uses: actions/upload-artifact@v3
+      with:
+        name: Game
+        path: ${{env.SOLUTION_FILE_PATH}}\bin

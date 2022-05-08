@@ -1,0 +1,9 @@
+name: Deploy Latest Main
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  BuildGame:
+    uses: ./.github/workflows/BuildAndDeployGame.yml

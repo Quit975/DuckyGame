@@ -154,7 +154,8 @@ exit 0</Command>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>rmdir /Q /S  $(OutDir)\Res
+      <Command>ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   openal32.dll  /xc /xn /xo
+rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
 exit 0</Command>
     </PostBuildEvent>
