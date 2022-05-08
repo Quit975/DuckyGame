@@ -34,3 +34,4 @@ jobs:
       with:
         name: Game
         path: ${{env.SOLUTION_FILE_PATH}}\bin
+        retention-days: 7
