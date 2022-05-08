@@ -16,16 +16,14 @@ jobs:
   BuildDebug:
     runs-on: windows-latest
     
-    name: Checkout Code
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v3
     
-    name: Debug Config Build
-    steps:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Build Debug
+    - name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
@@ -34,17 +32,14 @@ jobs:
   BuildRelease:
     runs-on: windows-latest 
     
-    name: Checkout Code
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v3
     
-    name: Release Config Build
-    steps:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
-    
-    steps:
-    - name: Build Release
+
+    - name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
