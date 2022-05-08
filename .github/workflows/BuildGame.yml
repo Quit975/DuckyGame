@@ -1,11 +1,18 @@
-# This is a basic workflow that is manually triggered
-
 name: Build Game
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
   workflow_dispatch:
+  # Inputs the workflow accepts.
+    inputs:
+      BuildName:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Build name so you can easily recognize it'
+        # Default value if no value is explicitly provided
+        default: 'TestBuild'
+        # Input has to be provided for the workflow to run
+        required: true
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -15,12 +22,19 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  CheckoutCode:
+    name: Checkout Code
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
+    
+  BuildDebug:
+    name: Build Debug Configuration
+    needs: CheckoutCode
+    runs-on: windows-latest
 
+    steps:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
@@ -30,12 +44,24 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
       
+  BuildRelease:
+    name: Build Release Configuration
+    needs: CheckoutCode
+    runs-on: windows-latest 
+    
+    steps:
     - name: Build Release
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
-      
+  
+  DeployGame:
+    name: Deploy Game Package
+    needs: [BuildDebug, BuildRelease]
+    runs-on: windows-latest
+  
+    steps:
     - uses: actions/upload-artifact@v3
       with:
         name: Game
