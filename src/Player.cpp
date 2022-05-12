@@ -38,7 +38,7 @@ void Player::Draw(sf::RenderWindow& window)
 	window.draw(duckySprite);
 
 #ifdef _DEBUG
-	window.draw(collisionShape);
+	window.draw(collisionShape);	//where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
 #endif // _DEBUG
 }
 
