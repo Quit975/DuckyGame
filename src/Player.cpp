@@ -24,10 +24,10 @@ void Player::Update()
 		duckySprite.move(1.0f, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
-		duckySprite.move(1.f, -1.f);
+		duckySprite.move(0.f, -1.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
-		duckySprite.move(1.f, 1.f);
+		duckySprite.move(0.f, 1.f);
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
