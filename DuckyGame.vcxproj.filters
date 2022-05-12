@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GitHubWorkflows">
+      <UniqueIdentifier>{d16d8b33-daa5-451d-b503-bd43bff95941}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BlueEnemy.cpp">
@@ -68,5 +71,22 @@
     <ClInclude Include="src\TextCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".github\workflows\BuildAndDeployGame.yml">
+      <Filter>GitHubWorkflows</Filter>
+    </None>
+    <None Include=".github\workflows\BuildGame.yml">
+      <Filter>GitHubWorkflows</Filter>
+    </None>
+    <None Include=".github\workflows\CreatePackage.yml">
+      <Filter>GitHubWorkflows</Filter>
+    </None>
+    <None Include=".github\workflows\DeployLatestMain.yml">
+      <Filter>GitHubWorkflows</Filter>
+    </None>
+    <None Include=".github\workflows\VerifyMain.yml">
+      <Filter>GitHubWorkflows</Filter>
+    </None>
   </ItemGroup>
 </Project>

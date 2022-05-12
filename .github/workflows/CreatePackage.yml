@@ -2,7 +2,27 @@ name: Create Package
 
 on:
   workflow_dispatch:
+    inputs:
+        debug:
+            description: Build Debug configuration?
+            type: boolean
+            required: false
+            default: false
+        qa:
+            description: Build QA configuration?
+            type: boolean
+            required: false
+            default: true
+        release:
+            description: Build Release configuration?
+            type: boolean
+            required: false
+            default: true
 
 jobs:
   Create_Package:
     uses: ./.github/workflows/BuildAndDeployGame.yml
+    with:
+        debug: ${{ github.event.inputs.debug }}
+        qa: ${{ github.event.inputs.qa }}
+        release: ${{ github.event.inputs.release }}

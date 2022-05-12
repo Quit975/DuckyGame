@@ -25,6 +25,10 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
+    - name: Build QA Configuration
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
+
     - name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}

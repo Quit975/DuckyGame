@@ -37,9 +37,9 @@ void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(duckySprite);
 
-#ifdef _DEBUG
+#ifndef _RELEASE
 	window.draw(collisionShape);	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
-#endif // _DEBUG
+#endif // _RELEASE
 }
 
 sf::FloatRect Player::GetBounds()
