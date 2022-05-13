@@ -23,6 +23,6 @@ jobs:
   Create_Package:
     uses: ./.github/workflows/BuildAndDeployGame.yml
     with:
-        debug: ${{ github.event.inputs.debug }}
-        qa: ${{ github.event.inputs.qa }}
-        release: ${{ github.event.inputs.release }}
+        debug: ${{ env.INPUT_DEBUG }}
+        qa: ${{ env.INPUT_QA }}
+        release: ${{ env.INPUT_RELEASE }}
