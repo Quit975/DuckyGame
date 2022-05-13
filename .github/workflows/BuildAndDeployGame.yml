@@ -2,6 +2,22 @@ name: Build and Deploy Game
 
 on:
   workflow_call:
+    inputs:
+        debug:
+            description: Build Debug configuration?
+            type: boolean
+            required: true
+            default: false
+        qa:
+            description: Build QA configuration?
+            type: boolean
+            required: true
+            default: true
+        release:
+            description: Build Release configuration?
+            type: boolean
+            required: true
+            default: true
 
 env:
   # Path to the solution file relative to the root of the project.
