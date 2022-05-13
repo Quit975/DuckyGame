@@ -6,23 +6,23 @@ on:
         debug:
             description: Build Debug configuration?
             type: boolean
-            required: true
+            required: false
             default: false
         qa:
             description: Build QA configuration?
             type: boolean
-            required: true
+            required: false
             default: true
         release:
             description: Build Release configuration?
             type: boolean
-            required: true
+            required: false
             default: true
 
 jobs:
   Create_Package:
     uses: ./.github/workflows/BuildAndDeployGame.yml
     with:
-        debug: ${{ env.INPUT_DEBUG }}
-        qa: ${{ env.INPUT_QA }}
-        release: ${{ env.INPUT_RELEASE }}
+        debug: ${{ github.event.inputs.debug == 'true' }}
+        qa: ${{ github.event.inputs.qa == 'true' }}
+        release: ${{ github.event.inputs.release == 'true' }}

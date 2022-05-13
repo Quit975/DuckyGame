@@ -37,17 +37,17 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - if: ${{ env.INPUT_DEBUG == 'true' }} 
+    - if: ${{ github.event.inputs.debug == 'true' }} 
       name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ env.INPUT_QA == 'true' }} 
+    - if: ${{ github.event.inputs.qa == 'true' }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ env.INPUT_RELEASE == 'true' }} 
+    - if: ${{ github.event.inputs.release == 'true' }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
