@@ -15,6 +15,8 @@ Player::Player()
 	collisionShape.setOrigin(-20.f, -20.f);
 }
 
+// ram pam pam
+
 void Player::Update()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
