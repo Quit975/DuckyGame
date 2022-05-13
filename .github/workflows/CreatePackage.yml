@@ -6,17 +6,17 @@ on:
         debug:
             description: Build Debug configuration?
             type: boolean
-            required: false
+            required: true
             default: false
         qa:
             description: Build QA configuration?
             type: boolean
-            required: false
+            required: true
             default: true
         release:
             description: Build Release configuration?
             type: boolean
-            required: false
+            required: true
             default: true
 
 jobs:
