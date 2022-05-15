@@ -20,9 +20,9 @@ Scene::Scene(sf::RenderWindow& window):
     drawGroup.push_back(quackCounter.get());
     drawGroup.push_back(frogCounter.get());
 
-#ifdef _DEBUG
+#ifndef _RELEASE
     drawGroup.push_back(frog.get());
-#endif // _DEBUG
+#endif // _RELEASE
 
     for (std::unique_ptr<Entity>& e : enemies)
     {

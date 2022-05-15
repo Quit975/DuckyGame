@@ -2,6 +2,22 @@ name: Build and Deploy Game
 
 on:
   workflow_call:
+    inputs:
+        debug:
+            description: Build Debug configuration?
+            type: boolean
+            required: true
+            default: false
+        qa:
+            description: Build QA configuration?
+            type: boolean
+            required: true
+            default: true
+        release:
+            description: Build Release configuration?
+            type: boolean
+            required: true
+            default: true
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -21,11 +37,18 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Build Debug Configuration
+    - if: ${{ github.event.inputs.debug == 'true' }} 
+      name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build Release Configuration
+    - if: ${{ github.event.inputs.qa == 'true' }} 
+      name: Build Release Configuration
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
+
+    - if: ${{ github.event.inputs.release == 'true' }} 
+      name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
   

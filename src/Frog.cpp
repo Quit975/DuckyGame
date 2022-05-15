@@ -40,12 +40,12 @@ void Frog::Update()
 
 void Frog::Draw(sf::RenderWindow& window)
 {
-#ifdef _DEBUG
+#ifndef _RELEASE
     sf::RectangleShape shape({20.f, 20.f});
     shape.setPosition(frogShape.getPosition().x, frogShape.getPosition().y);
     shape.setFillColor(sf::Color::Magenta);
     window.draw(shape);
-#endif // _DEBUG
+#endif // _RELEASE
 }
 
 sf::FloatRect Frog::GetBounds()
