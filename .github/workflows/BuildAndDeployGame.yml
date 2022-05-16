@@ -40,17 +40,17 @@ jobs:
     - name: Print args
       run: echo "${{ inputs.debug }} ${{ inputs.qa }} ${{ inputs.release }}"
 
-    - if: ${{ inputs.debug == 'true' }} 
+    - if: ${{ github.event.inputs.debug == 'true' }} || ${{ inputs.debug }} 
       name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ inputs.qa == 'true' }} 
+    - if: ${{ github.event.inputs.qa == 'true' }} || ${{ inputs.qa }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ inputs.release == 'true' }} 
+    - if: ${{ github.event.inputs.release == 'true' }} || ${{ inputs.release }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
