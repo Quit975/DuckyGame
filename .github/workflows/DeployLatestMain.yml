@@ -10,4 +10,4 @@ jobs:
     with:
         debug: true
         qa: true
-        relase: true
+        release: true
