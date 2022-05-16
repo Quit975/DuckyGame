@@ -38,7 +38,31 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Print args
-      run: echo "${{ inputs.debug }} ${{ inputs.qa }} ${{ inputs.release }}"
+      run: echo "${{ inputs.debug }} ${{ inputs.qa }} ${{ inputs.release }} ${{ github.event.inputs.debug }} ${{ github.event.inputs.qa }} ${{ github.event.inputs.release }}"
+
+    - if: ${{ github.event.inputs.debug == 'true' }}
+      name: Events debug
+      run: echo "events debug true"
+
+    - if: ${{ github.event.inputs.qa == 'true' }}
+      name: Events qa
+      run: echo "events qa true"
+
+    - if: ${{ github.event.inputs.release == 'true' }}
+      name: Events release
+      run: echo "events release true"
+
+    - if: ${{ inputs.debug }}
+      name: Inputs debug
+      run: echo "inputs debug true"
+
+    - if: ${{ inputs.qa }}
+      name: Inputs qa
+      run: echo "inputs qa true"
+
+    - if: ${{ inputs.release }}
+      name: Inputs release
+      run: echo "inputs release true"
 
     - if: ${{ github.event.inputs.debug == 'true' }} || ${{ inputs.debug }} 
       name: Build Debug Configuration
@@ -46,7 +70,7 @@ jobs:
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
     - if: ${{ github.event.inputs.qa == 'true' }} || ${{ inputs.qa }} 
-      name: Build Release Configuration
+      name: Build QA Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
 
