@@ -7,3 +7,7 @@ on:
 jobs:
   Deploy_Latest_Main:
     uses: ./.github/workflows/BuildAndDeployGame.yml
+    with:
+        debug: true
+        qa: true
+        relase: true
