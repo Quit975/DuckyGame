@@ -37,20 +37,17 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Print args
-      run: echo "${{ inputs.debug }} ${{ inputs.qa }} ${{ inputs.release }}"
-
-    - if: ${{ github.event.inputs.debug == 'true' }} || ${{ inputs.debug }} 
+    - if: ${{ inputs.debug }} 
       name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ github.event.inputs.qa == 'true' }} || ${{ inputs.qa }} 
-      name: Build Release Configuration
+    - if: ${{ inputs.qa }} 
+      name: Build QA Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ github.event.inputs.release == 'true' }} || ${{ inputs.release }} 
+    - if: ${{ inputs.release }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
