@@ -38,19 +38,19 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Print args
-      run: echo "${{ github.event.inputs.debug }} ${{ github.event.inputs.qa }} ${{ github.event.inputs.release }}"
+      run: echo "${{ inputs.debug }} ${{ inputs.qa }} ${{ inputs.release }}"
 
-    - if: ${{ github.event.inputs.debug == 'true' }} 
+    - if: ${{ inputs.debug == 'true' }} 
       name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Debug ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ github.event.inputs.qa == 'true' }} 
+    - if: ${{ inputs.qa == 'true' }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=QA ${{env.SOLUTION_FILE_PATH}}
 
-    - if: ${{ github.event.inputs.release == 'true' }} 
+    - if: ${{ inputs.release == 'true' }} 
       name: Build Release Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=Release ${{env.SOLUTION_FILE_PATH}}
