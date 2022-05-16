@@ -37,6 +37,9 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
+    - name: Print args
+      run: echo "${{ github.event.inputs.debug }} ${{ github.event.inputs.qa }} ${{ github.event.inputs.release }}"
+
     - if: ${{ github.event.inputs.debug == 'true' }} 
       name: Build Debug Configuration
       working-directory: ${{env.GITHUB_WORKSPACE}}
