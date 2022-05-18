@@ -6,7 +6,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Ducky Game!");
     MusicPlayer music;
     Scene scene(window);
-
+    sf::Clock clock;
+    float dt = 0.f;
     while (window.isOpen())
     {
         sf::Event event;
@@ -16,8 +17,10 @@ int main()
                 window.close();
         }
 
-        scene.Update();
+        scene.Update(dt);
         scene.CheckCollisions();
         scene.Draw();
+        sf::Time dTime = clock.restart();
+        dt = dTime.asSeconds();
     }
 }

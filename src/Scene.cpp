@@ -36,11 +36,11 @@ Scene::~Scene()
     
 }
 
-void Scene::Update()
+void Scene::Update(const float& dt)
 {
     for (Entity* e : updateGroup)
     {
-        e->Update();
+        e->Update(dt);
     }
 }
 
