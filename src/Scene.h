@@ -12,7 +12,7 @@ class Scene
 public:
 	Scene(sf::RenderWindow& window);
 	~Scene();
-	void Update(const float& dt);
+	void Update(const float dt);
 	void CheckCollisions();
 	void Draw();
 

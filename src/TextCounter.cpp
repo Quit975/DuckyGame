@@ -23,7 +23,7 @@ void TextCounter::Increase()
     counterText.setString(s.str());
 }
 
-void TextCounter::Update(const float& dt)
+void TextCounter::Update(const float dt)
 {
 }
 

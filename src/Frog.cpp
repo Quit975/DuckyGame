@@ -22,7 +22,7 @@ Frog::Frog()
     srand(time(NULL));
 }
 
-void Frog::Update(const float &dt)
+void Frog::Update(const float dt)
 {
     frogShape.move(vel * xMovementDir * dt, vel * yMovementDir * dt);
     if (frogShape.getPosition().x <= 0.f)
