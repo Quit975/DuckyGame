@@ -1,9 +1,12 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
 
+extern int WindowWidth = 800.f;
+extern int WindowHeight = 600.f;
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Ducky Game!");
+    sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
     MusicPlayer music;
     Scene scene(window);
 

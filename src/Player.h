@@ -12,6 +12,7 @@ public:
 	void Quack();
 	bool Hit();
 	void ResetHit();
+	void ScreenBounds();
 
 private:
 	sf::Texture duckyTexture;
