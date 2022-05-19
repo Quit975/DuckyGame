@@ -8,7 +8,7 @@ Player::Player()
 	duckyTexture.loadFromFile("Res/JanitorDuck.png");
 	duckyTexture.setSmooth(true);
 	duckySprite.setTexture(duckyTexture);
-	duckySprite.setScale(.5f, 0.5f);
+	duckySprite.setScale(0.5f, 0.5f);
 
 	collisionShape = sf::CircleShape(45.f);
 	collisionShape.setFillColor(sf::Color::Cyan);
