@@ -13,7 +13,7 @@ private:
 	sf::RectangleShape enemy;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
-	const float vel = 180.f;
+	const float speed = 180.f;
 
 };
 

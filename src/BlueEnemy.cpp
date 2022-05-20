@@ -15,7 +15,7 @@ void BlueEnemy::Draw(sf::RenderWindow& window)
 
 void BlueEnemy::Update(const float dt)
 {
-    enemy.move(0.f, vel * yMovementDir * dt);
+    enemy.move(0.f, speed * yMovementDir * dt);
     if (enemy.getPosition().y <= 0.f)
         yMovementDir = 1;
     else if (enemy.getPosition().y >= 600.f)

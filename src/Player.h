@@ -22,6 +22,6 @@ private:
 	sf::CircleShape collisionShape;
 
 	bool gequacked = false;
-	const float vel = 220.f;
+	const float speed = 220.f;
 
 };

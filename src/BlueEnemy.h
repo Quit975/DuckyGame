@@ -13,6 +13,6 @@ private:
 	sf::CircleShape enemy;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
-	const float vel = 150.f;
+	const float speed = 150.f;
 };
 

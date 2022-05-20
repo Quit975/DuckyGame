@@ -18,16 +18,16 @@ Player::Player()
 void Player::Update(const float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-		duckySprite.move(-vel * dt, 0.f);
+		duckySprite.move(-speed * dt, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
-		duckySprite.move(vel * dt, 0.f);
+		duckySprite.move(speed * dt, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
-		duckySprite.move(0.f, -vel * dt);
+		duckySprite.move(0.f, -speed * dt);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
-		duckySprite.move(0.f, vel * dt);
+		duckySprite.move(0.f, speed * dt);
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);

@@ -24,7 +24,7 @@ Frog::Frog()
 
 void Frog::Update(const float dt)
 {
-    frogShape.move(vel * xMovementDir * dt, vel * yMovementDir * dt);
+    frogShape.move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (frogShape.getPosition().x <= 0.f)
         xMovementDir = 1;
     else if (frogShape.getPosition().x >= 800.f)

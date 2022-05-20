@@ -2,21 +2,23 @@
 #include "MusicPlayer.h"
 #include <iostream>
 
-float dt = 1;
 
 int main()
 {
+    float dt;
     sf::RenderWindow window(sf::VideoMode(800, 600), "Ducky Game!");
     MusicPlayer music;
     Scene scene(window);
     
     //frame rate management
     sf::Clock clock;
-    const float frameDur = 0.0167f;       //approx fame duration in seconds for 60fps setting
+    constexpr float desiredFrameRate = 60.f;
+    constexpr float desiredDt = 1 / desiredFrameRate;
 
     while (window.isOpen())
     {
-        if (dt >= frameDur) 
+        dt = clock.getElapsedTime().asSeconds();
+        while (dt >= desiredDt)
         {
             clock.restart();
             sf::Event event;
@@ -26,12 +28,11 @@ int main()
                     window.close();
             }
 
-            scene.Update(dt);
+            scene.Update(desiredDt);
             scene.CheckCollisions();
             scene.Draw();
-            
-            dt = 0.f;
+
+            dt -= desiredDt;
         }
-        dt += clock.getElapsedTime().asSeconds();
     }
 }
