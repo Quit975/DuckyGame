@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
-#include <iostream>
 
 
 int main()
@@ -28,7 +27,7 @@ int main()
                     window.close();
             }
 
-            scene.Update(desiredDt);
+            scene.Update(dt);
             scene.CheckCollisions();
             scene.Draw();
 
