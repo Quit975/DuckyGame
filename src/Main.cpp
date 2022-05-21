@@ -1,8 +1,8 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
 
-extern int WindowWidth = 800.f;
-extern int WindowHeight = 600.f;
+extern const int WindowWidth = 800.f;
+extern const int WindowHeight = 600.f;
 
 int main()
 {
@@ -19,6 +19,7 @@ int main()
                 window.close();
         }
 
+        MusicPlayer StopMusic();
         scene.Update();
         scene.CheckCollisions();
         scene.Draw();

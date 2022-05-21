@@ -15,7 +15,6 @@ void BlueEnemy::Draw(sf::RenderWindow& window)
 
 void BlueEnemy::Update()
 {
-    extern int WindowHeight; 
     enemy.move(0.f, 0.1f * yMovementDir);
     if (enemy.getPosition().y <= 0.f)
         yMovementDir = 1;
