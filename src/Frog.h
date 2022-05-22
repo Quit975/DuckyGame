@@ -6,7 +6,7 @@ class Frog : public Entity
 {
 public:
 	Frog();
-	virtual void Update(int WindowWidth, int WindowHeight) override;
+	virtual void Update() override;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual sf::FloatRect GetBounds() override;
 

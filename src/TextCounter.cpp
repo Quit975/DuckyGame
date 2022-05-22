@@ -23,7 +23,7 @@ void TextCounter::Increase()
     counterText.setString(s.str());
 }
 
-void TextCounter::Update(int WindowWidth, int WindowHeight)
+void TextCounter::Update()
 {
 }
 

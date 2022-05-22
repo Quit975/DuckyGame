@@ -13,10 +13,8 @@ void GreenEnemy::Draw(sf::RenderWindow& window)
     window.draw(enemy);
 }
 
-void GreenEnemy::Update(int WindowWidth, int WindowHeight)
+void GreenEnemy::Update()
 {
-    extern int WindowWidth;
-    extern int WindowHeight; 
     enemy.rotate(0.05f);
     enemy.move(2.5f * xMovementDir, 2.5f * yMovementDir);
     if (enemy.getPosition().x <= 0.f)
