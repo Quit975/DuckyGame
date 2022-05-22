@@ -1,8 +1,8 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
 
-extern const int WindowWidth = 800.f;
-extern const int WindowHeight = 600.f;
+const int WindowWidth = 800.f;
+const int WindowHeight = 600.f;
 
 int main()
 {
