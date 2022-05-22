@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-extern int WindowWidth;
-extern int WindowHeight;
+extern const int WindowWidth;
+extern const int WindowHeight;
 
 class Entity
 {

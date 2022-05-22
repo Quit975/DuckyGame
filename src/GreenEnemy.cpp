@@ -19,12 +19,12 @@ void GreenEnemy::Update()
     enemy.move(2.5f * xMovementDir, 2.5f * yMovementDir);
     if (enemy.getPosition().x <= 0.f)
         xMovementDir = 1;
-    else if (enemy.getPosition().x >= 800.f)
+    else if (enemy.getPosition().x >= WindowWidth)
         xMovementDir = -1;
 
     if (enemy.getPosition().y <= 0.f)
         yMovementDir = 1;
-    else if (enemy.getPosition().y >= 600.f)
+    else if (enemy.getPosition().y >= WindowHeight)
         yMovementDir = -1;
 }
 
