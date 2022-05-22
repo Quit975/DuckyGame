@@ -18,7 +18,7 @@ void BlueEnemy::Update(int WindowWidth, int WindowHeight)
     enemy.move(0.f, 0.1f * yMovementDir);
     if (enemy.getPosition().y <= 0.f)
         yMovementDir = 1;
-    else if (enemy.getPosition().y >= WindowHeight)
+    else if (enemy.getPosition().y >= 600.f)
         yMovementDir = -1;
 }
 

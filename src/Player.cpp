@@ -17,16 +17,16 @@ Player::Player()
 
 void Player::Update(int WindowWidth, int WindowHeight)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) ||(collisionShape.getPosition().x >= (800.f - 128.f)))
 		duckySprite.move(-1.f, 0.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) || (collisionShape.getPosition().x <= 0.f))
 		duckySprite.move(1.0f, 0.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (collisionShape.getPosition().y >= (600.f -128.f)))
 		duckySprite.move(0.f, -1.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || ((collisionShape.getPosition().y <= 0.f)))
 		duckySprite.move(0.f, 1.f);
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
@@ -69,26 +69,24 @@ void Player::ResetHit()
 	gequacked = false;
 }
 
-void Player::KeepPlayerInBounds(int WindowWidth, int WindowHeight)
+void Player::ScreenBounds()
 {
-	if ((collisionShape.getPosition().x == 0.f) & (collisionShape.getPosition().y > (WindowHeight - (duckyTexture.getSize().y) / 2))) {
-		duckySprite.setPosition(0.f, (WindowHeight - (duckyTexture.getSize().y) / 2));
-	}
-
-	if (collisionShape.getPosition().x > (WindowWidth - (duckyTexture.getSize().x)/2)) {
+	extern int WindowWidth;
+	extern int WindowHeight;
+	
+	if (collisionShape.getPosition().x > (WindowWidth - (duckyTexture.getSize().x)/2)){
 		duckySprite.setPosition((WindowWidth - (duckyTexture.getSize().x) / 2), (collisionShape.getPosition().y));
 	}
 
-	else if (collisionShape.getPosition().x < 0.f) {
-		duckySprite.setPosition(0.f , (collisionShape.getPosition().y));
+	if (collisionShape.getPosition().x < 0.f){
+		duckySprite.setPosition(0.f, (collisionShape.getPosition().y));
 	}
 
-	if (collisionShape.getPosition().y > (WindowHeight - (duckyTexture.getSize().y)/ 2)){
+	if (collisionShape.getPosition().y > (WindowHeight - (duckyTexture.getSize().y) / 2)){
 		duckySprite.setPosition(collisionShape.getPosition().x, (WindowHeight - (duckyTexture.getSize().y) / 2));
 	}
 
-	else if (collisionShape.getPosition().y < 0.f){
+	if (collisionShape.getPosition().y < 0.f){
 		duckySprite.setPosition((collisionShape.getPosition().x), 0.f);
 	}
 }
-
