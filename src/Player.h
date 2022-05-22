@@ -6,13 +6,13 @@ class Player : public Entity
 {
 public:
 	Player();
-	virtual void Update() override;
+	virtual void Update(int WindowWidth, int WindowHeight) override;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual sf::FloatRect GetBounds() override;
 	void Quack();
 	bool Hit();
 	void ResetHit();
-	void KeepPlayerInBounds();
+	void KeepPlayerInBounds(int WindowWidth, int WindowHeight);
 
 private:
 	sf::Texture duckyTexture;

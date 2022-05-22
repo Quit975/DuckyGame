@@ -36,11 +36,11 @@ Scene::~Scene()
     
 }
 
-void Scene::Update()
+void Scene::Update(int WindowWidth, int WindowHeight)
 {
     for (Entity* e : updateGroup)
     {
-        e->Update();
+        e->Update(WindowWidth, WindowHeight);
     }
 }
 

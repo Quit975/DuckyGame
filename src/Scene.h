@@ -12,7 +12,7 @@ class Scene
 public:
 	Scene(sf::RenderWindow& window);
 	~Scene();
-	void Update();
+	void Update(int WindowWidth, int WindowHeight);
 	void CheckCollisions();
 	void Draw();
 

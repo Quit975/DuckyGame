@@ -15,7 +15,7 @@ Player::Player()
 	collisionShape.setOrigin(-20.f, -20.f);
 }
 
-void Player::Update()
+void Player::Update(int WindowWidth, int WindowHeight)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
 		duckySprite.move(-1.f, 0.f);
@@ -31,7 +31,7 @@ void Player::Update()
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
-	KeepPlayerInBounds();
+	KeepPlayerInBounds(WindowWidth, WindowHeight);
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -69,13 +69,17 @@ void Player::ResetHit()
 	gequacked = false;
 }
 
-void Player::KeepPlayerInBounds()
+void Player::KeepPlayerInBounds(int WindowWidth, int WindowHeight)
 {
-	if (collisionShape.getPosition().x > (WindowWidth - (duckyTexture.getSize().x)/2)){
+	if ((collisionShape.getPosition().x == 0.f) & (collisionShape.getPosition().y > (WindowHeight - (duckyTexture.getSize().y) / 2))) {
+		duckySprite.setPosition(0.f, (WindowHeight - (duckyTexture.getSize().y) / 2));
+	}
+
+	if (collisionShape.getPosition().x > (WindowWidth - (duckyTexture.getSize().x)/2)) {
 		duckySprite.setPosition((WindowWidth - (duckyTexture.getSize().x) / 2), (collisionShape.getPosition().y));
 	}
 
-	if (collisionShape.getPosition().x < 0.f) {
+	else if (collisionShape.getPosition().x < 0.f) {
 		duckySprite.setPosition(0.f , (collisionShape.getPosition().y));
 	}
 
@@ -83,7 +87,8 @@ void Player::KeepPlayerInBounds()
 		duckySprite.setPosition(collisionShape.getPosition().x, (WindowHeight - (duckyTexture.getSize().y) / 2));
 	}
 
-	if (collisionShape.getPosition().y < 0.f){
+	else if (collisionShape.getPosition().y < 0.f){
 		duckySprite.setPosition((collisionShape.getPosition().x), 0.f);
 	}
 }
+

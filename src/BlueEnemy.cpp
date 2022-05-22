@@ -13,7 +13,7 @@ void BlueEnemy::Draw(sf::RenderWindow& window)
     window.draw(enemy);
 }
 
-void BlueEnemy::Update()
+void BlueEnemy::Update(int WindowWidth, int WindowHeight)
 {
     enemy.move(0.f, 0.1f * yMovementDir);
     if (enemy.getPosition().y <= 0.f)
