@@ -27,12 +27,12 @@ void Frog::Update(int WindowWidth, int WindowHeight)
     frogShape.move(0.1f * xMovementDir, 0.1f * yMovementDir);
     if (frogShape.getPosition().x <= 0.f)
         xMovementDir = 1;
-    else if (frogShape.getPosition().x >= WindowWidth)
+    else if (frogShape.getPosition().x >= 800.f)
         xMovementDir = -1;
 
     if (frogShape.getPosition().y <= 0.f)
         yMovementDir = 1;
-    else if (frogShape.getPosition().y >= WindowHeight)
+    else if (frogShape.getPosition().y >= 600.f)
         yMovementDir = -1;
 
     frogSound.setPosition(frogShape.getPosition().x, frogShape.getPosition().y, 0.f);

@@ -15,23 +15,23 @@ Player::Player()
 	collisionShape.setOrigin(-20.f, -20.f);
 }
 
-void Player::Update(int WindowWidth, int WindowHeight)
+void Player::Update()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) ||(collisionShape.getPosition().x >= (800.f - 128.f)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
 		duckySprite.move(-1.f, 0.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) || (collisionShape.getPosition().x <= 0.f))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
 		duckySprite.move(1.0f, 0.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (collisionShape.getPosition().y >= (600.f -128.f)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
 		duckySprite.move(0.f, -1.f);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || ((collisionShape.getPosition().y <= 0.f)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
 		duckySprite.move(0.f, 1.f);
 
+	Player::ScreenBounds();
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
-	KeepPlayerInBounds(WindowWidth, WindowHeight);
 }
 
 void Player::Draw(sf::RenderWindow& window)
