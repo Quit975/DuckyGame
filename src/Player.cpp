@@ -30,8 +30,8 @@ void Player::Update(const float dt)
 		duckySprite.move(0.f, speed * dt);
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
-	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
 	KeepPlayerInBounds();
+	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
 }
 
 void Player::Draw(sf::RenderWindow& window)
