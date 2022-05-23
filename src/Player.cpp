@@ -15,19 +15,19 @@ Player::Player()
 	collisionShape.setOrigin(-20.f, -20.f);
 }
 
-void Player::Update()
+void Player::Update(const float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-		duckySprite.move(-1.f, 0.f);
+		duckySprite.move(-speed * dt, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
-		duckySprite.move(1.0f, 0.f);
+		duckySprite.move(speed * dt, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
-		duckySprite.move(0.f, -1.f);
+		duckySprite.move(0.f, -speed * dt);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
-		duckySprite.move(0.f, 1.f);
+		duckySprite.move(0.f, speed * dt);
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
@@ -66,4 +66,5 @@ bool Player::Hit()
 void Player::ResetHit()
 {
 	gequacked = false;
+	
 }

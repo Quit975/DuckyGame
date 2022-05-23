@@ -8,7 +8,7 @@ public:
     TextCounter(float x, float y, const char* text, sf::Color color);
     void Increase();
 
-    virtual void Update() override;
+    virtual void Update(const float dt) override;
     virtual void Draw(sf::RenderWindow& window) override;
     virtual sf::FloatRect GetBounds() override;
 

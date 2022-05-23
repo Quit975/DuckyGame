@@ -6,7 +6,7 @@ class Player : public Entity
 {
 public:
 	Player();
-	virtual void Update() override;
+	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual sf::FloatRect GetBounds() override;
 	void Quack();
@@ -22,4 +22,6 @@ private:
 	sf::CircleShape collisionShape;
 
 	bool gequacked = false;
+	const float speed = 220.f;
+
 };
