@@ -30,6 +30,7 @@ void Player::Update(const float dt)
 		duckySprite.move(0.f, speed * dt);
 
 	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
+	KeepPlayerInBounds();
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
 }
 
@@ -67,4 +68,27 @@ void Player::ResetHit()
 {
 	gequacked = false;
 	
+}
+
+void Player::KeepPlayerInBounds()
+{	
+	if (collisionShape.getPosition().x > (WindowWidth - (duckyTexture.getSize().x)/2)){
+		duckySprite.setPosition((WindowWidth - (duckyTexture.getSize().x) / 2), (collisionShape.getPosition().y));
+		collisionShape.setPosition((WindowWidth - (duckyTexture.getSize().x) / 2), (collisionShape.getPosition().y));
+	}
+
+	else if (collisionShape.getPosition().x < 0.f){
+		duckySprite.setPosition(0.f, (collisionShape.getPosition().y));
+		collisionShape.setPosition(0.f, (collisionShape.getPosition().y));
+	}
+
+	if (collisionShape.getPosition().y > (WindowHeight - (duckyTexture.getSize().y) / 2)){
+		duckySprite.setPosition(collisionShape.getPosition().x, (WindowHeight - (duckyTexture.getSize().y) / 2));
+		collisionShape.setPosition(collisionShape.getPosition().x, (WindowHeight - (duckyTexture.getSize().y) / 2));
+	}
+
+	else if (collisionShape.getPosition().y < 0.f){
+		duckySprite.setPosition((collisionShape.getPosition().x), 0.f);
+		collisionShape.setPosition((collisionShape.getPosition().x), 0.f);
+	}
 }
