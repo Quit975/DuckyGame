@@ -11,7 +11,8 @@ int main()
 
     MusicPlayer music;
     Scene scene(window);
-    
+    bool PlayMusic = true;
+
     //frame rate management
     sf::Clock clock;
     constexpr float desiredFrameRate = 60.f;
@@ -35,6 +36,11 @@ int main()
             scene.Draw();
 
             dt -= desiredDt;
+
+            //Music can be paused in debug
+            #ifndef _RELEASE
+            music.ShouldBeMusicPlaying(PlayMusic);
+            #endif
         }
     }
 }
