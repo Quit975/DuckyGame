@@ -6,21 +6,35 @@ const int WindowHeight = 600.f;
 
 int main()
 {
+    float dt;
     sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
+
     MusicPlayer music;
     Scene scene(window);
+    
+    //frame rate management
+    sf::Clock clock;
+    constexpr float desiredFrameRate = 60.f;
+    constexpr float desiredDt = 1 / desiredFrameRate;
 
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        dt = clock.getElapsedTime().asSeconds();
+        while (dt >= desiredDt)
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+            clock.restart();
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
 
-        scene.Update();
-        scene.CheckCollisions();
-        scene.Draw();
+            scene.Update(dt);
+            scene.CheckCollisions();
+            scene.Draw();
+
+            dt -= desiredDt;
+        }
     }
 }

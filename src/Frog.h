@@ -6,7 +6,7 @@ class Frog : public Entity
 {
 public:
 	Frog();
-	virtual void Update() override;
+	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual sf::FloatRect GetBounds() override;
 
@@ -20,5 +20,7 @@ private:
 	sf::RectangleShape frogShape;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
+	const float speed = 250.f;
+
 };
 

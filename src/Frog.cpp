@@ -22,9 +22,9 @@ Frog::Frog()
     srand(time(NULL));
 }
 
-void Frog::Update()
+void Frog::Update(const float dt)
 {
-    frogShape.move(0.1f * xMovementDir, 0.1f * yMovementDir);
+    frogShape.move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (frogShape.getPosition().x <= 0.f)
         xMovementDir = 1;
     else if (frogShape.getPosition().x >= WindowWidth)
@@ -60,3 +60,4 @@ void Frog::Catch()
     float y = rand() % 560 + 20;
     frogShape.setPosition(x, y);
 }
+
