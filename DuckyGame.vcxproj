@@ -24,6 +24,38 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\TextCounter.cpp" />
+    <ClCompile Include="ThirdParty\lua\lapi.c" />
+    <ClCompile Include="ThirdParty\lua\lauxlib.c" />
+    <ClCompile Include="ThirdParty\lua\lbaselib.c" />
+    <ClCompile Include="ThirdParty\lua\lcode.c" />
+    <ClCompile Include="ThirdParty\lua\lcorolib.c" />
+    <ClCompile Include="ThirdParty\lua\lctype.c" />
+    <ClCompile Include="ThirdParty\lua\ldblib.c" />
+    <ClCompile Include="ThirdParty\lua\ldebug.c" />
+    <ClCompile Include="ThirdParty\lua\ldo.c" />
+    <ClCompile Include="ThirdParty\lua\ldump.c" />
+    <ClCompile Include="ThirdParty\lua\lfunc.c" />
+    <ClCompile Include="ThirdParty\lua\lgc.c" />
+    <ClCompile Include="ThirdParty\lua\linit.c" />
+    <ClCompile Include="ThirdParty\lua\liolib.c" />
+    <ClCompile Include="ThirdParty\lua\llex.c" />
+    <ClCompile Include="ThirdParty\lua\lmathlib.c" />
+    <ClCompile Include="ThirdParty\lua\lmem.c" />
+    <ClCompile Include="ThirdParty\lua\loadlib.c" />
+    <ClCompile Include="ThirdParty\lua\lobject.c" />
+    <ClCompile Include="ThirdParty\lua\lopcodes.c" />
+    <ClCompile Include="ThirdParty\lua\loslib.c" />
+    <ClCompile Include="ThirdParty\lua\lparser.c" />
+    <ClCompile Include="ThirdParty\lua\lstate.c" />
+    <ClCompile Include="ThirdParty\lua\lstring.c" />
+    <ClCompile Include="ThirdParty\lua\lstrlib.c" />
+    <ClCompile Include="ThirdParty\lua\ltable.c" />
+    <ClCompile Include="ThirdParty\lua\ltablib.c" />
+    <ClCompile Include="ThirdParty\lua\ltm.c" />
+    <ClCompile Include="ThirdParty\lua\lundump.c" />
+    <ClCompile Include="ThirdParty\lua\lutf8lib.c" />
+    <ClCompile Include="ThirdParty\lua\lvm.c" />
+    <ClCompile Include="ThirdParty\lua\lzio.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BlueEnemy.h" />
@@ -33,7 +65,37 @@
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Scriptable.h" />
+    <ClInclude Include="src\ScriptEntity.h" />
     <ClInclude Include="src\TextCounter.h" />
+    <ClInclude Include="ThirdParty\lua\lapi.h" />
+    <ClInclude Include="ThirdParty\lua\lauxlib.h" />
+    <ClInclude Include="ThirdParty\lua\lcode.h" />
+    <ClInclude Include="ThirdParty\lua\lctype.h" />
+    <ClInclude Include="ThirdParty\lua\ldebug.h" />
+    <ClInclude Include="ThirdParty\lua\ldo.h" />
+    <ClInclude Include="ThirdParty\lua\lfunc.h" />
+    <ClInclude Include="ThirdParty\lua\lgc.h" />
+    <ClInclude Include="ThirdParty\lua\ljumptab.h" />
+    <ClInclude Include="ThirdParty\lua\llex.h" />
+    <ClInclude Include="ThirdParty\lua\llimits.h" />
+    <ClInclude Include="ThirdParty\lua\lmem.h" />
+    <ClInclude Include="ThirdParty\lua\lobject.h" />
+    <ClInclude Include="ThirdParty\lua\lopcodes.h" />
+    <ClInclude Include="ThirdParty\lua\lopnames.h" />
+    <ClInclude Include="ThirdParty\lua\lparser.h" />
+    <ClInclude Include="ThirdParty\lua\lprefix.h" />
+    <ClInclude Include="ThirdParty\lua\lstate.h" />
+    <ClInclude Include="ThirdParty\lua\lstring.h" />
+    <ClInclude Include="ThirdParty\lua\ltable.h" />
+    <ClInclude Include="ThirdParty\lua\ltm.h" />
+    <ClInclude Include="ThirdParty\lua\lua.h" />
+    <ClInclude Include="ThirdParty\lua\lua.hpp" />
+    <ClInclude Include="ThirdParty\lua\luaconf.h" />
+    <ClInclude Include="ThirdParty\lua\lualib.h" />
+    <ClInclude Include="ThirdParty\lua\lundump.h" />
+    <ClInclude Include="ThirdParty\lua\lvm.h" />
+    <ClInclude Include="ThirdParty\lua\lzio.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".github\workflows\BuildAndDeployGame.yml" />
@@ -41,6 +103,8 @@
     <None Include=".github\workflows\CreatePackage.yml" />
     <None Include=".github\workflows\DeployLatestMain.yml" />
     <None Include=".github\workflows\VerifyMain.yml" />
+    <None Include="scripts\blueEnemy.lua" />
+    <None Include="scripts\greenEnemy.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -106,7 +170,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -123,6 +187,8 @@ ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-system-d-2.dll  /xc /xn 
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-window-d-2.dll  /xc /xn /xo
 rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
+rmdir /Q /S  $(OutDir)\scripts
+ROBOCOPY scripts    $(OutDir)\scripts *.* /E
 exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -132,7 +198,7 @@ exit 0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_QA;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -149,6 +215,8 @@ ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-system-2.dll  /xc /xn /x
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-window-2.dll  /xc /xn /xo
 rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
+rmdir /Q /S  $(OutDir)\scripts
+ROBOCOPY scripts    $(OutDir)\scripts *.* /E
 exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -160,7 +228,7 @@ exit 0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -176,6 +244,8 @@ exit 0</Command>
       <Command>ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   openal32.dll  /xc /xn /xo
 rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
+rmdir /Q /S  $(OutDir)\scripts
+ROBOCOPY scripts    $(OutDir)\scripts *.* /E
 exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

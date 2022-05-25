@@ -26,3 +26,32 @@ sf::FloatRect BlueEnemy::GetBounds()
 {
     return enemy.getGlobalBounds();
 }
+
+void BlueEnemy::LoadData()
+{
+    bool shouldCloseLua = false;
+    if (!L)
+    {
+        shouldCloseLua = true;
+        L = luaL_newstate();
+        luaL_openlibs(L);
+    }
+
+	luaL_loadfile(L, "scripts/blueEnemy.lua");
+	lua_pcall(L, 0, 0, 0);
+
+	lua_getglobal(L, "blueEnemy");
+
+
+	if (lua_istable(L, -1)) {
+		lua_getfield(L, -1, "speed");
+        speed = lua_tonumber(L, -1);
+		lua_settop(L, 0);
+	}
+
+    if (shouldCloseLua)
+    {
+        lua_close(L);
+        L = nullptr;
+    }
+}
