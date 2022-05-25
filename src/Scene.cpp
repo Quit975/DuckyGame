@@ -10,15 +10,6 @@ Scene::Scene(sf::RenderWindow& window):
     enemies.push_back(std::unique_ptr<Entity>(new GreenEnemy(150.f, 100.f)));
     enemies.push_back(std::unique_ptr<Entity>(new BlueEnemy(400.f, 500.f)));
 
-    L = luaL_newstate();
-    luaL_openlibs(L);
-    bEnemy = dynamic_cast<BlueEnemy*>(enemies.back().get());
-    if (bEnemy)
-    {
-        bEnemy->SetLuaState(L);
-        bEnemy->LoadData();
-    }
-
     quackCounter = std::unique_ptr<TextCounter>(new TextCounter(50.f, 50.f, "Quack", sf::Color::Red));
     frogCounter = std::unique_ptr<TextCounter>(new TextCounter(500.f, 50.f, "Frog", sf::Color::Green));
 
@@ -42,7 +33,7 @@ Scene::Scene(sf::RenderWindow& window):
 
 Scene::~Scene()
 {
-    lua_close(L);
+    
 }
 
 void Scene::Update(const float dt)
@@ -94,12 +85,4 @@ void Scene::Draw()
     }
 
     renderWindow.display();
-}
-
-void Scene::ReloadScripts()
-{
-    if (bEnemy)
-    {
-        bEnemy->LoadData();
-    }
 }

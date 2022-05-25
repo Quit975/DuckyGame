@@ -16,13 +16,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BlueEnemy.cpp" />
-    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Frog.cpp" />
     <ClCompile Include="src\GreenEnemy.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Scriptable.cpp" />
+    <ClCompile Include="src\ScriptEntity.cpp" />
+    <ClCompile Include="src\ScriptManager.cpp" />
     <ClCompile Include="src\TextCounter.cpp" />
     <ClCompile Include="ThirdParty\lua\lapi.c" />
     <ClCompile Include="ThirdParty\lua\lauxlib.c" />
@@ -67,6 +69,7 @@
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Scriptable.h" />
     <ClInclude Include="src\ScriptEntity.h" />
+    <ClInclude Include="src\ScriptManager.h" />
     <ClInclude Include="src\TextCounter.h" />
     <ClInclude Include="ThirdParty\lua\lapi.h" />
     <ClInclude Include="ThirdParty\lua\lauxlib.h" />
@@ -105,6 +108,7 @@
     <None Include=".github\workflows\VerifyMain.yml" />
     <None Include="scripts\blueEnemy.lua" />
     <None Include="scripts\greenEnemy.lua" />
+    <None Include="scripts\master.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

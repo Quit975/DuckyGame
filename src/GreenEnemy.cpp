@@ -1,11 +1,14 @@
 #include "GreenEnemy.h"
 
-GreenEnemy::GreenEnemy(float x, float y)
+GreenEnemy::GreenEnemy(float x, float y):
+    ScriptEntity()
 {
     enemy = sf::RectangleShape({ 50.f, 50.f });
     enemy.setFillColor(sf::Color::Green);
     enemy.setPosition(x, y);
     enemy.setOrigin(25.f, 25.f);
+
+    LoadData();
 }
 
 void GreenEnemy::Draw(sf::RenderWindow& window)
@@ -31,4 +34,17 @@ void GreenEnemy::Update(const float dt)
 sf::FloatRect GreenEnemy::GetBounds()
 {
     return enemy.getGlobalBounds();
+}
+
+void GreenEnemy::LoadData()
+{
+    lua_State* L = ScriptManager::Get().GetState();
+
+    lua_getglobal(L, "greenEnemy");
+
+    if (lua_istable(L, -1)) {
+        lua_getfield(L, -1, "speed");
+        speed = lua_tonumber(L, -1);
+        lua_settop(L, 0);
+    }
 }

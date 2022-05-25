@@ -1,3 +1,3 @@
 blueEnemy = {
-	speed = 300,
+	speed = 200,
 }

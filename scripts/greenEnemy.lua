@@ -1,0 +1,3 @@
+greenEnemy = {
+	speed = 400,
+}

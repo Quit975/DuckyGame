@@ -16,8 +16,6 @@ public:
 	void CheckCollisions();
 	void Draw();
 
-	void ReloadScripts();
-
 private:
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Frog> frog;
@@ -25,13 +23,9 @@ private:
 	std::unique_ptr<TextCounter> quackCounter;
 	std::vector<std::unique_ptr<Entity>> enemies;
 
-	BlueEnemy* bEnemy;
-
 	std::vector<Entity*> updateGroup;
 	std::vector<Entity*> drawGroup;
 
 	sf::RenderWindow& renderWindow;
-
-	lua_State* L;
 };
 
