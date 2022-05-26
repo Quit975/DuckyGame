@@ -12,6 +12,9 @@ public:
 	void ResetHit();
 	void KeepPlayerInBounds();
 
+	// ScriptEntity
+	virtual void UpdateData() override;
+
 	// Entity
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
@@ -29,5 +32,8 @@ private:
 	sf::CircleShape collisionShape;
 
 	bool gequacked = false;
+
+	// scriptable properties
 	float speed = 220.f;
+	float quackVolume = 50.f;
 };

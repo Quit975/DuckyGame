@@ -4,24 +4,43 @@
 
 Frog::Frog()
 {
-    frogShape = sf::RectangleShape({ 20.f, 20.f });
+    LoadData();
+
+    frogShape = sf::RectangleShape({ size, size });
     frogShape.setPosition(400, 300);
     frogShape.setOrigin(10.f, 10.f);
+    frogShape.setFillColor(sf::Color::Magenta); // for debug draw
     frogBuffer.loadFromFile("Res/froggy.wav");
     frogSound.setBuffer(frogBuffer);
     frogSound.setLoop(true);
-    frogSound.setAttenuation(80.f);
-    frogSound.setMinDistance(600.f);
     frogSound.play();
 
     frogCatchBuffer.loadFromFile("Res/frogCatch.wav");
     frogCatchSound.setBuffer(frogCatchBuffer);
-    frogCatchSound.setVolume(100.f);
-    frogCatchSound.setAttenuation(0.f);
+    frogCatchSound.setAttenuation(0);
 
     srand(time(NULL));
 
-    LoadData();
+    UpdateData();
+}
+
+void Frog::LoadData()
+{
+    lua_State* L = ScriptManager::Get().GetState();
+
+    ReadFloat(L, "frog", "speed", speed);
+    ReadFloat(L, "frog", "size", size);
+    ReadFloat(L, "frog", "croakAttenuation", croakAttenuation);
+    ReadFloat(L, "frog", "croakMinDistance", croakMinDistance);
+    ReadFloat(L, "frog", "catchVolume", catchVolume);
+}
+
+void Frog::UpdateData()
+{
+    frogShape.setSize({ size, size });
+    frogSound.setAttenuation(croakAttenuation);
+    frogSound.setMinDistance(croakMinDistance);
+    frogCatchSound.setVolume(catchVolume);
 }
 
 void Frog::Update(const float dt)
@@ -43,29 +62,13 @@ void Frog::Update(const float dt)
 void Frog::Draw(sf::RenderWindow& window)
 {
 #ifndef _RELEASE
-    sf::RectangleShape shape({20.f, 20.f});
-    shape.setPosition(frogShape.getPosition().x, frogShape.getPosition().y);
-    shape.setFillColor(sf::Color::Magenta);
-    window.draw(shape);
-#endif // _RELEASE
+    window.draw(frogShape);
+#endif
 }
 
 sf::FloatRect Frog::GetBounds()
 {
     return frogShape.getGlobalBounds();
-}
-
-void Frog::LoadData()
-{
-    lua_State* L = ScriptManager::Get().GetState();
-
-    lua_getglobal(L, "frog");
-
-    if (lua_istable(L, -1)) {
-        lua_getfield(L, -1, "speed");
-        speed = static_cast<float>(lua_tonumber(L, -1));
-        lua_settop(L, 0);
-    }
 }
 
 void Frog::Catch()

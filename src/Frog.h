@@ -9,6 +9,9 @@ public:
 	
 	void Catch();
 
+	// ScriptEntity
+	virtual void UpdateData() override;
+
 	// Entity
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
@@ -25,7 +28,12 @@ private:
 	sf::RectangleShape frogShape;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
-	float speed = 250.f;
 
+	// scriptable properties
+	float speed = 250.f;
+	float size = 20.f;
+	float croakAttenuation = 80.f;
+	float croakMinDistance = 600.f;
+	float catchVolume = 100.f;
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <lua.hpp>
 
 class Scriptable
 {
@@ -8,4 +9,6 @@ public:
 
 	virtual void LoadData() {};
 	virtual void OnScriptReload() {};
+
+	void ReadFloat(lua_State* L, const char* tableName, const char* valueName, float& valueRef);
 };

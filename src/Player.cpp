@@ -2,9 +2,11 @@
 
 Player::Player()
 {
+	LoadData();
+
 	quackBuffer.loadFromFile("Res/quack.wav");
 	quackSound.setBuffer(quackBuffer);
-	quackSound.setVolume(50.f);
+	
 	duckyTexture.loadFromFile("Res/JanitorDuck.png");
 	duckyTexture.setSmooth(true);
 	duckySprite.setTexture(duckyTexture);
@@ -14,7 +16,20 @@ Player::Player()
 	collisionShape.setFillColor(sf::Color::Cyan);
 	collisionShape.setOrigin(-20.f, -20.f);
 
-	LoadData();
+	UpdateData();
+}
+
+void Player::LoadData()
+{
+	lua_State* L = ScriptManager::Get().GetState();
+
+	ReadFloat(L, "player", "speed", speed);
+	ReadFloat(L, "player", "quackVolume", quackVolume);
+}
+
+void Player::UpdateData()
+{
+	quackSound.setVolume(quackVolume);
 }
 
 void Player::Update(const float dt)
@@ -48,19 +63,6 @@ void Player::Draw(sf::RenderWindow& window)
 sf::FloatRect Player::GetBounds()
 {
 	return collisionShape.getGlobalBounds();
-}
-
-void Player::LoadData()
-{
-	lua_State* L = ScriptManager::Get().GetState();
-
-	lua_getglobal(L, "player");
-
-	if (lua_istable(L, -1)) {
-		lua_getfield(L, -1, "speed");
-		speed = static_cast<float>(lua_tonumber(L, -1));
-		lua_settop(L, 0);
-	}
 }
 
 void Player::Quack()

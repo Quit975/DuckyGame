@@ -9,5 +9,9 @@ public:
 	ScriptEntity() {};
 	virtual ~ScriptEntity() {};
 
-	virtual void OnScriptReload() override { LoadData(); };
+	virtual void UpdateData() {};
+
+	// Scriptable
+	virtual void OnScriptReload() override { LoadData(); UpdateData(); };
+
 };
