@@ -23,7 +23,6 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Scriptable.cpp" />
-    <ClCompile Include="src\ScriptEntity.cpp" />
     <ClCompile Include="src\ScriptManager.cpp" />
     <ClCompile Include="src\TextCounter.cpp" />
     <ClCompile Include="ThirdParty\lua\lapi.c" />

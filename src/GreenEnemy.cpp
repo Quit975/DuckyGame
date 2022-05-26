@@ -1,7 +1,6 @@
 #include "GreenEnemy.h"
 
-GreenEnemy::GreenEnemy(float x, float y):
-    ScriptEntity()
+GreenEnemy::GreenEnemy(float x, float y)
 {
     enemy = sf::RectangleShape({ 50.f, 50.f });
     enemy.setFillColor(sf::Color::Green);

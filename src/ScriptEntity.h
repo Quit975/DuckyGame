@@ -6,8 +6,8 @@
 class ScriptEntity : public Entity, public Scriptable
 {
 public:
-	ScriptEntity();
+	ScriptEntity() {};
 	virtual ~ScriptEntity() {};
 
-	virtual void OnScriptReload() override;
+	virtual void OnScriptReload() override { LoadData(); };
 };

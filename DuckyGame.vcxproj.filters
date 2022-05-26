@@ -68,9 +68,6 @@
     <ClCompile Include="src\Scriptable.cpp">
       <Filter>Code\Source Files\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="src\ScriptEntity.cpp">
-      <Filter>Code\Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="ThirdParty\lua\lapi.c">
       <Filter>ThirdParty\lua</Filter>
     </ClCompile>

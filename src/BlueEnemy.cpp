@@ -1,7 +1,6 @@
 #include "BlueEnemy.h"
 
-BlueEnemy::BlueEnemy(float x, float y):
-    ScriptEntity()
+BlueEnemy::BlueEnemy(float x, float y)
 {
     enemy = sf::CircleShape(30.f);
     enemy.setFillColor(sf::Color::Blue);
