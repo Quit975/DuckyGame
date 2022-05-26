@@ -29,9 +29,7 @@ public:
 	void Register(Scriptable* entity);
 	void Unregister(Scriptable* entity);
 	
-#ifndef _RELEASE
 	void PrintScriptStack();
-#endif
 
 private:
 	void LoadScripts();

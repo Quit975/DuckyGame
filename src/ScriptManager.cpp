@@ -60,9 +60,10 @@ void ScriptManager::Unregister(Scriptable* entity)
 	scriptables.erase(entity);
 }
 
-#ifndef _RELEASE
+
 void ScriptManager::PrintScriptStack()
 {
+#ifndef _RELEASE
 	int top = lua_gettop(L);
 	int topIdx = -1;
 	for (int i = top; i > 0; i--) {
@@ -86,5 +87,5 @@ void ScriptManager::PrintScriptStack()
 		}
 		topIdx--;
 	}
-}
 #endif
+}

@@ -44,7 +44,7 @@ void GreenEnemy::LoadData()
 
     if (lua_istable(L, -1)) {
         lua_getfield(L, -1, "speed");
-        speed = lua_tonumber(L, -1);
+        speed = static_cast<float>(lua_tonumber(L, -1));
         lua_settop(L, 0);
     }
 }
