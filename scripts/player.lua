@@ -1,0 +1,3 @@
+player = {
+	speed = 300,
+}

@@ -312,5 +312,11 @@
     <None Include="scripts\master.lua">
       <Filter>Scripts</Filter>
     </None>
+    <None Include="scripts\player.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\frog.lua">
+      <Filter>Scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>

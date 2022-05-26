@@ -1,16 +1,21 @@
 #pragma once
 #include <SFML/Audio.hpp>
-#include "Entity.h"
+#include "ScriptEntity.h"
 
-class Frog : public Entity
+class Frog : public ScriptEntity
 {
 public:
 	Frog();
+	
+	void Catch();
+
+	// Entity
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual sf::FloatRect GetBounds() override;
 
-	void Catch();
+	// Scriptable
+	virtual void LoadData() override;
 
 private:
 	sf::SoundBuffer frogBuffer;
@@ -20,7 +25,7 @@ private:
 	sf::RectangleShape frogShape;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
-	const float speed = 250.f;
+	float speed = 250.f;
 
 };
 

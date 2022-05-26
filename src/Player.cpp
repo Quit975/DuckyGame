@@ -13,6 +13,8 @@ Player::Player()
 	collisionShape = sf::CircleShape(45.f);
 	collisionShape.setFillColor(sf::Color::Cyan);
 	collisionShape.setOrigin(-20.f, -20.f);
+
+	LoadData();
 }
 
 void Player::Update(const float dt)
@@ -46,6 +48,19 @@ void Player::Draw(sf::RenderWindow& window)
 sf::FloatRect Player::GetBounds()
 {
 	return collisionShape.getGlobalBounds();
+}
+
+void Player::LoadData()
+{
+	lua_State* L = ScriptManager::Get().GetState();
+
+	lua_getglobal(L, "player");
+
+	if (lua_istable(L, -1)) {
+		lua_getfield(L, -1, "speed");
+		speed = static_cast<float>(lua_tonumber(L, -1));
+		lua_settop(L, 0);
+	}
 }
 
 void Player::Quack()

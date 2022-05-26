@@ -20,6 +20,8 @@ Frog::Frog()
     frogCatchSound.setAttenuation(0.f);
 
     srand(time(NULL));
+
+    LoadData();
 }
 
 void Frog::Update(const float dt)
@@ -51,6 +53,19 @@ void Frog::Draw(sf::RenderWindow& window)
 sf::FloatRect Frog::GetBounds()
 {
     return frogShape.getGlobalBounds();
+}
+
+void Frog::LoadData()
+{
+    lua_State* L = ScriptManager::Get().GetState();
+
+    lua_getglobal(L, "frog");
+
+    if (lua_istable(L, -1)) {
+        lua_getfield(L, -1, "speed");
+        speed = static_cast<float>(lua_tonumber(L, -1));
+        lua_settop(L, 0);
+    }
 }
 
 void Frog::Catch()

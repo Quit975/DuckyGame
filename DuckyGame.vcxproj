@@ -107,8 +107,10 @@
     <None Include=".github\workflows\DeployLatestMain.yml" />
     <None Include=".github\workflows\VerifyMain.yml" />
     <None Include="scripts\blueEnemy.lua" />
+    <None Include="scripts\frog.lua" />
     <None Include="scripts\greenEnemy.lua" />
     <None Include="scripts\master.lua" />
+    <None Include="scripts\player.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

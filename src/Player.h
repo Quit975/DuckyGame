@@ -1,18 +1,24 @@
 #pragma once
 #include <SFML/Audio.hpp>
-#include "Entity.h"
+#include "ScriptEntity.h"
 
-class Player : public Entity
+class Player : public ScriptEntity
 {
 public:
 	Player();
-	virtual void Update(const float dt) override;
-	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::FloatRect GetBounds() override;
+
 	void Quack();
 	bool Hit();
 	void ResetHit();
 	void KeepPlayerInBounds();
+
+	// Entity
+	virtual void Update(const float dt) override;
+	virtual void Draw(sf::RenderWindow& window) override;
+	virtual sf::FloatRect GetBounds() override;
+
+	// Scriptable
+	virtual void LoadData() override;
 
 private:
 	sf::Texture duckyTexture;
@@ -23,6 +29,5 @@ private:
 	sf::CircleShape collisionShape;
 
 	bool gequacked = false;
-	const float speed = 220.f;
-
+	float speed = 220.f;
 };
