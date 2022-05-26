@@ -157,16 +157,19 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)int\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projekty\DuckyGame\ThirdParty\lua;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='QA|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)int\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projekty\DuckyGame\ThirdParty\lua;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)int\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projekty\DuckyGame\ThirdParty\lua;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -180,7 +183,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Projekty\DuckyGame\ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -189,12 +192,18 @@ ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-audio-d-2.dll  /xc /xn /
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-graphics-d-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-system-d-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-window-d-2.dll  /xc /xn /xo
-rmdir /Q /S  $(OutDir)\Res
+exit 0</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
 rmdir /Q /S  $(OutDir)\scripts
 ROBOCOPY scripts    $(OutDir)\scripts *.* /E
 exit 0</Command>
-    </PostBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummyDummy.pepe</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='QA|Win32'">
     <ClCompile>
@@ -208,7 +217,7 @@ exit 0</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Projekty\DuckyGame\ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -217,12 +226,18 @@ ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-audio-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-graphics-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-system-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-window-2.dll  /xc /xn /xo
-rmdir /Q /S  $(OutDir)\Res
+exit 0</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
 rmdir /Q /S  $(OutDir)\scripts
 ROBOCOPY scripts    $(OutDir)\scripts *.* /E
 exit 0</Command>
-    </PostBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummyDummy.pepe</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -240,18 +255,24 @@ exit 0</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Projekty\DuckyGame\ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-system-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-network-s.lib;opengl32.lib;winmm.lib;ws2_32.lib;gdi32.lib;freetype.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   openal32.dll  /xc /xn /xo
-rmdir /Q /S  $(OutDir)\Res
+exit 0</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>rmdir /Q /S  $(OutDir)\Res
 ROBOCOPY Res    $(OutDir)\Res *.* /E
 rmdir /Q /S  $(OutDir)\scripts
 ROBOCOPY scripts    $(OutDir)\scripts *.* /E
 exit 0</Command>
-    </PostBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummyDummy.pepe</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
