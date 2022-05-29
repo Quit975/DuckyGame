@@ -6,7 +6,7 @@
 #include "BlueEnemy.h"
 #include "Frog.h"
 #include "TextCounter.h"
-#include "../Background.h"
+#include "Background.h"
 
 class Scene
 {
