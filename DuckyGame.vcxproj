@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="src\BlueEnemy.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Frog.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="src\TextCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="src\BlueEnemy.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Frog.h" />
