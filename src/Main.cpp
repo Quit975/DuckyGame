@@ -42,7 +42,7 @@ int main()
                     }    
                         
                 }
-
+            }
                 
                 if (!paused)
                 { 
@@ -52,7 +52,7 @@ int main()
                 }
                 dt -= desiredDt;
                 
-            }
+            
         }
     }
 }
