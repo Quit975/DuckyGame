@@ -5,7 +5,7 @@ Player::Player()
 	quackBuffer.loadFromFile("Res/quack.wav");
 
 	quackSound.setBuffer(quackBuffer);
-	quackSound.setVolume(50.f);
+	quackSound.setVolume(15.f);
 
 	duckyTexture.loadFromFile("Res/JanitorDuck.png");
 	duckyTexture.setSmooth(true);
