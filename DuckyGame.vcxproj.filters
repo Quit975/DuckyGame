@@ -71,6 +71,9 @@
     <ClInclude Include="src\TextCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\DuckyMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".github\workflows\BuildAndDeployGame.yml">

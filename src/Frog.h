@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "Entity.h"
+#include "DuckyMath.h"
 
 class Frog : public Entity
 {
@@ -9,10 +10,10 @@ public:
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual sf::FloatRect GetBounds() override;
+	virtual sf::Vector2f GetLocation() override;
 
 	void Catch();
-	/*Teleport Away From Player*/
-	void TeleportAFP(sf::Vector2<float> playerLoc, float playerRad);  
+	void TeleportAwayFromPlayer(sf::Vector2<float> playerLoc);  
 
 private:
 	sf::SoundBuffer frogBuffer;
@@ -23,7 +24,7 @@ private:
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 	const float speed = 250.f;
-	const float safeDistance = 250.f;	/*min distance between the outlines of the frog and the player during teleport*/
+	const float safeDistance = 250.f;	/*min distance between the frog and the player during teleport*/
 
 };
 
