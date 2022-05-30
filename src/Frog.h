@@ -11,6 +11,8 @@ public:
 	virtual sf::FloatRect GetBounds() override;
 
 	void Catch();
+	/*Teleport Away From Player*/
+	void TeleportAFP(sf::Vector2<float> playerLoc, float playerRad);  
 
 private:
 	sf::SoundBuffer frogBuffer;
@@ -21,6 +23,7 @@ private:
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 	const float speed = 250.f;
+	const float safeDistance = 250.f;	/*min distance between the outlines of the frog and the player during teleport*/
 
 };
 

@@ -13,6 +13,8 @@ public:
 	bool Hit();
 	void ResetHit();
 	void KeepPlayerInBounds();
+	sf::Vector2<float> GetLocation();
+	float GetRadius();
 
 private:
 	sf::Texture duckyTexture;

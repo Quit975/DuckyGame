@@ -67,7 +67,16 @@ bool Player::Hit()
 void Player::ResetHit()
 {
 	gequacked = false;
-	
+}
+
+sf::Vector2<float> Player::GetLocation()
+{
+	return sf::Vector2<float>(collisionShape.getPosition());
+}
+
+float Player::GetRadius()
+{
+	return collisionShape.getRadius();
 }
 
 void Player::KeepPlayerInBounds()

@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+float VecLength(sf::Vector2<float> vec)
+{
+    return std::sqrt(vec.x * vec.x + vec.y * vec.y);
+}
+
 Frog::Frog()
 {
     frogShape = sf::RectangleShape({ 20.f, 20.f });
@@ -55,9 +60,23 @@ sf::FloatRect Frog::GetBounds()
 
 void Frog::Catch()
 {
-    frogCatchSound.play();
-    float x = rand() % 760 + 20;
-    float y = rand() % 560 + 20;
-    frogShape.setPosition(x, y);
+    frogCatchSound.play(); 
+}
+
+void Frog::TeleportAFP(sf::Vector2<float> playerLoc, float playerRad)
+{
+    float frogDiagonal = VecLength(frogShape.getSize());
+    float minDistance = playerRad + safeDistance + frogDiagonal / 2;
+    sf::Vector2<float> newFrogLoc{};
+    sf::Vector2<float> FPDistance{};        //distance between the centers of the frog and the player
+
+    while (!(VecLength(FPDistance) > minDistance)) {
+        float x = rand() % 760 + 20;
+        float y = rand() % 560 + 20;
+
+        newFrogLoc = sf::Vector2(x, y);
+        FPDistance = newFrogLoc - playerLoc;
+    }
+    frogShape.setPosition(newFrogLoc);
 }
 
