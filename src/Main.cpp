@@ -33,20 +33,22 @@ int main()
                 if (event.type == sf::Event::Closed)
                     window.close();
 
-                #ifndef _RELEASE
+                
                 if (event.type == sf::Event::KeyReleased)
                 {
+#ifndef _RELEASE
                     if (event.key.code == sf::Keyboard::M)
                     {
                         music.Toggle();
                     }
+#endif
 
                     if (event.key.code == sf::Keyboard::F5)
                     {
                         ScriptManager::Get().ReloadScripts();
                     }
                 } 
-                #endif
+                
             }
 
             scene.Update(dt);
