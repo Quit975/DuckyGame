@@ -14,7 +14,8 @@ int main()
 
     MusicPlayer music;
     Scene scene(window);
-    
+    music.Toggle();
+
     //frame rate management
     sf::Clock clock;
     constexpr float desiredFrameRate = 60.f;
@@ -32,20 +33,27 @@ int main()
                 if (event.type == sf::Event::Closed)
                     window.close();
 
-				if (event.type == sf::Event::KeyReleased)
-				{
-					if (event.key.code == sf::Keyboard::F5)
-					{
-						ScriptManager::Get().ReloadScripts();
-					}
-				}
+                #ifndef _RELEASE
+                if (event.type == sf::Event::KeyReleased)
+                {
+                    if (event.key.code == sf::Keyboard::M)
+                    {
+                        music.Toggle();
+                    }
+
+                    if (event.key.code == sf::Keyboard::F5)
+                    {
+                        ScriptManager::Get().ReloadScripts();
+                    }
+                } 
+                #endif
             }
 
             scene.Update(dt);
             scene.CheckCollisions();
             scene.Draw();
 
-            dt -= desiredDt;
+            dt -= desiredDt;    
         }
     }
 }
