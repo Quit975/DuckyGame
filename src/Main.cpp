@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
+#include <iostream>;
 
 const int WindowWidth = 800.f;
 const int WindowHeight = 600.f;
@@ -39,7 +40,11 @@ int main()
 
             //Music can be paused in debug
             #ifndef _RELEASE
-            music.ShouldBeMusicPlaying(PlayMusic);
+            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::M)
+            {
+                std::cout << "kfjajkgfhalsk";
+                music.Toggle(PlayMusic);
+            }
             #endif
         }
     }

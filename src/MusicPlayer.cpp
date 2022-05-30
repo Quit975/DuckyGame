@@ -7,16 +7,8 @@ MusicPlayer::MusicPlayer()
     music.play();
 }
 
-void MusicPlayer::ShouldBeMusicPlaying(bool& PlayMusic) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
-        PreviosKeyState = true;
-    }
-    else {
-        if (PreviosKeyState) {
-            PlayMusic = !PlayMusic;
-            PreviosKeyState = false;
-        }
-    }
+void MusicPlayer::Toggle(bool& PlayMusic) {
+    PlayMusic = !PlayMusic;
 
     if ((PlayMusic == false) && (music.getStatus() == sf::SoundSource::Playing)) {
         music.pause();
