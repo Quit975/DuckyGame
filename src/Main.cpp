@@ -12,7 +12,7 @@ int main()
 
     MusicPlayer music;
     Scene scene(window);
-    bool PlayMusic = true;
+    music.Toggle();
 
     //frame rate management
     sf::Clock clock;
@@ -30,6 +30,12 @@ int main()
             {
                 if (event.type == sf::Event::Closed)
                     window.close();
+                #ifndef _RELEASE
+                if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::M)
+                {
+                    music.Toggle();
+                }
+                #endif
             }
 
             scene.Update(dt);
@@ -39,13 +45,7 @@ int main()
             dt -= desiredDt;
 
             //Music can be paused in debug
-            #ifndef _RELEASE
-            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::M)
-            {
-                std::cout << "kfjajkgfhalsk";
-                music.Toggle(PlayMusic);
-            }
-            #endif
+            
         }
     }
 }

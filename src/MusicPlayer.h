@@ -6,13 +6,13 @@ class MusicPlayer
 {
 public:
 	MusicPlayer();
-	void Toggle(bool &PlayMusic);
+	void Toggle();
 	void DrawMessage(sf::RenderWindow& window);
 
 private:
 	sf::Text text;
 	sf::Music music;
 	sf::Font font;
-	bool PreviosKeyState = false;
+	bool isPlaying = false;
 };
 

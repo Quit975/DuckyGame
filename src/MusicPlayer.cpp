@@ -4,17 +4,16 @@ MusicPlayer::MusicPlayer()
 {
     music.openFromFile("Res/PPPolka.ogg");
     music.setVolume(10.f);
-    music.play();
 }
 
-void MusicPlayer::Toggle(bool& PlayMusic) {
-    PlayMusic = !PlayMusic;
-
-    if ((PlayMusic == false) && (music.getStatus() == sf::SoundSource::Playing)) {
+void MusicPlayer::Toggle() {
+    if (isPlaying) {
         music.pause();
+        isPlaying = false;
     }
-    else if ((PlayMusic == true) && (music.getStatus() == sf::SoundSource::Paused)) {
+    else {
         music.play();
+        isPlaying = true;
     }
 }
 
