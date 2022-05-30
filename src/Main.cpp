@@ -47,7 +47,7 @@ int main()
                 if (!paused)
                 { 
                     scene.Update(dt);
-                    scene.CheckCollisions();
+                    scene.CheckCollisions();  
                     scene.Draw();
                 }
                 dt -= desiredDt;
