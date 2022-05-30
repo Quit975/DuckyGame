@@ -15,9 +15,10 @@ int main()
     
     //frame rate management
     sf::Clock clock;
-    bool paused = true;
     constexpr float desiredFrameRate = 60.f;
     constexpr float desiredDt = 1 / desiredFrameRate;
+
+    bool paused = false;
 
     while (window.isOpen())
     {
@@ -28,37 +29,30 @@ int main()
             sf::Event event;
             while (window.pollEvent(event))
             {
-              if (event.type == sf::Event::Closed)
+                if (event.type == sf::Event::Closed)
                     window.close();
-               
-     
-            switch (event.type)
-            paused = !paused;
-            if (event.type == sf::Event::KeyReleased)
-            {
-                if (event.key.code == sf::Keyboard::Escape);
-            }
-                //std::cout << "Esc was pressed" << std::endl;
-            {
-                if (event.type == sf::Event::KeyPressed)
-                paused = false;
-                else if (Keyboard::isKeyPressed(Keyboard::Escape))
-                paused = true;
-                if (event.type == sf::Event::KeyPressed)
+                
+                if (event.type == sf::Event::KeyReleased)
+                {
+                    if (event.key.code == sf::Keyboard::Escape)
+                    { 
+                        paused = !paused;
+                        
+                        
+                    }    
+                        
+                }
 
-                   
-                break;
-               
-             }
-             
-            
+                
+                if (!paused)
+                { 
+                    scene.Update(dt);
+                    scene.CheckCollisions();
+                    scene.Draw();
+                }
+                dt -= desiredDt;
+                
             }
-           
-            if (!paused) 
-            scene.Update(dt);
-            scene.CheckCollisions();
-            scene.Draw();
-            dt -= desiredDt;
         }
     }
 }
