@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
+#include <iostream>;
 
 using namespace sf;
 const int WindowWidth = 800.f;
@@ -12,7 +13,8 @@ int main()
 
     MusicPlayer music;
     Scene scene(window);
-    
+    music.Toggle();
+
     //frame rate management
     sf::Clock clock;
     constexpr float desiredFrameRate = 60.f;
@@ -37,22 +39,24 @@ int main()
                     if (event.key.code == sf::Keyboard::Escape)
                     { 
                         paused = !paused;
-                        
-                        
-                    }    
-                        
+                    }  
+
+                    #ifndef _RELEASE
+                    if (event.key.code == sf::Keyboard::M)
+                    {
+                        music.Toggle();
+                    }
+                    #endif
                 }
             }
                 
-                if (!paused)
-                { 
-                    scene.Update(dt);
-                    scene.CheckCollisions();  
-                    scene.Draw();
-                }
-                dt -= desiredDt;
-                
-            
+            if (!paused)
+            { 
+                scene.Update(dt);
+                scene.CheckCollisions();  
+                scene.Draw();
+            }
+            dt -= desiredDt;   
         }
     }
 }

@@ -6,6 +6,7 @@
 #include "BlueEnemy.h"
 #include "Frog.h"
 #include "TextCounter.h"
+#include "MusicPlayer.h"
 
 class Scene
 {
@@ -27,5 +28,7 @@ private:
 	std::vector<Entity*> drawGroup;
 
 	sf::RenderWindow& renderWindow;
+
+	MusicPlayer music;
 };
 
