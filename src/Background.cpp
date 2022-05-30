@@ -1,5 +1,5 @@
 #include "Background.h"
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics.hpp>
 
 Background::Background()
 {
