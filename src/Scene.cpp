@@ -86,6 +86,8 @@ void Scene::Draw()
     {
         e->Draw(renderWindow);
     }
+    
+    music.DrawMessage(renderWindow);
 
     renderWindow.display();
 }
