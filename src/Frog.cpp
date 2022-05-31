@@ -34,6 +34,7 @@ void Frog::LoadData()
     ReadFloat(L, "frog", "croakAttenuation", croakAttenuation);
     ReadFloat(L, "frog", "croakMinDistance", croakMinDistance);
     ReadFloat(L, "frog", "catchVolume", catchVolume);
+    ReadFloat(L, "frog", "safeDistance", safeDistance);
 }
 
 void Frog::UpdateData()

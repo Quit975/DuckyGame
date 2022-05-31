@@ -8,7 +8,7 @@ public:
 	Frog();
 	
 	void Catch();
-  void TeleportAwayFromPlayer(sf::Vector2f playerLoc);
+	void TeleportAwayFromPlayer(sf::Vector2f playerLoc);
 
 	// ScriptEntity
 	virtual void UpdateData() override;
@@ -37,6 +37,6 @@ private:
 	float croakAttenuation = 80.f;
 	float croakMinDistance = 600.f;
 	float catchVolume = 100.f;
-  float safeDistance = 250.f;	/*min distance between the frog and the player during teleport*/
+	float safeDistance = 250.f;	/*min distance between the frog and the player during teleport*/
 };
 
