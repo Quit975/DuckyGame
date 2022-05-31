@@ -7,7 +7,6 @@
 #include "Frog.h"
 #include "TextCounter.h"
 #include "Background.h"
-#include "MusicPlayer.h"
 
 class Scene
 {
@@ -30,7 +29,5 @@ private:
 	std::vector<Entity*> drawGroup;
 
 	sf::RenderWindow& renderWindow;
-
-	MusicPlayer music;
 };
 
