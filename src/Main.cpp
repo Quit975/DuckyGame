@@ -14,7 +14,6 @@ int main()
 
     MusicPlayer music;
     Scene scene(window);
-    music.Toggle();
 
     //frame rate management
     sf::Clock clock;
@@ -32,7 +31,6 @@ int main()
             {
                 if (event.type == sf::Event::Closed)
                     window.close();
-
                 
                 if (event.type == sf::Event::KeyReleased)
                 {
@@ -48,7 +46,6 @@ int main()
                         ScriptManager::Get().ReloadScripts();
                     }
                 } 
-                
             }
 
             scene.Update(dt);
