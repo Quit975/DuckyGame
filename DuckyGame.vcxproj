@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BlueEnemy.h" />
+    <ClInclude Include="src\DuckyMath.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Frog.h" />
     <ClInclude Include="src\GreenEnemy.h" />

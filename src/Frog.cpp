@@ -1,4 +1,5 @@
 #include "Frog.h"
+#include "DuckyMath.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -71,11 +72,29 @@ sf::FloatRect Frog::GetBounds()
     return frogShape.getGlobalBounds();
 }
 
+sf::Vector2f Frog::GetLocation()
+{
+    return frogShape.getPosition();
+}
+
 void Frog::Catch()
 {
-    frogCatchSound.play();
-    float x = rand() % 760 + 20;
-    float y = rand() % 560 + 20;
-    frogShape.setPosition(x, y);
+    frogCatchSound.play(); 
+}
+
+void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
+{
+    sf::Vector2<float> newFrogLoc{};
+
+    while (true) 
+    {
+        newFrogLoc.x = rand() % (WindowWidth - 20) + 10;            //weird numbers so that frog spawns wholly within bounds
+        newFrogLoc.y = rand() % (WindowHeight - 20) + 10;
+
+        float distance = VecLength(newFrogLoc - playerLoc);
+        if (distance > safeDistance)
+            break;
+    }
+    frogShape.setPosition(newFrogLoc);
 }
 

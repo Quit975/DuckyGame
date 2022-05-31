@@ -72,6 +72,7 @@ void Scene::CheckCollisions()
     {
         frogCounter->Increase();
         frog->Catch();
+        frog->TeleportAwayFromPlayer(player->GetLocation());
     }
 }
 

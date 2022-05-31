@@ -50,3 +50,8 @@ sf::FloatRect GreenEnemy::GetBounds()
 {
     return enemy.getGlobalBounds();
 }
+
+sf::Vector2f GreenEnemy::GetLocation()
+{
+    return enemy.getPosition();
+}
