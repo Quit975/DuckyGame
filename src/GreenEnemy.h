@@ -8,6 +8,7 @@ public:
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual void Update(const float dt) override;
 	virtual sf::FloatRect GetBounds() override;
+	virtual sf::Vector2f GetLocation() override;
 
 private:
 	sf::RectangleShape enemy;

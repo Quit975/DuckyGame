@@ -1,18 +1,23 @@
 #include "Player.h"
+#include "DuckyMath.h"
 
 Player::Player()
 {
 	quackBuffer.loadFromFile("Res/quack.wav");
+
 	quackSound.setBuffer(quackBuffer);
 	quackSound.setVolume(15.f);
+
 	duckyTexture.loadFromFile("Res/JanitorDuck.png");
 	duckyTexture.setSmooth(true);
+
+	duckySprite.setOrigin(static_cast<sf::Vector2f>(duckyTexture.getSize() / 2));
 	duckySprite.setTexture(duckyTexture);
 	duckySprite.setScale(0.5f, 0.5f);
 
-	collisionShape = sf::CircleShape(45.f);
+	collisionShape = sf::CircleShape(duckyRadius);
 	collisionShape.setFillColor(sf::Color::Cyan);
-	collisionShape.setOrigin(-20.f, -20.f);
+	collisionShape.setOrigin(duckyRadius, duckyRadius);
 }
 
 void Player::Update(const float dt)
@@ -29,8 +34,8 @@ void Player::Update(const float dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
 		duckySprite.move(0.f, speed * dt);
 
-	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	KeepPlayerInBounds();
+	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
 	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
 }
 
@@ -67,28 +72,29 @@ bool Player::Hit()
 void Player::ResetHit()
 {
 	gequacked = false;
-	
 }
+
+sf::Vector2f Player::GetLocation()
+{
+	return collisionShape.getPosition();
+}
+
 
 void Player::KeepPlayerInBounds()
 {	
-	if (collisionShape.getPosition().x > (WindowWidth - (duckyTexture.getSize().x)/2)){
-		duckySprite.setPosition((WindowWidth - (duckyTexture.getSize().x) / 2), (collisionShape.getPosition().y));
-		collisionShape.setPosition((WindowWidth - (duckyTexture.getSize().x) / 2), (collisionShape.getPosition().y));
+	if (duckySprite.getPosition().x > (WindowWidth - duckyRadius)){
+		duckySprite.setPosition((WindowWidth - duckyRadius), (duckySprite.getPosition().y));
 	}
 
-	else if (collisionShape.getPosition().x < 0.f){
-		duckySprite.setPosition(0.f, (collisionShape.getPosition().y));
-		collisionShape.setPosition(0.f, (collisionShape.getPosition().y));
+	else if (duckySprite.getPosition().x < duckyRadius){
+		duckySprite.setPosition(duckyRadius, (duckySprite.getPosition().y));
 	}
 
-	if (collisionShape.getPosition().y > (WindowHeight - (duckyTexture.getSize().y) / 2)){
-		duckySprite.setPosition(collisionShape.getPosition().x, (WindowHeight - (duckyTexture.getSize().y) / 2));
-		collisionShape.setPosition(collisionShape.getPosition().x, (WindowHeight - (duckyTexture.getSize().y) / 2));
+	if (duckySprite.getPosition().y > (WindowHeight - duckyRadius)){
+		duckySprite.setPosition(duckySprite.getPosition().x, (WindowHeight - duckyRadius));
 	}
 
-	else if (collisionShape.getPosition().y < 0.f){
-		duckySprite.setPosition((collisionShape.getPosition().x), 0.f);
-		collisionShape.setPosition((collisionShape.getPosition().x), 0.f);
+	else if (duckySprite.getPosition().y < duckyRadius){
+		duckySprite.setPosition((duckySprite.getPosition().x), duckyRadius);
 	}
 }

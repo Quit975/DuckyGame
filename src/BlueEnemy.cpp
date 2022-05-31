@@ -26,3 +26,8 @@ sf::FloatRect BlueEnemy::GetBounds()
 {
     return enemy.getGlobalBounds();
 }
+
+sf::Vector2f BlueEnemy::GetLocation()
+{
+    return enemy.getPosition();
+}
