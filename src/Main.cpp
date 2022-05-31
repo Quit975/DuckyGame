@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
-#include <iostream>;
 
 using namespace sf;
 const int WindowWidth = 800.f;
@@ -13,7 +12,6 @@ int main()
 
     MusicPlayer music;
     Scene scene(window);
-    music.Toggle();
 
     //frame rate management
     sf::Clock clock;
