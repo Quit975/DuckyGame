@@ -8,12 +8,10 @@ MusicPlayer::MusicPlayer()
 }
 
 void MusicPlayer::Toggle() {
-    if (isPlaying) {
+    if (music.getStatus() == sf::SoundSource::Status::Playing) {
         music.pause();
-        isPlaying = false;
     }
     else {
         music.play();
-        isPlaying = true;
     }
 }

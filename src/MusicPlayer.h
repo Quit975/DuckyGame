@@ -10,5 +10,4 @@ public:
 
 private:
 	sf::Music music;
-	bool isPlaying = true;
 };
