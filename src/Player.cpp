@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "DuckyMath.h"
 
 Player::Player()
 {
@@ -10,9 +11,7 @@ Player::Player()
 	duckyTexture.loadFromFile("Res/JanitorDuck.png");
 	duckyTexture.setSmooth(true);
 
-	sf::Vector2u V = duckyTexture.getSize();
-	V = sf::Vector2u(V.x / 2, V.y / 2);
-	duckySprite.setOrigin(V.x, V.y);
+	duckySprite.setOrigin(static_cast<sf::Vector2f>(duckyTexture.getSize() / 2));
 	duckySprite.setTexture(duckyTexture);
 	duckySprite.setScale(0.5f, 0.5f);
 
@@ -83,7 +82,7 @@ sf::Vector2f Player::GetLocation()
 
 void Player::KeepPlayerInBounds()
 {	
-	if (duckySprite.getPosition().x > (WindowWidth -duckyRadius)){
+	if (duckySprite.getPosition().x > (WindowWidth - duckyRadius)){
 		duckySprite.setPosition((WindowWidth - duckyRadius), (duckySprite.getPosition().y));
 	}
 

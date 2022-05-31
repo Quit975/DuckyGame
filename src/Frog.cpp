@@ -1,4 +1,5 @@
 #include "Frog.h"
+#include "DuckyMath.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -63,16 +64,18 @@ void Frog::Catch()
     frogCatchSound.play(); 
 }
 
-void Frog::TeleportAwayFromPlayer(sf::Vector2<float> playerLoc)
+void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
 {
     sf::Vector2<float> newFrogLoc{};
-    sf::Vector2<float> FPDistance{};        //vector between the centers of the frog and the player
 
-    while (!(VecLength(FPDistance) > safeDistance)) {
-        newFrogLoc.x = rand() % 760 + 20;
-        newFrogLoc.y = rand() % 560 + 20;
+    while (true) 
+    {
+        newFrogLoc.x = rand() % (WindowWidth - 20) + 10;            //weird numbers so that frog spawns wholly within bounds
+        newFrogLoc.y = rand() % (WindowHeight - 20) + 10;
 
-        FPDistance = newFrogLoc - playerLoc;
+        float distance = VecLength(newFrogLoc - playerLoc);
+        if (distance > safeDistance)
+            break;
     }
     frogShape.setPosition(newFrogLoc);
 }

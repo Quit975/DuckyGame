@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "Entity.h"
-#include "DuckyMath.h"
 
 class Frog : public Entity
 {
@@ -13,7 +12,7 @@ public:
 	virtual sf::Vector2f GetLocation() override;
 
 	void Catch();
-	void TeleportAwayFromPlayer(sf::Vector2<float> playerLoc);  
+	void TeleportAwayFromPlayer(sf::Vector2f playerLoc);  
 
 private:
 	sf::SoundBuffer frogBuffer;
