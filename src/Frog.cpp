@@ -17,7 +17,7 @@ Frog::Frog()
 
     frogCatchBuffer.loadFromFile("Res/frogCatch.wav");
     frogCatchSound.setBuffer(frogCatchBuffer);
-    frogCatchSound.setVolume(100.f);
+    frogCatchSound.setVolume(50.f);
     frogCatchSound.setAttenuation(0.f);
 
     srand(time(NULL));
