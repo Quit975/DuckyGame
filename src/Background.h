@@ -10,5 +10,4 @@ public:
 private:
 	sf::Sprite bg;
 	sf::Texture texture;
-	
 };

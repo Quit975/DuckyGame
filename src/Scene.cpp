@@ -16,7 +16,6 @@ Scene::Scene(sf::RenderWindow& window):
 
     updateGroup.push_back(player.get());
     updateGroup.push_back(frog.get());
-    
    
     drawGroup.push_back(player.get()); // Player* <- Entity*
     drawGroup.push_back(quackCounter.get());
