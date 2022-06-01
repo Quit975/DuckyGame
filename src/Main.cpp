@@ -1,11 +1,14 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
+#include "ScriptManager.h"
 
 const int WindowWidth = 800.f;
 const int WindowHeight = 600.f;
 
 int main()
 {
+	ScriptManager::Get().Initialize();
+
     float dt;
     sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
 
@@ -28,19 +31,28 @@ int main()
             {
                 if (event.type == sf::Event::Closed)
                     window.close();
-                #ifndef _RELEASE
-                //Music can be paused in debug
-                if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::M) {
-                    music.Toggle();
-                }
-                #endif
+                
+                if (event.type == sf::Event::KeyReleased)
+                {
+#ifndef _RELEASE
+                    if (event.key.code == sf::Keyboard::M)
+                    {
+                        music.Toggle();
+                    }
+#endif
+
+                    if (event.key.code == sf::Keyboard::F5)
+                    {
+                        ScriptManager::Get().ReloadScripts();
+                    }
+                } 
             }
 
             scene.Update(dt);
             scene.CheckCollisions();
             scene.Draw();
 
-            dt -= desiredDt;            
+            dt -= desiredDt;    
         }
     }
 }

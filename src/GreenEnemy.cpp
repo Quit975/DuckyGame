@@ -2,10 +2,28 @@
 
 GreenEnemy::GreenEnemy(float x, float y)
 {
-    enemy = sf::RectangleShape({ 50.f, 50.f });
+    LoadData();
+
+    enemy = sf::RectangleShape({ size, size });
     enemy.setFillColor(sf::Color::Green);
     enemy.setPosition(x, y);
     enemy.setOrigin(25.f, 25.f);
+
+    UpdateData();
+}
+
+void GreenEnemy::LoadData()
+{
+    lua_State* L = ScriptManager::Get().GetState();
+
+    ReadFloat(L, "greenEnemy", "speed", speed);
+    ReadFloat(L, "greenEnemy", "size", size);
+    ReadFloat(L, "greenEnemy", "rotationSpeed", rotationSpeed);
+}
+
+void GreenEnemy::UpdateData()
+{
+    enemy.setSize({ size, size });
 }
 
 void GreenEnemy::Draw(sf::RenderWindow& window)
@@ -15,7 +33,7 @@ void GreenEnemy::Draw(sf::RenderWindow& window)
 
 void GreenEnemy::Update(const float dt)
 {
-    enemy.rotate(0.05f);
+    enemy.rotate(rotationSpeed);
     enemy.move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (enemy.getPosition().x <= 0.f)
         xMovementDir = 1;

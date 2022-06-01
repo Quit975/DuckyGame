@@ -2,10 +2,27 @@
 
 BlueEnemy::BlueEnemy(float x, float y)
 {
-    enemy = sf::CircleShape(30.f);
+    LoadData();
+
+    enemy = sf::CircleShape(size);
     enemy.setFillColor(sf::Color::Blue);
     enemy.setPosition(x, y);
     enemy.setOrigin(15.f, 15.f);
+
+    UpdateData();
+}
+
+void BlueEnemy::LoadData()
+{
+    lua_State* L = ScriptManager::Get().GetState();
+
+    ReadFloat(L, "blueEnemy", "speed", speed);
+    ReadFloat(L, "blueEnemy", "size", size);
+}
+
+void BlueEnemy::UpdateData()
+{
+    enemy.setRadius(size);
 }
 
 void BlueEnemy::Draw(sf::RenderWindow& window)

@@ -3,10 +3,11 @@
 
 Player::Player()
 {
+	LoadData();
+
 	quackBuffer.loadFromFile("Res/quack.wav");
 
 	quackSound.setBuffer(quackBuffer);
-	quackSound.setVolume(15.f);
 
 	duckyTexture.loadFromFile("Res/JanitorDuck.png");
 	duckyTexture.setSmooth(true);
@@ -18,6 +19,21 @@ Player::Player()
 	collisionShape = sf::CircleShape(duckyRadius);
 	collisionShape.setFillColor(sf::Color::Cyan);
 	collisionShape.setOrigin(duckyRadius, duckyRadius);
+
+	UpdateData();
+}
+
+void Player::LoadData()
+{
+	lua_State* L = ScriptManager::Get().GetState();
+
+	ReadFloat(L, "player", "speed", speed);
+	ReadFloat(L, "player", "quackVolume", quackVolume);
+}
+
+void Player::UpdateData()
+{
+	quackSound.setVolume(quackVolume);
 }
 
 void Player::Update(const float dt)
