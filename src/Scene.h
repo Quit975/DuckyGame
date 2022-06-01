@@ -6,6 +6,7 @@
 #include "BlueEnemy.h"
 #include "Frog.h"
 #include "TextCounter.h"
+#include "Background.h"
 
 class Scene
 {
@@ -17,6 +18,7 @@ public:
 	void Draw();
 
 private:
+	std::unique_ptr<Background> bg;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Frog> frog;
 	std::unique_ptr<TextCounter> frogCounter;
