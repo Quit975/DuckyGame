@@ -21,15 +21,3 @@ void MusicPlayer::Toggle() {
    
     }
 }
-void MusicPlayer::Pause() {
-    if (music.getStatus() == sf::SoundSource::Status::Playing) {
-        music.pause();
-    }
-
-}
-
-void MusicPlayer::Play() {
-    if (music.getStatus() == sf::SoundSource::Status::Paused) {
-        music.play();
-    }
-}

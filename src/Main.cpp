@@ -21,7 +21,7 @@ int main()
     constexpr float desiredDt = 1 / desiredFrameRate;
 
     bool paused = false;
-    
+    bool isMusicPlaying = true;
     while (window.isOpen())
     {
         dt = clock.getElapsedTime().asSeconds();
@@ -41,25 +41,27 @@ int main()
                     if (event.key.code == sf::Keyboard::Escape)
                     {                       
                         paused = !paused;
-                        music.Pause();
+                        if (isMusicPlaying) {
+                            music.Toggle();
+                        }
+                        
                     }
 
                     #ifndef _RELEASE
                      
-                    if (event.key.code == sf::Keyboard::M)
+                    if (event.key.code == sf::Keyboard::M && paused == false)
                     {
-                        
-
-                        music.Toggle();                       
+                       music.Toggle();
+                       isMusicPlaying = !isMusicPlaying;
                     }
                      
                     #endif
                }     
                               
-            }             
+            } 
+            
             if (!paused)
             {
-                music.Play();
                 scene.Update(dt);
                 scene.CheckCollisions();  
                 scene.Draw();
