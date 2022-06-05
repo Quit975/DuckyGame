@@ -40,12 +40,14 @@ int main()
                     if (event.key.code == sf::Keyboard::Escape)
                     {
                         paused = !paused;
-                        if (isMusicPlaying == true) {
-                            music.Pause();
+                        if (paused) {
+                           music.Pause();
                         }
-                        if (isMusicPlaying = !isMusicPlaying) {
-                            music.Play();
+                        else {
+                             music.Play();
                         }
+                            
+                        
 
                     }
                   
