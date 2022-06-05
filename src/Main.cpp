@@ -21,7 +21,7 @@ int main()
     constexpr float desiredDt = 1 / desiredFrameRate;
 
     bool paused = false;
-    bool isMusicPlaying = true;
+    
     while (window.isOpen())
     {
         dt = clock.getElapsedTime().asSeconds();
@@ -44,11 +44,9 @@ int main()
                            music.Pause();
                         }
                         else {
-                             music.Play();
+                           music.Play();
                         }
                             
-                        
-
                     }
                   
                     #ifndef _RELEASE
