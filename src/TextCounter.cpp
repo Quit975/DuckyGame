@@ -36,3 +36,8 @@ sf::FloatRect TextCounter::GetBounds()
 {
     return sf::FloatRect();
 }
+
+sf::Vector2f TextCounter::GetLocation()
+{
+    return counterText.getPosition();
+}

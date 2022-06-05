@@ -1,19 +1,19 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
+#include "ScriptManager.h"
 
-using namespace sf;
 const int WindowWidth = 800.f;
 const int WindowHeight = 600.f;
 
 int main()
 {
+	ScriptManager::Get().Initialize();
+
     float dt;
     sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
 
     MusicPlayer music;
-    
     Scene scene(window);
-    
 
     //frame rate management
     sf::Clock clock;
@@ -22,6 +22,7 @@ int main()
 
     bool paused = false;
     bool isMusicPlaying = true;
+  
     while (window.isOpen())
     {
         dt = clock.getElapsedTime().asSeconds();
@@ -44,20 +45,17 @@ int main()
                         if (isMusicPlaying) {
                             music.Toggle();
                         }
-                        
                     }
 
                     #ifndef _RELEASE
                      
-                    if (event.key.code == sf::Keyboard::M && paused == false)
-                    {
+                    if (event.key.code == sf::Keyboard::M && paused == false) {
                        music.Toggle();
                        isMusicPlaying = !isMusicPlaying;
                     }
                      
                     #endif
-               }     
-                              
+               }                  
             } 
             
             if (!paused)
@@ -69,6 +67,7 @@ int main()
             }
             
             dt -= desiredDt;   
+
         }
     }
 }

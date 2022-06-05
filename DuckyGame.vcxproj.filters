@@ -1,92 +1,142 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{0d9449b3-0950-4b07-9283-45f3ae13fc98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Code">
+      <UniqueIdentifier>{0b7f2525-2b42-451b-994a-0f5222652d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Code\Header Files\Scripting">
+      <UniqueIdentifier>{19a99501-f31d-4254-8fbb-60dc129239de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GitHubWorkflows">
+    <Filter Include="Code\Header Files\Entities">
+      <UniqueIdentifier>{d6677890-dea4-40d2-9acb-968c0ba22492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Code\Source Files\Entities">
+      <UniqueIdentifier>{4c6bc176-edd7-4f06-b2bb-c9e57ef7393f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Source Files\Scripting">
+      <UniqueIdentifier>{81890766-8d98-474d-b32a-914a89e7534c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Workflows">
       <UniqueIdentifier>{d16d8b33-daa5-451d-b503-bd43bff95941}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BlueEnemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Frog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GreenEnemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Code\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\MusicPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Code\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BlueEnemy.cpp">
+      <Filter>Code\Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Frog.cpp">
+      <Filter>Code\Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GreenEnemy.cpp">
+      <Filter>Code\Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Code\Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="src\TextCounter.cpp">
+      <Filter>Code\Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScriptManager.cpp">
+      <Filter>Code\Source Files\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scriptable.cpp">
+      <Filter>Code\Source Files\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\BlueEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Frog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GreenEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\MusicPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Code\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scriptable.h">
+      <Filter>Code\Header Files\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScriptManager.h">
+      <Filter>Code\Header Files\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Frog.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player.h">
+      <Filter>Code\Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="src\TextCounter.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScriptEntity.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BlueEnemy.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GreenEnemy.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Background.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DuckyMath.h">
+      <Filter>Code\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".github\workflows\BuildAndDeployGame.yml">
-      <Filter>GitHubWorkflows</Filter>
+      <Filter>Workflows</Filter>
     </None>
     <None Include=".github\workflows\BuildGame.yml">
-      <Filter>GitHubWorkflows</Filter>
+      <Filter>Workflows</Filter>
     </None>
     <None Include=".github\workflows\CreatePackage.yml">
-      <Filter>GitHubWorkflows</Filter>
+      <Filter>Workflows</Filter>
     </None>
     <None Include=".github\workflows\DeployLatestMain.yml">
-      <Filter>GitHubWorkflows</Filter>
+      <Filter>Workflows</Filter>
     </None>
     <None Include=".github\workflows\VerifyMain.yml">
-      <Filter>GitHubWorkflows</Filter>
+      <Filter>Workflows</Filter>
+    </None>
+    <None Include="scripts\greenEnemy.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\blueEnemy.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\master.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\player.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="scripts\frog.lua">
+      <Filter>Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

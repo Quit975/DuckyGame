@@ -3,6 +3,7 @@
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
+    bg = std::unique_ptr<Background>(new Background());
     player = std::unique_ptr<Player>(new Player());
     frog = std::unique_ptr<Frog>(new Frog());
 
@@ -15,7 +16,7 @@ Scene::Scene(sf::RenderWindow& window):
 
     updateGroup.push_back(player.get());
     updateGroup.push_back(frog.get());
-
+   
     drawGroup.push_back(player.get()); // Player* <- Entity*
     drawGroup.push_back(quackCounter.get());
     drawGroup.push_back(frogCounter.get());
@@ -72,13 +73,15 @@ void Scene::CheckCollisions()
     {
         frogCounter->Increase();
         frog->Catch();
+        frog->TeleportAwayFromPlayer(player->GetLocation());
     }
 }
 
 void Scene::Draw()
 {
     renderWindow.clear();
-
+    bg->Draw(renderWindow);
+    
     for (Entity* e : drawGroup)
     {
         e->Draw(renderWindow);

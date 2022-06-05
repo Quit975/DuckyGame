@@ -15,24 +15,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\BlueEnemy.cpp" />
-    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Frog.cpp" />
     <ClCompile Include="src\GreenEnemy.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Scriptable.cpp" />
+    <ClCompile Include="src\ScriptManager.cpp" />
     <ClCompile Include="src\TextCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\BlueEnemy.h" />
+    <ClInclude Include="src\DuckyMath.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Frog.h" />
     <ClInclude Include="src\GreenEnemy.h" />
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Scriptable.h" />
+    <ClInclude Include="src\ScriptEntity.h" />
+    <ClInclude Include="src\ScriptManager.h" />
     <ClInclude Include="src\TextCounter.h" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +48,11 @@
     <None Include=".github\workflows\CreatePackage.yml" />
     <None Include=".github\workflows\DeployLatestMain.yml" />
     <None Include=".github\workflows\VerifyMain.yml" />
+    <None Include="scripts\blueEnemy.lua" />
+    <None Include="scripts\frog.lua" />
+    <None Include="scripts\greenEnemy.lua" />
+    <None Include="scripts\master.lua" />
+    <None Include="scripts\player.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -89,16 +101,19 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)int\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projekty\DuckyGame\ThirdParty\lua;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='QA|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)int\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projekty\DuckyGame\ThirdParty\lua;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)int\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projekty\DuckyGame\ThirdParty\lua;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -106,14 +121,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   openal32.dll  /xc /xn /xo
@@ -121,10 +136,19 @@ ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-audio-d-2.dll  /xc /xn /
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-graphics-d-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-system-d-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-window-d-2.dll  /xc /xn /xo
-rmdir /Q /S  $(OutDir)\Res
-ROBOCOPY Res    $(OutDir)\Res *.* /E
+ROBOCOPY ThirdParty\lua\  $(OutDir)  lua54.dll  /xc /xn /xo
 exit 0</Command>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>rmdir /Q /S  $(OutDir)\Res
+ROBOCOPY Res    $(OutDir)\Res *.* /E
+rmdir /Q /S  $(OutDir)\scripts
+ROBOCOPY scripts    $(OutDir)\scripts *.* /E
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummyDummy.pepe</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='QA|Win32'">
     <ClCompile>
@@ -132,14 +156,14 @@ exit 0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_QA;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   openal32.dll  /xc /xn /xo
@@ -147,10 +171,19 @@ ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-audio-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-graphics-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-system-2.dll  /xc /xn /xo
 ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   sfml-window-2.dll  /xc /xn /xo
-rmdir /Q /S  $(OutDir)\Res
-ROBOCOPY Res    $(OutDir)\Res *.* /E
+ROBOCOPY ThirdParty\lua\  $(OutDir)  lua54.dll  /xc /xn /xo
 exit 0</Command>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>rmdir /Q /S  $(OutDir)\Res
+ROBOCOPY Res    $(OutDir)\Res *.* /E
+rmdir /Q /S  $(OutDir)\scripts
+ROBOCOPY scripts    $(OutDir)\scripts *.* /E
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummyDummy.pepe</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -160,7 +193,7 @@ exit 0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -168,16 +201,25 @@ exit 0</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-system-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-network-s.lib;opengl32.lib;winmm.lib;ws2_32.lib;gdi32.lib;freetype.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\ThirdParty\lua;$(SolutionDir)ThirdParty\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-system-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-network-s.lib;opengl32.lib;winmm.lib;ws2_32.lib;gdi32.lib;freetype.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>ROBOCOPY ThirdParty\SFML-2.5.1\bin\    $(OutDir)   openal32.dll  /xc /xn /xo
-rmdir /Q /S  $(OutDir)\Res
-ROBOCOPY Res    $(OutDir)\Res *.* /E
+ROBOCOPY ThirdParty\lua\  $(OutDir)  lua54.dll  /xc /xn /xo
 exit 0</Command>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>rmdir /Q /S  $(OutDir)\Res
+ROBOCOPY Res    $(OutDir)\Res *.* /E
+rmdir /Q /S  $(OutDir)\scripts
+ROBOCOPY scripts    $(OutDir)\scripts *.* /E
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummyDummy.pepe</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
