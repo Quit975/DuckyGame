@@ -11,7 +11,9 @@ int main()
     sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
 
     MusicPlayer music;
+    
     Scene scene(window);
+    
 
     //frame rate management
     sf::Clock clock;
@@ -19,7 +21,7 @@ int main()
     constexpr float desiredDt = 1 / desiredFrameRate;
 
     bool paused = false;
-
+    
     while (window.isOpen())
     {
         dt = clock.getElapsedTime().asSeconds();
@@ -32,28 +34,38 @@ int main()
                 if (event.type == sf::Event::Closed)
                     window.close();
                 
+                
                 if (event.type == sf::Event::KeyReleased)
                 {
+                   
                     if (event.key.code == sf::Keyboard::Escape)
-                    { 
+                    {                       
                         paused = !paused;
-                    }  
+                        music.Pause();
+                    }
 
                     #ifndef _RELEASE
+                     
                     if (event.key.code == sf::Keyboard::M)
                     {
-                        music.Toggle();
+                        
+
+                        music.Toggle();                       
                     }
+                     
                     #endif
-                }
-            }
-                
+               }     
+                              
+            }             
             if (!paused)
-            { 
+            {
+                music.Play();
                 scene.Update(dt);
                 scene.CheckCollisions();  
                 scene.Draw();
+                
             }
+            
             dt -= desiredDt;   
         }
     }
