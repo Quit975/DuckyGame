@@ -13,5 +13,5 @@ public:
 	virtual void Update(const float dt) = 0;
 	virtual sf::FloatRect GetBounds() = 0;
 	virtual sf::Vector2f GetLocation() = 0;
+	float collisionRadius = 0;
 };
-

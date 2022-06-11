@@ -7,6 +7,7 @@
 #include "Frog.h"
 #include "TextCounter.h"
 #include "Background.h"
+#include "CollisionCheckManager.h"
 
 class Scene
 {
@@ -19,6 +20,7 @@ public:
 
 private:
 	std::unique_ptr<Background> bg;
+	std::unique_ptr<CollisionCheckManager> checkCollisions;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Frog> frog;
 	std::unique_ptr<TextCounter> frogCounter;

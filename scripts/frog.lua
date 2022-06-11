@@ -5,4 +5,5 @@ frog = {
 	croakMinDistance = 600, -- 1+ (0 is invalid) : up to this distance the sound will NOT be attenuated, attenuation starts on distance longer than that value
 	catchVolume = 100,
 	safeDistance = 250,
+	collisionRadius = 15;
 }

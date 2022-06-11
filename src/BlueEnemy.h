@@ -20,6 +20,7 @@ public:
 
 private:
 	sf::CircleShape enemy;
+	sf::CircleShape collisionShape;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 

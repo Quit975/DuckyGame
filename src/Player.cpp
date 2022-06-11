@@ -16,9 +16,9 @@ Player::Player()
 	duckySprite.setTexture(duckyTexture);
 	duckySprite.setScale(0.5f, 0.5f);
 
-	collisionShape = sf::CircleShape(duckyRadius);
-	collisionShape.setFillColor(sf::Color::Cyan);
-	collisionShape.setOrigin(duckyRadius, duckyRadius);
+	collisionShape = sf::CircleShape(collisionRadius);
+	collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
+	collisionShape.setOrigin(collisionRadius, collisionRadius);
 
 	UpdateData();
 }
@@ -29,6 +29,7 @@ void Player::LoadData()
 
 	ReadFloat(L, "player", "speed", speed);
 	ReadFloat(L, "player", "quackVolume", quackVolume);
+	ReadFloat(L, "player", "collisionRadius", collisionRadius);
 }
 
 void Player::UpdateData()

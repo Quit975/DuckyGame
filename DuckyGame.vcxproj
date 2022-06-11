@@ -17,6 +17,7 @@
   <ItemGroup>
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\BlueEnemy.cpp" />
+    <ClCompile Include="src\CollisionCheckManager.cpp" />
     <ClCompile Include="src\Frog.cpp" />
     <ClCompile Include="src\GreenEnemy.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\BlueEnemy.h" />
+    <ClInclude Include="src\CollisionCheckManager.h" />
     <ClInclude Include="src\DuckyMath.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Frog.h" />

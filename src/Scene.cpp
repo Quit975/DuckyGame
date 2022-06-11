@@ -4,6 +4,7 @@ Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
     bg = std::unique_ptr<Background>(new Background());
+    checkCollisions = std::unique_ptr<CollisionCheckManager>(new CollisionCheckManager());
     player = std::unique_ptr<Player>(new Player());
     frog = std::unique_ptr<Frog>(new Frog());
 
@@ -47,34 +48,7 @@ void Scene::Update(const float dt)
 
 void Scene::CheckCollisions()
 {
-    sf::FloatRect duckyShape = player->GetBounds();
-    sf::FloatRect frogShape = frog->GetBounds();
-
-    // check collisions with enemies
-    bool collided = false;
-    for (std::unique_ptr<Entity>& e : enemies)
-    {
-        if (duckyShape.intersects(e->GetBounds()))
-        {
-            if (player->Hit())
-            {
-                quackCounter->Increase();
-            }
-            collided = true;
-        }
-    }
-    if (!collided)
-    {
-        player->ResetHit();
-    }
-
-    // check if frog caught
-    if (duckyShape.intersects(frogShape))
-    {
-        frogCounter->Increase();
-        frog->Catch();
-        frog->TeleportAwayFromPlayer(player->GetLocation());
-    }
+    checkCollisions->Check(player, frog, enemies, quackCounter, frogCounter, renderWindow);
 }
 
 void Scene::Draw()

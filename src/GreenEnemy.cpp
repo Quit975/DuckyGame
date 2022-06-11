@@ -9,6 +9,10 @@ GreenEnemy::GreenEnemy(float x, float y)
     enemy.setPosition(x, y);
     enemy.setOrigin(25.f, 25.f);
 
+    collisionShape = sf::CircleShape(collisionRadius);
+    collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
+    collisionShape.setOrigin(collisionRadius, collisionRadius);
+
     UpdateData();
 }
 
@@ -19,6 +23,7 @@ void GreenEnemy::LoadData()
     ReadFloat(L, "greenEnemy", "speed", speed);
     ReadFloat(L, "greenEnemy", "size", size);
     ReadFloat(L, "greenEnemy", "rotationSpeed", rotationSpeed);
+    ReadFloat(L, "greenEnemy", "collisionRadius", collisionRadius);
 }
 
 void GreenEnemy::UpdateData()
@@ -29,6 +34,10 @@ void GreenEnemy::UpdateData()
 void GreenEnemy::Draw(sf::RenderWindow& window)
 {
     window.draw(enemy);
+
+#ifndef _RELEASE
+    window.draw(collisionShape);
+#endif
 }
 
 void GreenEnemy::Update(const float dt)
@@ -44,6 +53,8 @@ void GreenEnemy::Update(const float dt)
         yMovementDir = 1;
     else if (enemy.getPosition().y >= WindowHeight)
         yMovementDir = -1;
+
+    collisionShape.setPosition(enemy.getPosition().x, enemy.getPosition().y);
 }
 
 sf::FloatRect GreenEnemy::GetBounds()

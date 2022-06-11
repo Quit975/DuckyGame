@@ -63,7 +63,10 @@
       <Filter>Code\Source Files\Scripting</Filter>
     </ClCompile>
     <ClCompile Include="src\Background.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionCheckManager.cpp">
+      <Filter>Code\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,10 +103,13 @@
     <ClInclude Include="src\GreenEnemy.h">
       <Filter>Code\Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Background.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\DuckyMath.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Background.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionCheckManager.h">
       <Filter>Code\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

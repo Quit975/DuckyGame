@@ -20,6 +20,10 @@ Frog::Frog()
     frogCatchSound.setBuffer(frogCatchBuffer);
     frogCatchSound.setAttenuation(0);
 
+    collisionShape = sf::CircleShape(collisionRadius);
+    collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
+    collisionShape.setOrigin(collisionRadius, collisionRadius);
+
     srand(time(NULL));
 
     UpdateData();
@@ -35,6 +39,7 @@ void Frog::LoadData()
     ReadFloat(L, "frog", "croakMinDistance", croakMinDistance);
     ReadFloat(L, "frog", "catchVolume", catchVolume);
     ReadFloat(L, "frog", "safeDistance", safeDistance);
+    ReadFloat(L, "frog", "collisionRadius", collisionRadius);
 }
 
 void Frog::UpdateData()
@@ -58,6 +63,7 @@ void Frog::Update(const float dt)
     else if (frogShape.getPosition().y >= WindowHeight)
         yMovementDir = -1;
 
+    collisionShape.setPosition(frogShape.getPosition().x, frogShape.getPosition().y);
     frogSound.setPosition(frogShape.getPosition().x, frogShape.getPosition().y, 0.f);
 }
 
@@ -65,6 +71,7 @@ void Frog::Draw(sf::RenderWindow& window)
 {
 #ifndef _RELEASE
     window.draw(frogShape);
+    window.draw(collisionShape);
 #endif
 }
 

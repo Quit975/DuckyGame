@@ -28,6 +28,7 @@ private:
 	sf::SoundBuffer frogCatchBuffer;
 	sf::Sound frogCatchSound;
 	sf::RectangleShape frogShape;
+	sf::CircleShape collisionShape;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 
