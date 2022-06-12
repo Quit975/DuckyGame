@@ -63,7 +63,16 @@
       <Filter>Code\Source Files\Scripting</Filter>
     </ClCompile>
     <ClCompile Include="src\Background.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundComponent.cpp">
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionComponent.cpp">
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteComponent.cpp">
+      <Filter>Code\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,10 +109,19 @@
     <ClInclude Include="src\GreenEnemy.h">
       <Filter>Code\Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\Background.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\DuckyMath.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Background.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SoundComponent.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionComponent.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpriteComponent.h">
       <Filter>Code\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

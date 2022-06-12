@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
+#include "SoundComponent.h"
+#include "CollisionComponent.h"
 
 class Frog : public ScriptEntity
 {
@@ -23,11 +25,10 @@ public:
 	virtual void LoadData() override;
 
 private:
-	sf::SoundBuffer frogBuffer;
-	sf::Sound frogSound;
-	sf::SoundBuffer frogCatchBuffer;
-	sf::Sound frogCatchSound;
-	sf::RectangleShape frogShape;
+	SoundComponent frogSoundComp;
+	SoundComponent catchSoundComp;
+	CollisionComponent frogShapeComp;
+	
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 

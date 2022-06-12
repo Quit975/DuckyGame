@@ -17,6 +17,7 @@
   <ItemGroup>
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\BlueEnemy.cpp" />
+    <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\Frog.cpp" />
     <ClCompile Include="src\GreenEnemy.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -25,11 +26,14 @@
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Scriptable.cpp" />
     <ClCompile Include="src\ScriptManager.cpp" />
+    <ClCompile Include="src\SoundComponent.cpp" />
+    <ClCompile Include="src\SpriteComponent.cpp" />
     <ClCompile Include="src\TextCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\BlueEnemy.h" />
+    <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\DuckyMath.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Frog.h" />
@@ -40,6 +44,8 @@
     <ClInclude Include="src\Scriptable.h" />
     <ClInclude Include="src\ScriptEntity.h" />
     <ClInclude Include="src\ScriptManager.h" />
+    <ClInclude Include="src\SoundComponent.h" />
+    <ClInclude Include="src\SpriteComponent.h" />
     <ClInclude Include="src\TextCounter.h" />
   </ItemGroup>
   <ItemGroup>
