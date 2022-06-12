@@ -7,6 +7,8 @@ class MusicPlayer
 public:
 	MusicPlayer();
 	void Toggle();
+	void Play();
+	void Pause();
 
 private:
 	sf::Music music;
