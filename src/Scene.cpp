@@ -4,7 +4,6 @@ Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
     bg = std::unique_ptr<Background>(new Background());
-    checkCollisions = std::unique_ptr<CollisionCheckManager>(new CollisionCheckManager());
     player = std::unique_ptr<Player>(new Player());
     frog = std::unique_ptr<Frog>(new Frog());
 
@@ -48,7 +47,43 @@ void Scene::Update(const float dt)
 
 void Scene::CheckCollisions()
 {
-    checkCollisions->Check(player, frog, enemies, quackCounter, frogCounter, renderWindow);
+    // check collisions with enemies
+    bool collided = false;
+    sf::Vector2f playerLocation = player->GetLocation();
+    for (std::unique_ptr<Entity>& e : enemies)
+    {
+        sf::Vector2f enemyLocation = e->GetLocation();
+        float distanceToEnemy = DistanceBetweenPointsSquared(playerLocation, enemyLocation);
+        float distanceToCollideWithEnemy = player->collisionRadius + e->collisionRadius;
+        distanceToCollideWithEnemy *= distanceToCollideWithEnemy; // to make it squared since distance is also calculated as squared
+        if (distanceToEnemy <= distanceToCollideWithEnemy)
+        {
+            if (player->Hit()) quackCounter->Increase();          
+            collided = true;
+        }
+    }
+    if (!collided)
+    {
+        player->ResetHit();
+    }
+
+    // check collision with a frog
+    sf::Vector2f frogLocation = frog->GetLocation();
+    float distanceToFrog = DistanceBetweenPointsSquared(playerLocation, frogLocation);
+    float distanceToCollideWithFrog = player->collisionRadius + frog->collisionRadius;
+    distanceToCollideWithFrog *= distanceToCollideWithFrog; // to make it squared since distance is also calculated as squared
+    if (distanceToFrog <= distanceToCollideWithFrog)
+    {
+        frogCounter->Increase();
+        frog->Catch();
+        frog->TeleportAwayFromPlayer(player->GetLocation());
+    }
+}
+
+float Scene::DistanceBetweenPointsSquared(sf::Vector2f position1, sf::Vector2f position2)
+{
+    return ((position1.x - position2.x) * (position1.x - position2.x)) 
+        + ((position1.y - position2.y) * (position1.y - position2.y));
 }
 
 void Scene::Draw()

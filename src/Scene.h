@@ -7,7 +7,6 @@
 #include "Frog.h"
 #include "TextCounter.h"
 #include "Background.h"
-#include "CollisionCheckManager.h"
 
 class Scene
 {
@@ -20,7 +19,6 @@ public:
 
 private:
 	std::unique_ptr<Background> bg;
-	std::unique_ptr<CollisionCheckManager> checkCollisions;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Frog> frog;
 	std::unique_ptr<TextCounter> frogCounter;
@@ -31,5 +29,7 @@ private:
 	std::vector<Entity*> drawGroup;
 
 	sf::RenderWindow& renderWindow;
+
+	float DistanceBetweenPointsSquared(sf::Vector2f position1, sf::Vector2f position2);
 };
 
