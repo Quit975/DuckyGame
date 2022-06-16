@@ -16,6 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Background.cpp" />
+    <ClCompile Include="src\CircleCollisionComponent.cpp" />
+    <ClCompile Include="src\EntityComponent.cpp" />
     <ClCompile Include="src\BlueEnemy.cpp" />
     <ClCompile Include="src\CollisionComponent.cpp" />
     <ClCompile Include="src\Frog.cpp" />
@@ -32,6 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Background.h" />
+    <ClInclude Include="src\CircleCollisionComponent.h" />
+    <ClInclude Include="src\EntityComponent.h" />
     <ClInclude Include="src\BlueEnemy.h" />
     <ClInclude Include="src\CollisionComponent.h" />
     <ClInclude Include="src\DuckyMath.h" />

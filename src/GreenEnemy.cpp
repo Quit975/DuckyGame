@@ -1,10 +1,16 @@
 #include "GreenEnemy.h"
+#include "CircleCollisionComponent.h"
+
 
 GreenEnemy::GreenEnemy(float x, float y)
 {
     LoadData();
 
-    enemyShapeComp.SquareInit(sf::Color::Green, size, x, y);
+    enemyShapeComp = CreateComponent<CircleCollisionComponent>("enemyCollision");
+    enemyShapeComp->SetColor(sf::Color::Green);
+    enemyShapeComp->SetRadius(size);
+    enemyShapeComp->SetDimensions(size);
+    enemyShapeComp->SetPosition(x, y);
 
     UpdateData();
 }
@@ -20,35 +26,35 @@ void GreenEnemy::LoadData()
 
 void GreenEnemy::UpdateData()
 {
-    enemyShapeComp.SetProperties(size);
+    enemyShapeComp->SetRadius(size);
 }
 
 void GreenEnemy::Draw(sf::RenderWindow& window)
 {
-    window.draw(enemyShapeComp.GetSquareCollision());
+    window.draw(enemyShapeComp->GetCircleCollision());
 }
 
 void GreenEnemy::Update(const float dt)
 {
-    enemyShapeComp.GetSquareCollision().rotate(rotationSpeed);
-    enemyShapeComp.GetSquareCollision().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
-    if (enemyShapeComp.GetPosition().x <= 0.f)
+    enemyShapeComp->GetCircleCollision().rotate(rotationSpeed);
+    enemyShapeComp->GetCircleCollision().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
+    if (enemyShapeComp->GetPosition().x <= size)
         xMovementDir = 1;
-    else if (enemyShapeComp.GetPosition().x >= WindowWidth)
+    else if (enemyShapeComp->GetPosition().x >= (WindowWidth- size))
         xMovementDir = -1;
 
-    if (enemyShapeComp.GetPosition().y <= 0.f)
+    if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
-    else if (enemyShapeComp.GetPosition().y >= WindowHeight)
+    else if (enemyShapeComp->GetPosition().y >= (WindowHeight- size))
         yMovementDir = -1;
 }
 
 sf::FloatRect GreenEnemy::GetBounds()
 {
-    return enemyShapeComp.GetBounds();
+    return enemyShapeComp->GetBounds();
 }
 
 sf::Vector2f GreenEnemy::GetLocation()
 {
-    return enemyShapeComp.GetPosition();
+    return enemyShapeComp->GetPosition();
 }

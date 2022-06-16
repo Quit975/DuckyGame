@@ -1,11 +1,15 @@
 #include "BlueEnemy.h"
-
+#include "CircleCollisionComponent.h"
 
 BlueEnemy::BlueEnemy(float x, float y)
 {
     LoadData();
 
-    enemyShapeComp.CircleInit(sf::Color::Blue, size, x, y);
+    enemyShapeComp = CreateComponent<CircleCollisionComponent>("EnemyCollision");
+    enemyShapeComp->SetColor(sf::Color::Blue);
+    enemyShapeComp->SetRadius(size);
+    enemyShapeComp->SetDimensions(size);
+    enemyShapeComp->SetPosition(x, y);
 
     UpdateData();
 }
@@ -20,29 +24,29 @@ void BlueEnemy::LoadData()
 
 void BlueEnemy::UpdateData()
 {
-    enemyShapeComp.SetProperties(size);
+    enemyShapeComp->SetRadius(size);
 }
 
 void BlueEnemy::Draw(sf::RenderWindow& window)
 {
-    window.draw(enemyShapeComp.GetCircleCollision());
+    window.draw(enemyShapeComp->GetCircleCollision());
 }
 
 void BlueEnemy::Update(const float dt)
 {
-    enemyShapeComp.GetCircleCollision().move(0.f, speed * yMovementDir * dt);
-    if (enemyShapeComp.GetPosition().y <= 0.f)
+    enemyShapeComp->GetCircleCollision().move(0.f, speed * yMovementDir * dt);
+    if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
-    else if (enemyShapeComp.GetPosition().y >= WindowHeight)
+    else if (enemyShapeComp->GetPosition().y >= (WindowHeight - size))
         yMovementDir = -1;
 }
 
 sf::FloatRect BlueEnemy::GetBounds()
 {
-    return enemyShapeComp.GetBounds();
+    return enemyShapeComp->GetBounds();
 }
 
 sf::Vector2f BlueEnemy::GetLocation()
 {
-    return enemyShapeComp.GetPosition();
+    return enemyShapeComp->GetPosition();
 }

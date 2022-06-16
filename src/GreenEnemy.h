@@ -1,6 +1,7 @@
 #pragma once
 #include "ScriptEntity.h"
-#include "CollisionComponent.h"
+
+class CircleCollisionComponent;
 
 class GreenEnemy : public ScriptEntity
 {
@@ -20,7 +21,7 @@ public:
 	virtual void LoadData() override;
 
 private:
-	CollisionComponent enemyShapeComp;
+	CircleCollisionComponent* enemyShapeComp;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 

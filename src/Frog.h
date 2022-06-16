@@ -2,7 +2,8 @@
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
 #include "SoundComponent.h"
-#include "CollisionComponent.h"
+
+class CircleCollisionComponent;
 
 class Frog : public ScriptEntity
 {
@@ -25,9 +26,9 @@ public:
 	virtual void LoadData() override;
 
 private:
-	SoundComponent frogSoundComp;
-	SoundComponent catchSoundComp;
-	CollisionComponent frogShapeComp;
+	SoundComponent* frogSoundComp;
+	SoundComponent* catchSoundComp;
+	CircleCollisionComponent* frogShapeComp;
 	
 	int xMovementDir = 1;
 	int yMovementDir = 1;

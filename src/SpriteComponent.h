@@ -1,11 +1,14 @@
 #pragma once
+#include "EntityComponent.h"
 #include <SFML/Graphics.hpp>
-class SpriteComponent
+
+class SpriteComponent : public EntityComponent
 {
 public:
-	void Init(const char* path, float scale = 1.f, bool smooth = true);
-
+	void SetTexture(const char* path);
+	void SetScale(float scale);
 	void SetPosition(float x, float y);
+	void SetSmooth(bool smooth);
 
 	inline sf::Sprite &GetSprite() { return Sprite; }
 	inline sf::Vector2f GetPosition() { return Sprite.getPosition(); }

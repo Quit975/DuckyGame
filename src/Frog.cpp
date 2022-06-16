@@ -1,5 +1,6 @@
 #include "Frog.h"
 #include "DuckyMath.h"
+#include "CircleCollisionComponent.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -7,9 +8,18 @@ Frog::Frog()
 {
     LoadData();
 
-    frogShapeComp.SquareInit(sf::Color::Magenta, size, 400, 300);
-    frogSoundComp.Init("Res/froggy.wav", true);
-    catchSoundComp.Init("Res/frogCatch.wav");
+    frogShapeComp = CreateComponent<CircleCollisionComponent>("frogShape");
+    frogSoundComp = CreateComponent<SoundComponent>("frogSound");
+    catchSoundComp = CreateComponent<SoundComponent>("catchSound");
+
+    frogShapeComp->SetColor(sf::Color::Magenta);
+    frogShapeComp->SetPosition(sf::Vector2f(400, 300));
+    frogShapeComp->SetRadius(size);
+    frogShapeComp->SetDimensions(size);
+    frogSoundComp->SetSound("Res/froggy.wav", true);
+    catchSoundComp->SetSound("Res/frogCatch.wav");
+
+    srand(time(NULL));
 
     UpdateData();
 }
@@ -28,47 +38,48 @@ void Frog::LoadData()
 
 void Frog::UpdateData()
 {
-    frogShapeComp.SetProperties(size);
-    frogSoundComp.SetProperties(100.f, croakAttenuation, croakMinDistance);
-    catchSoundComp.SetProperties(catchVolume);
+    frogShapeComp->SetRadius(size);
+    frogSoundComp->SetAttenuation(croakAttenuation, croakMinDistance);
+    frogSoundComp->SetVolume(100.f);
+    catchSoundComp->SetVolume(catchVolume);
 }
 
 void Frog::Update(const float dt)
 {
-    frogShapeComp.GetSquareCollision().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
-    if (frogShapeComp.GetPosition().x <= 0.f)
+    frogShapeComp->GetCircleCollision().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
+    if (frogShapeComp->GetPosition().x <= size)
         xMovementDir = 1;
-    else if (frogShapeComp.GetPosition().x >= WindowWidth)
+    else if (frogShapeComp->GetPosition().x >= (WindowWidth - size))
         xMovementDir = -1;
 
-    if (frogShapeComp.GetPosition().y <= 0.f)
+    if (frogShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
-    else if (frogShapeComp.GetPosition().y >= WindowHeight)
+    else if (frogShapeComp->GetPosition().y >= (WindowHeight - size))
         yMovementDir = -1;
 
-    frogSoundComp.SetPosition(frogShapeComp.GetPosition());
+    frogSoundComp->SetPosition(frogShapeComp->GetPosition());
 }
 
 void Frog::Draw(sf::RenderWindow& window)
 {
 #ifndef _RELEASE
-    window.draw(frogShapeComp.GetSquareCollision());
+    window.draw(frogShapeComp->GetCircleCollision());
 #endif
 }
 
 sf::FloatRect Frog::GetBounds()
 {
-    return frogShapeComp.GetBounds();
+    return frogShapeComp->GetBounds();
 }
 
 sf::Vector2f Frog::GetLocation()
 {
-    return frogShapeComp.GetPosition();
+    return frogShapeComp->GetPosition();
 }
 
 void Frog::Catch()
 {
-    catchSoundComp.Play();
+    catchSoundComp->Play();
 }
 
 void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
@@ -84,6 +95,6 @@ void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
         if (distance > safeDistance)
             break;
     }
-    frogShapeComp.SetPosition(newFrogLoc);
+    frogShapeComp->SetPosition(newFrogLoc);
 }
 

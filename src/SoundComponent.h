@@ -1,18 +1,21 @@
 #pragma once
 #include <SFML/Audio.hpp>
-class SoundComponent
+#include "EntityComponent.h"
+
+class SoundComponent : public EntityComponent
 {
 public:
 	SoundComponent() = default;
-	void Init(const char* path, bool looping = false);
+
 	void Play();
 
-	void SetProperties(float volume, float attenuation = 0.f, float distance = 1.f);
+	void SetSound(const char* path, bool looping = false);
+	void SetVolume(float volume);
+	void SetAttenuation(float attenuation, float distance);
 	void SetPosition(sf::Vector2f position);
 
 private:
 	sf::SoundBuffer Buffer;
 	sf::Sound Sound;
-
 };
 

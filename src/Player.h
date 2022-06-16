@@ -3,7 +3,8 @@
 #include "ScriptEntity.h"
 #include "SoundComponent.h"
 #include "SpriteComponent.h"
-#include "CollisionComponent.h"
+
+class CircleCollisionComponent;
 
 class Player : public ScriptEntity
 {
@@ -28,9 +29,9 @@ public:
 	virtual void LoadData() override;
 
 private:
-	SpriteComponent spriteComp;
-	SoundComponent quackComp;
-	CollisionComponent collisionComp;
+	SpriteComponent* spriteComp;
+	SoundComponent* quackComp;
+	CircleCollisionComponent* collisionComp;
 	
 	float duckyRadius = 45.f; //desired ducky radius, this can be temporary, but I haven't yet figured out how to get the right size from sprite or texture
 	bool gequacked = false;

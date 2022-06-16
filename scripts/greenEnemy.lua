@@ -1,5 +1,5 @@
 greenEnemy = {
-	speed = 400,
+	speed = 300,
 	size = 50,
 	rotationSpeed = 3,
 }

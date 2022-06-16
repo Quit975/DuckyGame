@@ -1,17 +1,25 @@
 #include "SpriteComponent.h"
 #include "DuckyMath.h"
 
-void SpriteComponent::Init(const char* path, float scale, bool smooth)
+
+void SpriteComponent::SetTexture(const char* path)
 {
 	Texture.loadFromFile(path);
-	Texture.setSmooth(smooth);
-
-	Sprite.setOrigin(static_cast<sf::Vector2f>(Texture.getSize() / 2));
 	Sprite.setTexture(Texture);
+	Sprite.setOrigin(static_cast<sf::Vector2f>(Texture.getSize() / 2));
+}
+
+void SpriteComponent::SetScale(float scale)
+{
 	Sprite.setScale(scale, scale);
 }
 
 void SpriteComponent::SetPosition(float x, float y)
 {
 	Sprite.setPosition(x, y);
+}
+
+void SpriteComponent::SetSmooth(bool smooth)
+{
+	Texture.setSmooth(smooth);
 }

@@ -74,6 +74,12 @@
     <ClCompile Include="src\SpriteComponent.cpp">
       <Filter>Code\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\EntityComponent.cpp">
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CircleCollisionComponent.cpp">
+      <Filter>Code\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MusicPlayer.h">
@@ -122,6 +128,12 @@
       <Filter>Code\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\SpriteComponent.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityComponent.h">
+      <Filter>Code\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CircleCollisionComponent.h">
       <Filter>Code\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
