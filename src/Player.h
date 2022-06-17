@@ -1,4 +1,5 @@
 #pragma once
+#include "ResourceManager.h"
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
 

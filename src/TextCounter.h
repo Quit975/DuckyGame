@@ -20,4 +20,3 @@ private:
     std::stringstream s;
     int counter = 0;
 };
-
