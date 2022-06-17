@@ -7,10 +7,6 @@ Frog::Frog()
 {
     LoadData();
 
-    frogShape = sf::RectangleShape({ size, size });
-    frogShape.setPosition(400, 300);
-    frogShape.setOrigin(10.f, 10.f);
-    frogShape.setFillColor(sf::Color::Magenta); // for debug draw
     frogBuffer.loadFromFile("Res/froggy.wav");
     frogSound.setBuffer(frogBuffer);
     frogSound.setLoop(true);
@@ -20,9 +16,12 @@ Frog::Frog()
     frogCatchSound.setBuffer(frogCatchBuffer);
     frogCatchSound.setAttenuation(0);
 
-    collisionShape = sf::CircleShape(collisionRadius);
-    collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
+    collisionShape = sf::CircleShape(collisionRadius - outlineThickness);
+    collisionShape.setOutlineThickness(outlineThickness);
+    collisionShape.setOutlineColor(sf::Color{ 0, 255, 255, 150 });
+    collisionShape.setFillColor(sf::Color{ 0, 0, 0, 0 });
     collisionShape.setOrigin(collisionRadius, collisionRadius);
+    collisionShape.setPosition(400, 300);
 
     srand(time(NULL));
 
@@ -34,7 +33,6 @@ void Frog::LoadData()
     lua_State* L = ScriptManager::Get().GetState();
 
     ReadFloat(L, "frog", "speed", speed);
-    ReadFloat(L, "frog", "size", size);
     ReadFloat(L, "frog", "croakAttenuation", croakAttenuation);
     ReadFloat(L, "frog", "croakMinDistance", croakMinDistance);
     ReadFloat(L, "frog", "catchVolume", catchVolume);
@@ -44,7 +42,6 @@ void Frog::LoadData()
 
 void Frog::UpdateData()
 {
-    frogShape.setSize({ size, size });
     frogSound.setAttenuation(croakAttenuation);
     frogSound.setMinDistance(croakMinDistance);
     frogCatchSound.setVolume(catchVolume);
@@ -52,37 +49,31 @@ void Frog::UpdateData()
 
 void Frog::Update(const float dt)
 {
-    frogShape.move(speed * xMovementDir * dt, speed * yMovementDir * dt);
-    if (frogShape.getPosition().x <= 0.f)
+    collisionShape.move(speed * xMovementDir * dt, speed * yMovementDir * dt);
+    if (collisionShape.getPosition().x <= 0.f)
         xMovementDir = 1;
-    else if (frogShape.getPosition().x >= WindowWidth)
+    else if (collisionShape.getPosition().x >= WindowWidth)
         xMovementDir = -1;
 
-    if (frogShape.getPosition().y <= 0.f)
+    if (collisionShape.getPosition().y <= 0.f)
         yMovementDir = 1;
-    else if (frogShape.getPosition().y >= WindowHeight)
+    else if (collisionShape.getPosition().y >= WindowHeight)
         yMovementDir = -1;
 
-    collisionShape.setPosition(frogShape.getPosition().x, frogShape.getPosition().y);
-    frogSound.setPosition(frogShape.getPosition().x, frogShape.getPosition().y, 0.f);
+    collisionShape.setPosition(collisionShape.getPosition().x, collisionShape.getPosition().y);
+    frogSound.setPosition(collisionShape.getPosition().x, collisionShape.getPosition().y, 0.f);
 }
 
 void Frog::Draw(sf::RenderWindow& window)
 {
 #ifndef _RELEASE
-    window.draw(frogShape);
     window.draw(collisionShape);
 #endif
 }
 
-sf::FloatRect Frog::GetBounds()
-{
-    return frogShape.getGlobalBounds();
-}
-
 sf::Vector2f Frog::GetLocation()
 {
-    return frogShape.getPosition();
+    return collisionShape.getPosition();
 }
 
 void Frog::Catch()
@@ -103,6 +94,6 @@ void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
         if (distance > safeDistance)
             break;
     }
-    frogShape.setPosition(newFrogLoc);
+    collisionShape.setPosition(newFrogLoc);
 }
 

@@ -9,8 +9,10 @@ GreenEnemy::GreenEnemy(float x, float y)
     enemy.setPosition(x, y);
     enemy.setOrigin(25.f, 25.f);
 
-    collisionShape = sf::CircleShape(collisionRadius);
-    collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
+    collisionShape = sf::CircleShape(collisionRadius - outlineThickness);
+    collisionShape.setOutlineThickness(outlineThickness);
+    collisionShape.setOutlineColor(sf::Color{ 0, 255, 255, 200 });
+    collisionShape.setFillColor(sf::Color{ 0, 0, 0, 0 });
     collisionShape.setOrigin(collisionRadius, collisionRadius);
 
     UpdateData();
@@ -55,11 +57,6 @@ void GreenEnemy::Update(const float dt)
         yMovementDir = -1;
 
     collisionShape.setPosition(enemy.getPosition().x, enemy.getPosition().y);
-}
-
-sf::FloatRect GreenEnemy::GetBounds()
-{
-    return enemy.getGlobalBounds();
 }
 
 sf::Vector2f GreenEnemy::GetLocation()

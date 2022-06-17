@@ -12,7 +12,6 @@ public:
 	// Entity
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual void Update(const float dt) override;
-	virtual sf::FloatRect GetBounds() override;
 	virtual sf::Vector2f GetLocation() override;
 
 	// Scriptable
@@ -21,6 +20,7 @@ public:
 private:
 	sf::CircleShape enemy;
 	sf::CircleShape collisionShape;
+	float outlineThickness = 2.0f;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 

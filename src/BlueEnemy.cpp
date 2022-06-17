@@ -1,5 +1,4 @@
 #include "BlueEnemy.h"
-#include <iostream>
 
 BlueEnemy::BlueEnemy(float x, float y)
 {
@@ -8,11 +7,13 @@ BlueEnemy::BlueEnemy(float x, float y)
     enemy = sf::CircleShape(size);
     enemy.setFillColor(sf::Color::Blue);
     enemy.setPosition(x, y);
-    enemy.setOrigin(15.f, 15.f);
+    enemy.setOrigin(32.f, 32.f); // why 32? I have no idea but it somehow fixes the origin to the centre o-o
 
-    collisionShape = sf::CircleShape(collisionRadius);
-    collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
-    collisionShape.setOrigin(collisionRadius/2, collisionRadius/2);
+    collisionShape = sf::CircleShape(collisionRadius - outlineThickness);
+    collisionShape.setOutlineThickness(outlineThickness);
+    collisionShape.setOutlineColor(sf::Color{ 0, 255, 255, 200 });
+    collisionShape.setFillColor(sf::Color{ 0, 0, 0, 0 });
+    collisionShape.setOrigin(collisionRadius, collisionRadius);
 
     UpdateData();
 }
@@ -42,18 +43,14 @@ void BlueEnemy::Draw(sf::RenderWindow& window)
 
 void BlueEnemy::Update(const float dt)
 {
+    
     enemy.move(0.f, speed * yMovementDir * dt);
     if (enemy.getPosition().y <= 0.f)
         yMovementDir = 1;
     else if (enemy.getPosition().y >= WindowHeight)
         yMovementDir = -1;
-
+    
     collisionShape.setPosition(enemy.getPosition().x, enemy.getPosition().y);
-}
-
-sf::FloatRect BlueEnemy::GetBounds()
-{
-    return enemy.getGlobalBounds();
 }
 
 sf::Vector2f BlueEnemy::GetLocation()

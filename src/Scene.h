@@ -30,6 +30,6 @@ private:
 
 	sf::RenderWindow& renderWindow;
 
-	float DistanceBetweenPointsSquared(sf::Vector2f position1, sf::Vector2f position2);
+	bool EntitiesIntersect(sf::Vector2f position1, float radius1, sf::Vector2f position2, float radius2);
 };
 

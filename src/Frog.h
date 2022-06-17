@@ -16,7 +16,6 @@ public:
 	// Entity
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::FloatRect GetBounds() override;
 	virtual sf::Vector2f GetLocation() override;
 
 	// Scriptable
@@ -27,14 +26,13 @@ private:
 	sf::Sound frogSound;
 	sf::SoundBuffer frogCatchBuffer;
 	sf::Sound frogCatchSound;
-	sf::RectangleShape frogShape;
 	sf::CircleShape collisionShape;
+	float outlineThickness = 3.0f;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 
 	// scriptable properties
 	float speed = 250.f;
-	float size = 20.f;
 	float croakAttenuation = 80.f;
 	float croakMinDistance = 600.f;
 	float catchVolume = 100.f;

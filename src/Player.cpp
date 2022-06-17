@@ -16,8 +16,10 @@ Player::Player()
 	duckySprite.setTexture(duckyTexture);
 	duckySprite.setScale(0.5f, 0.5f);
 
-	collisionShape = sf::CircleShape(collisionRadius);
-	collisionShape.setFillColor(sf::Color{ 0, 255, 255, 100 });
+	collisionShape = sf::CircleShape(collisionRadius - outlineThickness);
+	collisionShape.setOutlineThickness(outlineThickness);
+	collisionShape.setOutlineColor(sf::Color{ 0, 255, 255, 200 });
+	collisionShape.setFillColor(sf::Color{ 0, 0, 0, 0 });
 	collisionShape.setOrigin(collisionRadius, collisionRadius);
 
 	UpdateData();
@@ -63,11 +65,6 @@ void Player::Draw(sf::RenderWindow& window)
 #ifndef _RELEASE
 	window.draw(collisionShape);	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
 #endif // _RELEASE
-}
-
-sf::FloatRect Player::GetBounds()
-{
-	return collisionShape.getGlobalBounds();
 }
 
 void Player::Quack()

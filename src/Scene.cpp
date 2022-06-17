@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "DuckyMath.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
@@ -52,11 +53,7 @@ void Scene::CheckCollisions()
     sf::Vector2f playerLocation = player->GetLocation();
     for (std::unique_ptr<Entity>& e : enemies)
     {
-        sf::Vector2f enemyLocation = e->GetLocation();
-        float distanceToEnemy = DistanceBetweenPointsSquared(playerLocation, enemyLocation);
-        float distanceToCollideWithEnemy = player->collisionRadius + e->collisionRadius;
-        distanceToCollideWithEnemy *= distanceToCollideWithEnemy; // to make it squared since distance is also calculated as squared
-        if (distanceToEnemy <= distanceToCollideWithEnemy)
+        if (EntitiesIntersect(player->GetLocation(), player->collisionRadius, e->GetLocation(), e->collisionRadius))
         {
             if (player->Hit()) quackCounter->Increase();          
             collided = true;
@@ -68,11 +65,7 @@ void Scene::CheckCollisions()
     }
 
     // check collision with a frog
-    sf::Vector2f frogLocation = frog->GetLocation();
-    float distanceToFrog = DistanceBetweenPointsSquared(playerLocation, frogLocation);
-    float distanceToCollideWithFrog = player->collisionRadius + frog->collisionRadius;
-    distanceToCollideWithFrog *= distanceToCollideWithFrog; // to make it squared since distance is also calculated as squared
-    if (distanceToFrog <= distanceToCollideWithFrog)
+    if (EntitiesIntersect(player->GetLocation(), player->collisionRadius, frog->GetLocation(), frog->collisionRadius))
     {
         frogCounter->Increase();
         frog->Catch();
@@ -80,10 +73,12 @@ void Scene::CheckCollisions()
     }
 }
 
-float Scene::DistanceBetweenPointsSquared(sf::Vector2f position1, sf::Vector2f position2)
+// most optimally this should be two entities but I don't know how to cast a player into an entity
+bool Scene::EntitiesIntersect(sf::Vector2f position1, float radius1, sf::Vector2f position2, float radius2)
 {
-    return ((position1.x - position2.x) * (position1.x - position2.x)) 
-        + ((position1.y - position2.y) * (position1.y - position2.y));
+    float distanceForEntitiesToCollide = radius1 + radius2;
+    float distanceBetweenEntities = VecLength(position1 - position2);
+    return distanceBetweenEntities <= distanceForEntitiesToCollide;
 }
 
 void Scene::Draw()
