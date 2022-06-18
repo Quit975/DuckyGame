@@ -8,7 +8,6 @@ BlueEnemy::BlueEnemy(float x, float y)
     enemyShapeComp = CreateComponent<CircleCollisionComponent>("EnemyCollision");
     enemyShapeComp->SetColor(sf::Color::Blue);
     enemyShapeComp->SetRadius(size);
-    enemyShapeComp->SetDimensions(size);
     enemyShapeComp->SetPosition(x, y);
 
     UpdateData();
@@ -29,12 +28,12 @@ void BlueEnemy::UpdateData()
 
 void BlueEnemy::Draw(sf::RenderWindow& window)
 {
-    window.draw(enemyShapeComp->GetCircleCollision());
+    window.draw(enemyShapeComp->GetShape());
 }
 
 void BlueEnemy::Update(const float dt)
 {
-    enemyShapeComp->GetCircleCollision().move(0.f, speed * yMovementDir * dt);
+    enemyShapeComp->GetShape().move(0.f, speed * yMovementDir * dt);
     if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
     else if (enemyShapeComp->GetPosition().y >= (WindowHeight - size))

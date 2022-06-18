@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-#include "EntityComponent.h"
+
+class EntityComponent;
 
 extern const int WindowWidth;
 extern const int WindowHeight;

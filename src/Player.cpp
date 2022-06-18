@@ -15,7 +15,7 @@ Player::Player()
 	spriteComp->SetTexture("Res/JanitorDuck.png");
 	spriteComp->SetScale(0.5f);
 	collisionComp->SetColor(sf::Color::Cyan);
-	collisionComp->SetDimensions(45.f);
+	collisionComp->SetRadius(45.f);
 
 	UpdateData();
 }
@@ -57,7 +57,7 @@ void Player::Draw(sf::RenderWindow& window)
 	window.draw(spriteComp->GetSprite());
 
 #ifndef _RELEASE
-	window.draw(collisionComp->GetCircleCollision());	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
+	window.draw(collisionComp->GetShape());	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
 #endif // _RELEASE
 }
 

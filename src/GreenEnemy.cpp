@@ -9,7 +9,6 @@ GreenEnemy::GreenEnemy(float x, float y)
     enemyShapeComp = CreateComponent<CircleCollisionComponent>("enemyCollision");
     enemyShapeComp->SetColor(sf::Color::Green);
     enemyShapeComp->SetRadius(size);
-    enemyShapeComp->SetDimensions(size);
     enemyShapeComp->SetPosition(x, y);
 
     UpdateData();
@@ -31,13 +30,13 @@ void GreenEnemy::UpdateData()
 
 void GreenEnemy::Draw(sf::RenderWindow& window)
 {
-    window.draw(enemyShapeComp->GetCircleCollision());
+    window.draw(enemyShapeComp->GetShape());
 }
 
 void GreenEnemy::Update(const float dt)
 {
-    enemyShapeComp->GetCircleCollision().rotate(rotationSpeed);
-    enemyShapeComp->GetCircleCollision().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
+    enemyShapeComp->GetShape().rotate(rotationSpeed);
+    enemyShapeComp->GetShape().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (enemyShapeComp->GetPosition().x <= size)
         xMovementDir = 1;
     else if (enemyShapeComp->GetPosition().x >= (WindowWidth- size))

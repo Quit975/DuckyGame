@@ -15,7 +15,6 @@ Frog::Frog()
     frogShapeComp->SetColor(sf::Color::Magenta);
     frogShapeComp->SetPosition(sf::Vector2f(400, 300));
     frogShapeComp->SetRadius(size);
-    frogShapeComp->SetDimensions(size);
     frogSoundComp->SetSound("Res/froggy.wav", true);
     catchSoundComp->SetSound("Res/frogCatch.wav");
 
@@ -46,7 +45,7 @@ void Frog::UpdateData()
 
 void Frog::Update(const float dt)
 {
-    frogShapeComp->GetCircleCollision().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
+    frogShapeComp->GetShape().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (frogShapeComp->GetPosition().x <= size)
         xMovementDir = 1;
     else if (frogShapeComp->GetPosition().x >= (WindowWidth - size))
@@ -63,7 +62,7 @@ void Frog::Update(const float dt)
 void Frog::Draw(sf::RenderWindow& window)
 {
 #ifndef _RELEASE
-    window.draw(frogShapeComp->GetCircleCollision());
+    window.draw(frogShapeComp->GetShape());
 #endif
 }
 
