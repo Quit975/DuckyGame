@@ -1,13 +1,14 @@
 #include "BlueEnemy.h"
+#include "CircleCollisionComponent.h"
 
 BlueEnemy::BlueEnemy(float x, float y)
 {
     LoadData();
 
-    enemy = sf::CircleShape(size);
-    enemy.setFillColor(sf::Color::Blue);
-    enemy.setPosition(x, y);
-    enemy.setOrigin(15.f, 15.f);
+    enemyShapeComp = CreateComponent<CircleCollisionComponent>("EnemyCollision");
+    enemyShapeComp->SetColor(sf::Color::Blue);
+    enemyShapeComp->SetRadius(size);
+    enemyShapeComp->SetPosition(x, y);
 
     UpdateData();
 }
@@ -22,29 +23,29 @@ void BlueEnemy::LoadData()
 
 void BlueEnemy::UpdateData()
 {
-    enemy.setRadius(size);
+    enemyShapeComp->SetRadius(size);
 }
 
 void BlueEnemy::Draw(sf::RenderWindow& window)
 {
-    window.draw(enemy);
+    window.draw(enemyShapeComp->GetShape());
 }
 
 void BlueEnemy::Update(const float dt)
 {
-    enemy.move(0.f, speed * yMovementDir * dt);
-    if (enemy.getPosition().y <= 0.f)
+    enemyShapeComp->GetShape().move(0.f, speed * yMovementDir * dt);
+    if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
-    else if (enemy.getPosition().y >= WindowHeight)
+    else if (enemyShapeComp->GetPosition().y >= (WindowHeight - size))
         yMovementDir = -1;
 }
 
 sf::FloatRect BlueEnemy::GetBounds()
 {
-    return enemy.getGlobalBounds();
+    return enemyShapeComp->GetBounds();
 }
 
 sf::Vector2f BlueEnemy::GetLocation()
 {
-    return enemy.getPosition();
+    return enemyShapeComp->GetPosition();
 }

@@ -1,24 +1,21 @@
 #include "Player.h"
 #include "DuckyMath.h"
+#include "CircleCollisionComponent.h"
+
 
 Player::Player()
 {
 	LoadData();
 
-	quackBuffer.loadFromFile("Res/quack.wav");
+	quackComp = CreateComponent<SoundComponent>("quackComp");
+	spriteComp = CreateComponent<SpriteComponent>("spriteComp");
+	collisionComp = CreateComponent<CircleCollisionComponent>("collisionComp");
 
-	quackSound.setBuffer(quackBuffer);
-
-	duckyTexture.loadFromFile("Res/JanitorDuck.png");
-	duckyTexture.setSmooth(true);
-
-	duckySprite.setOrigin(static_cast<sf::Vector2f>(duckyTexture.getSize() / 2));
-	duckySprite.setTexture(duckyTexture);
-	duckySprite.setScale(0.5f, 0.5f);
-
-	collisionShape = sf::CircleShape(duckyRadius);
-	collisionShape.setFillColor(sf::Color::Cyan);
-	collisionShape.setOrigin(duckyRadius, duckyRadius);
+	quackComp->SetSound("Res/quack.wav");
+	spriteComp->SetTexture("Res/JanitorDuck.png");
+	spriteComp->SetScale(0.5f);
+	collisionComp->SetColor(sf::Color::Cyan);
+	collisionComp->SetRadius(45.f);
 
 	UpdateData();
 }
@@ -33,45 +30,45 @@ void Player::LoadData()
 
 void Player::UpdateData()
 {
-	quackSound.setVolume(quackVolume);
+	quackComp->SetVolume(quackVolume);
 }
 
 void Player::Update(const float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-		duckySprite.move(-speed * dt, 0.f);
+		spriteComp->GetSprite().move(-speed * dt, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
-		duckySprite.move(speed * dt, 0.f);
+		spriteComp->GetSprite().move(speed * dt, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
-		duckySprite.move(0.f, -speed * dt);
+		spriteComp->GetSprite().move(0.f, -speed * dt);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
-		duckySprite.move(0.f, speed * dt);
+		spriteComp->GetSprite().move(0.f, speed * dt);
 
 	KeepPlayerInBounds();
-	collisionShape.setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y);
-	sf::Listener::setPosition(duckySprite.getPosition().x, duckySprite.getPosition().y, 0.f);
+	collisionComp->SetPosition(spriteComp->GetPosition());
+	sf::Listener::setPosition(spriteComp->GetPosition().x, spriteComp->GetPosition().y, 0.f);
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
-	window.draw(duckySprite);
+	window.draw(spriteComp->GetSprite());
 
 #ifndef _RELEASE
-	window.draw(collisionShape);	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
+	window.draw(collisionComp->GetShape());	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
 #endif // _RELEASE
 }
 
 sf::FloatRect Player::GetBounds()
 {
-	return collisionShape.getGlobalBounds();
+	return collisionComp->GetBounds();
 }
 
 void Player::Quack()
 {
-	quackSound.play();
+	quackComp->Play();
 }
 
 bool Player::Hit()
@@ -92,25 +89,25 @@ void Player::ResetHit()
 
 sf::Vector2f Player::GetLocation()
 {
-	return collisionShape.getPosition();
+	return spriteComp->GetPosition();
 }
 
 
 void Player::KeepPlayerInBounds()
 {	
-	if (duckySprite.getPosition().x > (WindowWidth - duckyRadius)){
-		duckySprite.setPosition((WindowWidth - duckyRadius), (duckySprite.getPosition().y));
+	if (spriteComp->GetPosition().x > (WindowWidth - duckyRadius)){
+		spriteComp->SetPosition((WindowWidth - duckyRadius), (spriteComp->GetPosition().y));
 	}
 
-	else if (duckySprite.getPosition().x < duckyRadius){
-		duckySprite.setPosition(duckyRadius, (duckySprite.getPosition().y));
+	else if (spriteComp->GetPosition().x < duckyRadius){
+		spriteComp->SetPosition(duckyRadius, (spriteComp->GetPosition().y));
 	}
 
-	if (duckySprite.getPosition().y > (WindowHeight - duckyRadius)){
-		duckySprite.setPosition(duckySprite.getPosition().x, (WindowHeight - duckyRadius));
+	if (spriteComp->GetPosition().y > (WindowHeight - duckyRadius)){
+		spriteComp->SetPosition(spriteComp->GetPosition().x, (WindowHeight - duckyRadius));
 	}
 
-	else if (duckySprite.getPosition().y < duckyRadius){
-		duckySprite.setPosition((duckySprite.getPosition().x), duckyRadius);
+	else if (spriteComp->GetPosition().y < duckyRadius){
+		spriteComp->SetPosition((spriteComp->GetPosition().x), duckyRadius);
 	}
 }
