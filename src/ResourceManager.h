@@ -8,7 +8,6 @@ class ResourceManager;
 class ResourceManager {
 private:
 	ResourceManager(); //constructor
-	void LoadResources();
 
 public:
 	ResourceManager(const ResourceManager&) = delete; // copy constructor cannot be used
@@ -20,9 +19,11 @@ public:
 		return instance;
 	}
 
-	sf::Texture GetTexture(const char);
-	sf::Font GetFont(const char);
-	sf::Sound GetSound(const char);
+	void LoadResources();
+
+	sf::Texture &GetTexture(const char);
+	sf::Font &GetFont(const char);
+	sf::Sound &GetSound(const char);
 
 private:
 	sf::Texture duckyTexture;

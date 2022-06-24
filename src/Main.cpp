@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "MusicPlayer.h"
 #include "ScriptManager.h"
+#include "ResourceManager.h"
 
 const int WindowWidth = 800.f;
 const int WindowHeight = 600.f;
@@ -8,6 +9,7 @@ const int WindowHeight = 600.f;
 int main()
 {
 	ScriptManager::Get().Initialize();
+    ResourceManager::Get();
 
     float dt;
     sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
