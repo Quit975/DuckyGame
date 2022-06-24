@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "DuckyMath.h"
+#include "ResourceManager.h"
 
 Player::Player()
 {

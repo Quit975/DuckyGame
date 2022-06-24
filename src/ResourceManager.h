@@ -9,7 +9,7 @@ class ResourceManager;
 class ResourceManager {
 private:
 	ResourceManager(); //constructor
-	void LoadData();
+	void LoadResources();
 
 public:
 	ResourceManager(const ResourceManager&) = delete; // copy constructor cannot be used
@@ -27,7 +27,6 @@ public:
 
 private:
 	sf::Texture duckyTexture;
-
 
 	std::unordered_map<const char, sf::Texture> TextureMap = {
 		{'duck', duckyTexture}
