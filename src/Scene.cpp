@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "CircleCollisionComponent.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
@@ -49,12 +50,14 @@ void Scene::CheckCollisions()
 {
     // check collisions with enemies
     bool collided = false;
-    sf::Vector2f playerLocation = player->GetLocation();
     for (std::unique_ptr<EnemyEntity>& e : enemies)
     {
         if (EntitiesIntersect(player->collisionComp, e->enemyShapeComp))
         {
-            if (player->Hit()) quackCounter->Increase();
+            if (player->Hit())
+            {
+                quackCounter->Increase();
+            }
             collided = true;
         }
     }
