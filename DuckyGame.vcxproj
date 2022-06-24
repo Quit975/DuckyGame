@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\CircleCollisionComponent.cpp" />
     <ClCompile Include="src\EntityComponent.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="src\TextCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\CircleCollisionComponent.h" />
     <ClInclude Include="src\EntityComponent.h" />
