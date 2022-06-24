@@ -1,9 +1,7 @@
 #pragma once
-#include "ScriptEntity.h"
+#include "EnemyEntity.h"
 
-class CircleCollisionComponent;
-
-class BlueEnemy : public ScriptEntity
+class BlueEnemy : public EnemyEntity
 {
 public:
 	BlueEnemy(float x, float y);
@@ -14,14 +12,12 @@ public:
 	// Entity
 	virtual void Draw(sf::RenderWindow& window) override;
 	virtual void Update(const float dt) override;
-	virtual sf::FloatRect GetBounds() override;
 	virtual sf::Vector2f GetLocation() override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
 private:
-	CircleCollisionComponent* enemyShapeComp;
 	int xMovementDir = 1;
 	int yMovementDir = 1;
 

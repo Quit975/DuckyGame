@@ -7,6 +7,9 @@
 #include "Frog.h"
 #include "TextCounter.h"
 #include "Background.h"
+#include "CircleCollisionComponent.h"
+#include "EnemyEntity.h"
+#include "DuckyMath.h"
 
 class Scene
 {
@@ -23,11 +26,13 @@ private:
 	std::unique_ptr<Frog> frog;
 	std::unique_ptr<TextCounter> frogCounter;
 	std::unique_ptr<TextCounter> quackCounter;
-	std::vector<std::unique_ptr<Entity>> enemies;
+	std::vector<std::unique_ptr<EnemyEntity>> enemies;
 
 	std::vector<Entity*> updateGroup;
 	std::vector<Entity*> drawGroup;
 
 	sf::RenderWindow& renderWindow;
+
+	bool EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2);
 };
 

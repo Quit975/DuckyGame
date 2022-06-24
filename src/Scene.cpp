@@ -7,9 +7,9 @@ Scene::Scene(sf::RenderWindow& window):
     player = std::unique_ptr<Player>(new Player());
     frog = std::unique_ptr<Frog>(new Frog());
 
-    enemies.push_back(std::unique_ptr<Entity>(new GreenEnemy(650.f, 200.f)));
-    enemies.push_back(std::unique_ptr<Entity>(new GreenEnemy(150.f, 100.f)));
-    enemies.push_back(std::unique_ptr<Entity>(new BlueEnemy(400.f, 500.f)));
+    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(650.f, 200.f)));
+    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(150.f, 100.f)));
+    enemies.push_back(std::unique_ptr<EnemyEntity>(new BlueEnemy(400.f, 500.f)));
 
     quackCounter = std::unique_ptr<TextCounter>(new TextCounter(50.f, 50.f, "Quack", sf::Color::Red));
     frogCounter = std::unique_ptr<TextCounter>(new TextCounter(500.f, 50.f, "Frog", sf::Color::Green));
@@ -25,7 +25,7 @@ Scene::Scene(sf::RenderWindow& window):
     drawGroup.push_back(frog.get());
 #endif // _RELEASE
 
-    for (std::unique_ptr<Entity>& e : enemies)
+    for (std::unique_ptr<EnemyEntity>& e : enemies)
     {
         updateGroup.push_back(e.get());
         drawGroup.push_back(e.get());
@@ -47,19 +47,14 @@ void Scene::Update(const float dt)
 
 void Scene::CheckCollisions()
 {
-    sf::FloatRect duckyShape = player->GetBounds();
-    sf::FloatRect frogShape = frog->GetBounds();
-
     // check collisions with enemies
     bool collided = false;
-    for (std::unique_ptr<Entity>& e : enemies)
+    sf::Vector2f playerLocation = player->GetLocation();
+    for (std::unique_ptr<EnemyEntity>& e : enemies)
     {
-        if (duckyShape.intersects(e->GetBounds()))
+        if (EntitiesIntersect(player->collisionComp, e->enemyShapeComp))
         {
-            if (player->Hit())
-            {
-                quackCounter->Increase();
-            }
+            if (player->Hit()) quackCounter->Increase();
             collided = true;
         }
     }
@@ -68,13 +63,20 @@ void Scene::CheckCollisions()
         player->ResetHit();
     }
 
-    // check if frog caught
-    if (duckyShape.intersects(frogShape))
+    // check collision with a frog
+    if (EntitiesIntersect(player->collisionComp, frog->frogShapeComp))
     {
         frogCounter->Increase();
         frog->Catch();
         frog->TeleportAwayFromPlayer(player->GetLocation());
     }
+}
+
+bool Scene::EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2)
+{
+    float distanceToCollide = component1->collisionRadius + component2->collisionRadius;
+    float distanceBetweenEntities = VecLength(component1->GetPosition() - component2->GetPosition());
+    return distanceBetweenEntities <= distanceToCollide;
 }
 
 void Scene::Draw()

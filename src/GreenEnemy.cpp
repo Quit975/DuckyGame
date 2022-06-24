@@ -1,7 +1,6 @@
 #include "GreenEnemy.h"
 #include "CircleCollisionComponent.h"
 
-
 GreenEnemy::GreenEnemy(float x, float y)
 {
     LoadData();
@@ -46,11 +45,6 @@ void GreenEnemy::Update(const float dt)
         yMovementDir = 1;
     else if (enemyShapeComp->GetPosition().y >= (WindowHeight- size))
         yMovementDir = -1;
-}
-
-sf::FloatRect GreenEnemy::GetBounds()
-{
-    return enemyShapeComp->GetBounds();
 }
 
 sf::Vector2f GreenEnemy::GetLocation()

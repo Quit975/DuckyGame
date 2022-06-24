@@ -40,11 +40,6 @@ void BlueEnemy::Update(const float dt)
         yMovementDir = -1;
 }
 
-sf::FloatRect BlueEnemy::GetBounds()
-{
-    return enemyShapeComp->GetBounds();
-}
-
 sf::Vector2f BlueEnemy::GetLocation()
 {
     return enemyShapeComp->GetPosition();
