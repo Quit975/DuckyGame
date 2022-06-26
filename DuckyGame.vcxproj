@@ -15,7 +15,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\CircleCollisionComponent.cpp" />
     <ClCompile Include="src\EntityComponent.cpp" />
@@ -26,6 +25,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Scriptable.cpp" />
     <ClCompile Include="src\ScriptManager.cpp" />
@@ -34,7 +34,6 @@
     <ClCompile Include="src\TextCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\CircleCollisionComponent.h" />
     <ClInclude Include="src\EntityComponent.h" />
@@ -46,6 +45,7 @@
     <ClInclude Include="src\GreenEnemy.h" />
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Scriptable.h" />
     <ClInclude Include="src\ScriptEntity.h" />

@@ -80,7 +80,7 @@
     <ClCompile Include="src\CircleCollisionComponent.cpp">
       <Filter>Code\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
+    <ClCompile Include="src\ResourceManager.cpp">
       <Filter>Code\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -139,7 +139,7 @@
     <ClInclude Include="src\CircleCollisionComponent.h">
       <Filter>Code\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
+    <ClInclude Include="src\ResourceManager.h">
       <Filter>Code\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
