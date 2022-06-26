@@ -136,6 +136,9 @@
     <ClInclude Include="src\CircleCollisionComponent.h">
       <Filter>Code\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\EnemyEntity.h">
+      <Filter>Code\Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".github\workflows\BuildAndDeployGame.yml">

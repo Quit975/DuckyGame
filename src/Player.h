@@ -22,16 +22,16 @@ public:
 	// Entity
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::FloatRect GetBounds() override;
 	virtual sf::Vector2f GetLocation() override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
+	CircleCollisionComponent* collisionComp;
+
 private:
 	SpriteComponent* spriteComp;
 	SoundComponent* quackComp;
-	CircleCollisionComponent* collisionComp;
 	
 	float duckyRadius = 45.f; //desired ducky radius, this can be temporary, but I haven't yet figured out how to get the right size from sprite or texture
 	bool gequacked = false;

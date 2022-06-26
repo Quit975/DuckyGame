@@ -35,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\CircleCollisionComponent.h" />
+    <ClInclude Include="src\EnemyEntity.h" />
     <ClInclude Include="src\EntityComponent.h" />
     <ClInclude Include="src\BlueEnemy.h" />
     <ClInclude Include="src\CollisionComponent.h" />

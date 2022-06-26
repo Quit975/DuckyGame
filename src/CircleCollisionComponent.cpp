@@ -7,6 +7,7 @@ void CircleCollisionComponent::SetColor(sf::Color color)
 
 void CircleCollisionComponent::SetRadius(float radius)
 {
+	collisionRadius = radius;
 	CircleCollision.setRadius(radius);
 	CircleCollision.setOrigin(radius, radius);
 }
@@ -26,9 +27,4 @@ sf::Vector2f CircleCollisionComponent::GetPosition()
 {
 	return CircleCollision.getPosition();
 
-}
-
-sf::FloatRect CircleCollisionComponent::GetBounds()
-{
-	return CircleCollision.getGlobalBounds();
 }

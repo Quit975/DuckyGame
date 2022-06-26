@@ -11,7 +11,7 @@ public:
 	void SetPosition(float x, float y);
 	
 	sf::Vector2f GetPosition();
-	sf::FloatRect GetBounds();
+	float collisionRadius;
 
 	inline sf::CircleShape& GetShape() { return CircleCollision; }
 

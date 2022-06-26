@@ -32,11 +32,6 @@ void TextCounter::Draw(sf::RenderWindow& window)
     window.draw(counterText);
 }
 
-sf::FloatRect TextCounter::GetBounds()
-{
-    return sf::FloatRect();
-}
-
 sf::Vector2f TextCounter::GetLocation()
 {
     return counterText.getPosition();

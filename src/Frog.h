@@ -19,16 +19,16 @@ public:
 	// Entity
 	virtual void Update(const float dt) override;
 	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::FloatRect GetBounds() override;
 	virtual sf::Vector2f GetLocation() override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
+	CircleCollisionComponent* frogShapeComp;
+
 private:
 	SoundComponent* frogSoundComp;
 	SoundComponent* catchSoundComp;
-	CircleCollisionComponent* frogShapeComp;
 	
 	int xMovementDir = 1;
 	int yMovementDir = 1;

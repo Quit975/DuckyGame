@@ -61,11 +61,6 @@ void Player::Draw(sf::RenderWindow& window)
 #endif // _RELEASE
 }
 
-sf::FloatRect Player::GetBounds()
-{
-	return collisionComp->GetBounds();
-}
-
 void Player::Quack()
 {
 	quackComp->Play();

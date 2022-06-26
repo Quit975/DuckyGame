@@ -66,11 +66,6 @@ void Frog::Draw(sf::RenderWindow& window)
 #endif
 }
 
-sf::FloatRect Frog::GetBounds()
-{
-    return frogShapeComp->GetBounds();
-}
-
 sf::Vector2f Frog::GetLocation()
 {
     return frogShapeComp->GetPosition();
