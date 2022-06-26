@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "CircleCollisionComponent.h"
+#include "DuckyMath.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}

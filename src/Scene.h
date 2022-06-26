@@ -8,7 +8,6 @@
 #include "TextCounter.h"
 #include "Background.h"
 #include "EnemyEntity.h"
-#include "DuckyMath.h"
 
 class Scene
 {
