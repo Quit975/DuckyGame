@@ -26,12 +26,7 @@ public:
 	sf::Sound& GetSound(const char);
 
 private:
-	sf::Texture duckyTexture;
-
-	std::unordered_map<const char, sf::Texture> TextureMap = {
-		{'duck', duckyTexture}
-	};
-
+	std::unordered_map<const char, sf::Texture> TextureMap;
 	std::unordered_map<const char, sf::Font> FontMap;
 	std::unordered_map<const char, sf::Sound> SoundMap;
 
