@@ -1,47 +1,46 @@
 #include "ResourceManager.h"
 
-ResourceManager::~ResourceManager() {
-}
+ResourceManager::ResourceManager(){}
+ResourceManager::~ResourceManager(){}
 
 void ResourceManager::LoadResources() {
-	// textures
-	sf::Texture DuckTexture;
-	DuckTexture.loadFromFile("Res / JanitorDuck.png");
+	LoadTexture("Duck", "Res/JanitorDuck.png");
+	LoadTexture("Meadow", "Res/quackMeadowBG.png");
 
-	sf::Texture BackgroundTexture;
-	BackgroundTexture.loadFromFile("Res/quackMeadowBG.png");
+	LoadSound("Quack", "Res/quack.wav");
+	LoadSound("Frog", "Res/froggy.wav");
+	LoadSound("Catch", "Res/frogCatch.wav");
 
-
-	//fonts
-	sf::Font TextCounter;
-	TextCounter.loadFromFile("Res/consola.ttf");
-
-
-	// sounds
-	sf::SoundBuffer QuackBuffer;
-	sf::Sound QuackSound;
-	QuackBuffer.loadFromFile("Res/quack.wav");
-	QuackSound.setBuffer(QuackBuffer);
-
-	sf::SoundBuffer FrogBuffer;
-	sf::Sound FrogSound;
-	FrogBuffer.loadFromFile("Res/froggy.wav");
-	FrogSound.setBuffer(FrogBuffer);
-
-	sf::SoundBuffer CatchBuffer;
-	sf::Sound CatchSound;
-	CatchBuffer.loadFromFile("Res/frogCatch.wav");
-	CatchSound.setBuffer(CatchBuffer);
+	LoadFont("Text", "Res/consola.ttf");
 }
 
-sf::Texture& ResourceManager::GetTexture(const char name) {
+void ResourceManager::LoadTexture(const char* name, const char* path) {
+    sf::Texture& tex = TextureMap[name]; 
+	tex.loadFromFile(path);
+};
+
+void ResourceManager::LoadSound(const char* name, const char* path) {
+	sf::SoundBuffer Buffer;
+	Buffer.loadFromFile(path);
+	
+	sf::Sound& Sound = SoundMap[name];
+	Sound.setBuffer(Buffer);
+};
+
+void ResourceManager::LoadFont(const char* name, const char* path) {
+	sf::Font& font = FontMap[name];
+	font.loadFromFile(path);
+};
+
+
+sf::Texture& ResourceManager::GetTexture(const char* name) {
 	return TextureMap.at(name);
 }
 
-sf::Font& ResourceManager::GetFont(const char name) {
+sf::Font& ResourceManager::GetFont(const char* name) {
 	return FontMap.at(name);
 }
 
-sf::Sound& ResourceManager::GetSound(const char name) {
+sf::Sound& ResourceManager::GetSound(const char* name) {
 	return SoundMap.at(name);
 }

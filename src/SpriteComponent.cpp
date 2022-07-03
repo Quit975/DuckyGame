@@ -1,10 +1,11 @@
 #include "SpriteComponent.h"
 #include "DuckyMath.h"
+#include "ResourceManager.h"
 
 
-void SpriteComponent::SetTexture(const char* path)
+void SpriteComponent::SetTexture(const char* name)
 {
-	Texture.loadFromFile(path);
+	Texture = ResourceManager::Get().GetTexture(name);
 	Sprite.setTexture(Texture);
 	Sprite.setOrigin(static_cast<sf::Vector2f>(Texture.getSize() / 2));
 }

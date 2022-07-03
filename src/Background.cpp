@@ -1,9 +1,9 @@
 #include "Background.h"
+#include "ResourceManager.h"
 
 Background::Background()
 {
-	texture.loadFromFile("Res/quackMeadowBG.png");
-
+	texture = ResourceManager::Get().GetTexture("Meadow");
 	bg.setTexture(texture);
 	
 }

@@ -9,6 +9,14 @@ class ResourceManager {
 private:
 	ResourceManager(); //constructor
 
+	void LoadTexture(const char* name, const char* path);
+	void LoadSound(const char* name, const char* path);
+	void LoadFont(const char* name, const char* path);
+
+	std::unordered_map<const char*, sf::Texture> TextureMap;
+	std::unordered_map<const char*, sf::Font> FontMap;
+	std::unordered_map<const char*, sf::Sound> SoundMap;
+
 public:
 	ResourceManager(const ResourceManager&) = delete; // copy constructor cannot be used
 	void operator = (const ResourceManager&) = delete;  //assignmnent is locked
@@ -21,13 +29,7 @@ public:
 
 	void LoadResources();
 
-	sf::Texture& GetTexture(const char);
-	sf::Font& GetFont(const char);
-	sf::Sound& GetSound(const char);
-
-private:
-	std::unordered_map<const char, sf::Texture> TextureMap;
-	std::unordered_map<const char, sf::Font> FontMap;
-	std::unordered_map<const char, sf::Sound> SoundMap;
-
+	sf::Texture& GetTexture(const char*);
+	sf::Font& GetFont(const char*);
+	sf::Sound& GetSound(const char*);
 };

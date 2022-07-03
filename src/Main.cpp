@@ -9,7 +9,7 @@ const int WindowHeight = 600.f;
 int main()
 {
 	ScriptManager::Get().Initialize();
-    ResourceManager::Get().LoadResources();
+    ResourceManager::Get().LoadResources(); 
 
     float dt;
     sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
