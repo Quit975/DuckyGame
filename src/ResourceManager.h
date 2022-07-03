@@ -16,6 +16,7 @@ private:
 	std::unordered_map<const char*, sf::Texture> TextureMap;
 	std::unordered_map<const char*, sf::Font> FontMap;
 	std::unordered_map<const char*, sf::Sound> SoundMap;
+	std::unordered_map<const char*, sf::SoundBuffer> BufferMap;
 
 public:
 	ResourceManager(const ResourceManager&) = delete; // copy constructor cannot be used

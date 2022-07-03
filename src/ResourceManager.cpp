@@ -20,7 +20,7 @@ void ResourceManager::LoadTexture(const char* name, const char* path) {
 };
 
 void ResourceManager::LoadSound(const char* name, const char* path) {
-	sf::SoundBuffer Buffer;
+	sf::SoundBuffer& Buffer = BufferMap[name];
 	Buffer.loadFromFile(path);
 	
 	sf::Sound& Sound = SoundMap[name];
