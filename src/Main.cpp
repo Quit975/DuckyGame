@@ -74,4 +74,6 @@ int main()
                 dt -= desiredDt;    
         }
     }   
+
+    ResourceManager::Get().UnloadResources();
 }

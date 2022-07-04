@@ -12,6 +12,13 @@ void ResourceManager::LoadResources() {
 	LoadFont("Text", "Res/consola.ttf");
 }
 
+void ResourceManager::UnloadResources()
+{
+	TextureMap.clear();
+	FontMap.clear();
+	BufferMap.clear();
+}
+
 void ResourceManager::LoadTexture(const char* name, const char* path) {
 #ifndef _RELEASE
 	auto found = TextureMap.find(name);

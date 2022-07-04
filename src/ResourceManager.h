@@ -28,6 +28,7 @@ public:
 	}
 
 	void LoadResources();
+	void UnloadResources();
 
 	sf::Texture& GetTexture(const char*);
 	sf::Font& GetFont(const char*);
