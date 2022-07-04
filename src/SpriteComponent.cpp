@@ -5,9 +5,8 @@
 
 void SpriteComponent::SetTexture(const char* name)
 {
-	Texture = ResourceManager::Get().GetTexture(name);
-	Sprite.setTexture(Texture);
-	Sprite.setOrigin(static_cast<sf::Vector2f>(Texture.getSize() / 2));
+	Sprite.setTexture(ResourceManager::Get().GetTexture(name));
+	Sprite.setOrigin(static_cast<sf::Vector2f>(ResourceManager::Get().GetTexture(name).getSize() / 2));
 }
 
 void SpriteComponent::SetScale(float scale)
@@ -20,7 +19,7 @@ void SpriteComponent::SetPosition(float x, float y)
 	Sprite.setPosition(x, y);
 }
 
-void SpriteComponent::SetSmooth(bool smooth)
+void SpriteComponent::SetSmooth(const char* name, bool smooth)
 {
-	Texture.setSmooth(smooth);
+	ResourceManager::Get().GetTexture(name).setSmooth(smooth);
 }

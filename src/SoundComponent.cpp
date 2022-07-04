@@ -3,7 +3,7 @@
 
 void SoundComponent::SetSound(const char* name, bool looping)
 {
-	Sound = ResourceManager::Get().GetSound(name);
+	Sound.setBuffer(ResourceManager::Get().GetBuffer(name));
 
 	Sound.setAttenuation(0);
 	if (looping)

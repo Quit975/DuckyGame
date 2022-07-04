@@ -15,7 +15,6 @@ public:
 	void SetPosition(sf::Vector2f position);
 
 private:
-	sf::SoundBuffer Buffer;
 	sf::Sound Sound;
 };
 

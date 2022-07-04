@@ -1,33 +1,43 @@
 #include "ResourceManager.h"
-
-ResourceManager::ResourceManager(){}
-ResourceManager::~ResourceManager(){}
+#include <cassert>
 
 void ResourceManager::LoadResources() {
 	LoadTexture("Duck", "Res/JanitorDuck.png");
 	LoadTexture("Meadow", "Res/quackMeadowBG.png");
 
-	LoadSound("Quack", "Res/quack.wav");
-	LoadSound("Frog", "Res/froggy.wav");
-	LoadSound("Catch", "Res/frogCatch.wav");
+	LoadBuffer("Quack", "Res/quack.wav");
+	LoadBuffer("Frog", "Res/froggy.wav");
+	LoadBuffer("Catch", "Res/frogCatch.wav");
 
 	LoadFont("Text", "Res/consola.ttf");
 }
 
 void ResourceManager::LoadTexture(const char* name, const char* path) {
+#ifndef _RELEASE
+	auto found = TextureMap.find(name);
+	assert(found == TextureMap.end() && "Trying to load a texture under already existing key!");
+#endif
+
     sf::Texture& tex = TextureMap[name]; 
 	tex.loadFromFile(path);
 };
 
-void ResourceManager::LoadSound(const char* name, const char* path) {
+void ResourceManager::LoadBuffer(const char* name, const char* path) {
+#ifndef _RELEASE
+	auto found = BufferMap.find(name);
+	assert(found == BufferMap.end() && "Trying to load a sound buffer under already existing key!");
+#endif
+
 	sf::SoundBuffer& Buffer = BufferMap[name];
 	Buffer.loadFromFile(path);
-	
-	sf::Sound& Sound = SoundMap[name];
-	Sound.setBuffer(Buffer);
 };
 
 void ResourceManager::LoadFont(const char* name, const char* path) {
+#ifndef _RELEASE
+	auto found = FontMap.find(name);
+	assert(found == FontMap.end() && "Trying to load a font under already existing key!");
+#endif
+
 	sf::Font& font = FontMap[name];
 	font.loadFromFile(path);
 };
@@ -41,6 +51,6 @@ sf::Font& ResourceManager::GetFont(const char* name) {
 	return FontMap.at(name);
 }
 
-sf::Sound& ResourceManager::GetSound(const char* name) {
-	return SoundMap.at(name);
+sf::SoundBuffer& ResourceManager::GetBuffer(const char* name) {
+	return BufferMap.at(name);
 }
