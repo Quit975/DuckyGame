@@ -11,8 +11,9 @@ Player::Player()
 	spriteComp = CreateComponent<SpriteComponent>("spriteComp");
 	collisionComp = CreateComponent<CircleCollisionComponent>("collisionComp");
 
-	quackComp->SetSound("Res/quack.wav");
-	spriteComp->SetTexture("Res/JanitorDuck.png");
+	quackComp->SetSound("Quack");
+	spriteComp->SetTexture("Duck");
+
 	spriteComp->SetScale(0.5f);
 	collisionComp->SetColor(sf::Color::Cyan);
 	collisionComp->SetRadius(45.f);

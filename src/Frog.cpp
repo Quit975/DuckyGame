@@ -15,8 +15,9 @@ Frog::Frog()
     frogShapeComp->SetColor(sf::Color::Magenta);
     frogShapeComp->SetPosition(sf::Vector2f(400, 300));
     frogShapeComp->SetRadius(size);
-    frogSoundComp->SetSound("Res/froggy.wav", true);
-    catchSoundComp->SetSound("Res/frogCatch.wav");
+
+    frogSoundComp->SetSound("Frog", true);
+    catchSoundComp->SetSound("Catch");
 
     srand(time(NULL));
 

@@ -13,7 +13,6 @@ public:
     virtual sf::Vector2f GetLocation() override;
 
 private:
-    sf::Font font;
     const char* counterName;
     sf::Text counterText;
     std::stringstream s;

@@ -1,11 +1,8 @@
 #include "Background.h"
+#include "ResourceManager.h"
 
-Background::Background()
-{
-	texture.loadFromFile("Res/quackMeadowBG.png");
-
-	bg.setTexture(texture);
-	
+Background::Background(){
+	bg.setTexture(ResourceManager::Get().GetTexture("Meadow"));
 }
 
 void Background::Draw(sf::RenderWindow& window)

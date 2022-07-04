@@ -1,13 +1,12 @@
 #include "TextCounter.h"
+#include "ResourceManager.h"
 
 TextCounter::TextCounter(float x, float y, const char* text, sf::Color color):
     counterName{text}
 {
-    font.loadFromFile("Res/consola.ttf");
-
     s << counterName << " count : " << counter;
 
-    counterText.setFont(font);
+    counterText.setFont(ResourceManager::Get().GetFont("Text"));
     counterText.setString(s.str());
     counterText.setCharacterSize(24);
     counterText.setFillColor(color);

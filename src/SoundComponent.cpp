@@ -1,10 +1,10 @@
 #include "SoundComponent.h"
+#include "ResourceManager.h"
 
-
-void SoundComponent::SetSound(const char* path, bool looping)
+void SoundComponent::SetSound(const char* name, bool looping)
 {
-	Buffer.loadFromFile(path);
-	Sound.setBuffer(Buffer);
+	Sound.setBuffer(ResourceManager::Get().GetBuffer(name));
+
 	Sound.setAttenuation(0);
 	if (looping)
 	{
