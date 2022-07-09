@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <memory>
-#include "EntityComponent.h"	//to avoid "use of undefined type" error, otherwise occuring when using unique_ptr instead of raw
+#include "Components/EntityComponent.h"	//to avoid "use of undefined type" error, otherwise occuring when using unique_ptr instead of raw
 
 
 

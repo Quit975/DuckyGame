@@ -1,13 +1,13 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Player.h"
-#include "GreenEnemy.h"
-#include "BlueEnemy.h"
-#include "Frog.h"
-#include "TextCounter.h"
+#include "Entity/Player.h"
+#include "Entity/GreenEnemy.h"
+#include "Entity/BlueEnemy.h"
+#include "Entity/Frog.h"
+#include "Entity/TextCounter.h"
 #include "Background.h"
-#include "EnemyEntity.h"
+#include "Entity/EnemyEntity.h"
 
 class Scene
 {

@@ -1,6 +1,6 @@
-#include "Scene.h"
+#include "Scene/Scene.h"
 #include "MusicPlayer.h"
-#include "ScriptManager.h"
+#include "Scripting/ScriptManager.h"
 #include "ResourceManager.h"
 
 const int WindowWidth = 800.f;

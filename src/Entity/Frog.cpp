@@ -1,6 +1,6 @@
 #include "Frog.h"
 #include "DuckyMath.h"
-#include "CircleCollisionComponent.h"
+#include "Components/CircleCollisionComponent.h"
 #include <stdlib.h>
 #include <time.h>
 

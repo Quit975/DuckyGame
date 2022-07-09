@@ -1,5 +1,5 @@
 #include "BlueEnemy.h"
-#include "CircleCollisionComponent.h"
+#include "Components/CircleCollisionComponent.h"
 
 BlueEnemy::BlueEnemy(float x, float y)
 {

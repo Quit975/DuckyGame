@@ -5,5 +5,5 @@
 class CollisionComponent : public EntityComponent
 {
 public:
-	
+	CollisionComponent() {};
 };

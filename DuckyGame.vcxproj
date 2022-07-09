@@ -15,47 +15,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Background.cpp" />
-    <ClCompile Include="src\CircleCollisionComponent.cpp" />
-    <ClCompile Include="src\EntityComponent.cpp" />
-    <ClCompile Include="src\BlueEnemy.cpp" />
-    <ClCompile Include="src\CollisionComponent.cpp" />
-    <ClCompile Include="src\Frog.cpp" />
-    <ClCompile Include="src\GreenEnemy.cpp" />
-    <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\MusicPlayer.cpp" />
-    <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\ResourceManager.cpp" />
-    <ClCompile Include="src\Scene.cpp" />
-    <ClCompile Include="src\Scriptable.cpp" />
-    <ClCompile Include="src\ScriptManager.cpp" />
-    <ClCompile Include="src\SoundComponent.cpp" />
-    <ClCompile Include="src\SpriteComponent.cpp" />
-    <ClCompile Include="src\TextCounter.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Background.h" />
-    <ClInclude Include="src\CircleCollisionComponent.h" />
-    <ClInclude Include="src\EnemyEntity.h" />
-    <ClInclude Include="src\EntityComponent.h" />
-    <ClInclude Include="src\BlueEnemy.h" />
-    <ClInclude Include="src\CollisionComponent.h" />
-    <ClInclude Include="src\DuckyMath.h" />
-    <ClInclude Include="src\Entity.h" />
-    <ClInclude Include="src\Frog.h" />
-    <ClInclude Include="src\GreenEnemy.h" />
-    <ClInclude Include="src\MusicPlayer.h" />
-    <ClInclude Include="src\Player.h" />
-    <ClInclude Include="src\ResourceManager.h" />
-    <ClInclude Include="src\Scene.h" />
-    <ClInclude Include="src\Scriptable.h" />
-    <ClInclude Include="src\ScriptEntity.h" />
-    <ClInclude Include="src\ScriptManager.h" />
-    <ClInclude Include="src\SoundComponent.h" />
-    <ClInclude Include="src\SpriteComponent.h" />
-    <ClInclude Include="src\TextCounter.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include=".github\workflows\BuildAndDeployGame.yml" />
     <None Include=".github\workflows\BuildGame.yml" />
     <None Include=".github\workflows\CreatePackage.yml" />
@@ -66,6 +25,45 @@
     <None Include="scripts\greenEnemy.lua" />
     <None Include="scripts\master.lua" />
     <None Include="scripts\player.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Background.h" />
+    <ClInclude Include="src\Components\CircleCollisionComponent.h" />
+    <ClInclude Include="src\Components\CollisionComponent.h" />
+    <ClInclude Include="src\Components\EntityComponent.h" />
+    <ClInclude Include="src\Components\SoundComponent.h" />
+    <ClInclude Include="src\Components\SpriteComponent.h" />
+    <ClInclude Include="src\DuckyMath.h" />
+    <ClInclude Include="src\Entity\BlueEnemy.h" />
+    <ClInclude Include="src\Entity\EnemyEntity.h" />
+    <ClInclude Include="src\Entity\Entity.h" />
+    <ClInclude Include="src\Entity\Frog.h" />
+    <ClInclude Include="src\Entity\GreenEnemy.h" />
+    <ClInclude Include="src\Entity\Player.h" />
+    <ClInclude Include="src\Entity\ScriptEntity.h" />
+    <ClInclude Include="src\Entity\TextCounter.h" />
+    <ClInclude Include="src\MusicPlayer.h" />
+    <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scripting\Scriptable.h" />
+    <ClInclude Include="src\Scripting\ScriptManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Background.cpp" />
+    <ClCompile Include="src\Components\CircleCollisionComponent.cpp" />
+    <ClCompile Include="src\Components\SoundComponent.cpp" />
+    <ClCompile Include="src\Components\SpriteComponent.cpp" />
+    <ClCompile Include="src\Entity\BlueEnemy.cpp" />
+    <ClCompile Include="src\Entity\Frog.cpp" />
+    <ClCompile Include="src\Entity\GreenEnemy.cpp" />
+    <ClCompile Include="src\Entity\Player.cpp" />
+    <ClCompile Include="src\Entity\TextCounter.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\MusicPlayer.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scripting\Scriptable.cpp" />
+    <ClCompile Include="src\Scripting\ScriptManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -134,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -169,7 +167,7 @@ exit 0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_QA;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -206,7 +204,7 @@ exit 0</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;$(SolutionDir)ThirdParty\lua\include;$(SolutionDir)ThirdParty\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

@@ -1,5 +1,5 @@
 #include "GreenEnemy.h"
-#include "CircleCollisionComponent.h"
+#include "Components/CircleCollisionComponent.h"
 
 GreenEnemy::GreenEnemy(float x, float y)
 {

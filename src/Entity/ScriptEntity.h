@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
-#include "Scriptable.h"
-#include "ScriptManager.h"
+#include "Scripting/Scriptable.h"
+#include "Scripting/ScriptManager.h"
 
 class ScriptEntity : public Entity, public Scriptable
 {

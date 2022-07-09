@@ -3,6 +3,5 @@
 class EntityComponent
 {
 public:
-	
-	EntityComponent();
+	EntityComponent() {};
 };

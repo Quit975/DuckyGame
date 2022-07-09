@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "DuckyMath.h"
-#include "CircleCollisionComponent.h"
+#include "Components/CircleCollisionComponent.h"
+#include "Components/SoundComponent.h"
+#include "Components/SpriteComponent.h"
 
 
 Player::Player()

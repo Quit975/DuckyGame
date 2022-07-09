@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
-#include "SoundComponent.h"
+#include "Components/SoundComponent.h"
 
 class CircleCollisionComponent;
 

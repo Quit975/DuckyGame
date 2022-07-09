@@ -1,8 +1,6 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
-#include "SoundComponent.h"
-#include "SpriteComponent.h"
 
 class CircleCollisionComponent;
 
@@ -27,11 +25,11 @@ public:
 	// Scriptable
 	virtual void LoadData() override;
 
-	CircleCollisionComponent* collisionComp;
+	class CircleCollisionComponent* collisionComp;
 
 private:
-	SpriteComponent* spriteComp;
-	SoundComponent* quackComp;
+	class SpriteComponent* spriteComp;
+	class SoundComponent* quackComp;
 	
 	float duckyRadius = 45.f; //desired ducky radius, this can be temporary, but I haven't yet figured out how to get the right size from sprite or texture
 	bool gequacked = false;
