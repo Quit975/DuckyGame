@@ -1,5 +1,10 @@
 #include "CircleCollisionComponent.h"
 
+CircleCollisionComponent::CircleCollisionComponent(SceneNode* Parent) :
+	CollisionComponent(Parent)
+{
+}
+
 void CircleCollisionComponent::SetColor(sf::Color color)
 {
 	CircleCollision.setFillColor(color);

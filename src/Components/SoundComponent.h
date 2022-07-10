@@ -5,7 +5,7 @@
 class SoundComponent : public EntityComponent
 {
 public:
-	SoundComponent() = default;
+	SoundComponent(SceneNode* Parent);
 
 	void Play();
 

@@ -1,7 +1,8 @@
 #include "TextCounter.h"
 #include "ResourceManager.h"
 
-TextCounter::TextCounter(float x, float y, const char* text, sf::Color color):
+TextCounter::TextCounter(SceneNode* Parent, float x, float y, const char* text, sf::Color color):
+    Entity(Parent),
     counterName{text}
 {
     s << counterName << " count : " << counter;

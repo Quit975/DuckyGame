@@ -1,7 +1,8 @@
 #include "BlueEnemy.h"
 #include "Components/CircleCollisionComponent.h"
 
-BlueEnemy::BlueEnemy(float x, float y)
+BlueEnemy::BlueEnemy(SceneNode* Parent, float x, float y) :
+    EnemyEntity(Parent)
 {
     LoadData();
 

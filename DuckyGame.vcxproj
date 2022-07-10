@@ -45,6 +45,7 @@
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\SceneNode.h" />
     <ClInclude Include="src\Scripting\Scriptable.h" />
     <ClInclude Include="src\Scripting\ScriptManager.h" />
   </ItemGroup>
@@ -62,6 +63,7 @@
     <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\SceneNode.cpp" />
     <ClCompile Include="src\Scripting\Scriptable.cpp" />
     <ClCompile Include="src\Scripting\ScriptManager.cpp" />
   </ItemGroup>

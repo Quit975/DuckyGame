@@ -5,5 +5,6 @@
 class CollisionComponent : public EntityComponent
 {
 public:
-	CollisionComponent() {};
+	CollisionComponent(SceneNode* Parent):
+		EntityComponent(Parent) {};
 };

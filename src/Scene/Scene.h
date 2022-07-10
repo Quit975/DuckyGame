@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <memory>
+
+#include "SceneNode.h"
+
 #include "Entity/Player.h"
 #include "Entity/GreenEnemy.h"
 #include "Entity/BlueEnemy.h"
@@ -8,6 +11,7 @@
 #include "Entity/TextCounter.h"
 #include "Background.h"
 #include "Entity/EnemyEntity.h"
+
 
 class Scene
 {
@@ -19,6 +23,8 @@ public:
 	void Draw();
 
 private:
+	std::unique_ptr<SceneNode> SceneRoot = nullptr;
+
 	std::unique_ptr<Background> bg;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Frog> frog;

@@ -1,6 +1,11 @@
 #include "SoundComponent.h"
 #include "ResourceManager.h"
 
+SoundComponent::SoundComponent(SceneNode* Parent) :
+	EntityComponent(Parent)
+{
+}
+
 void SoundComponent::SetSound(const char* name, bool looping)
 {
 	Sound.setBuffer(ResourceManager::Get().GetBuffer(name));

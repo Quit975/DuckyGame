@@ -6,7 +6,9 @@ class CircleCollisionComponent;
 class EnemyEntity : public ScriptEntity
 {
 public:
-	EnemyEntity() {};
+	EnemyEntity(SceneNode* Parent) :
+		ScriptEntity(Parent) {};
+
 	virtual ~EnemyEntity() {};
 
 	CircleCollisionComponent* enemyShapeComp;

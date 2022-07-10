@@ -3,6 +3,11 @@
 #include "ResourceManager.h"
 
 
+SpriteComponent::SpriteComponent(SceneNode* Parent) :
+	EntityComponent(Parent)
+{
+}
+
 void SpriteComponent::SetTexture(const char* name)
 {
 	Sprite.setTexture(ResourceManager::Get().GetTexture(name));

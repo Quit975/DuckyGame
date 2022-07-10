@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-Frog::Frog()
+Frog::Frog(SceneNode* Parent) :
+    ScriptEntity(Parent)
 {
     LoadData();
 

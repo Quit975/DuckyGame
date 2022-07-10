@@ -5,7 +5,7 @@
 class TextCounter : public Entity
 {
 public: 
-    TextCounter(float x, float y, const char* text, sf::Color color);
+    TextCounter(SceneNode* Parent, float x, float y, const char* text, sf::Color color);
     void Increase();
 
     virtual void Update(const float dt) override;

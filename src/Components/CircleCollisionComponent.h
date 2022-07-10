@@ -5,6 +5,8 @@
 class CircleCollisionComponent : public CollisionComponent
 {
 public:
+	CircleCollisionComponent(SceneNode* Parent);
+
 	void SetColor(sf::Color color);
 	void SetRadius(float radius);
 	void SetPosition(sf::Vector2f position);

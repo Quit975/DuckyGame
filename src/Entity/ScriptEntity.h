@@ -6,7 +6,8 @@
 class ScriptEntity : public Entity, public Scriptable
 {
 public:
-	ScriptEntity() {};
+	ScriptEntity(SceneNode* Parent):
+		Entity(Parent) {};
 	virtual ~ScriptEntity() {};
 
 	virtual void UpdateData() {};

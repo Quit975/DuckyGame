@@ -7,7 +7,7 @@ class CircleCollisionComponent;
 class Player : public ScriptEntity
 {
 public:
-	Player();
+	Player(SceneNode* Parent);
 
 	void Quack();
 	bool Hit();

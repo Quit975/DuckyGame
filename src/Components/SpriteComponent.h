@@ -5,6 +5,8 @@
 class SpriteComponent : public EntityComponent
 {
 public:
+	SpriteComponent(SceneNode* Parent);
+
 	void SetTexture(const char* path);
 	void SetScale(float scale);
 	void SetPosition(float x, float y);

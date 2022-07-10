@@ -1,7 +1,9 @@
 #pragma once
+#include "Scene/SceneNode.h"
 
-class EntityComponent
+class EntityComponent : public SceneNode
 {
 public:
-	EntityComponent() {};
+	EntityComponent(SceneNode* Parent) :
+		SceneNode(Parent) {};
 };

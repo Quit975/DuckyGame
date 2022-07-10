@@ -8,7 +8,7 @@ class CircleCollisionComponent;
 class Frog : public ScriptEntity
 {
 public:
-	Frog();
+	Frog(SceneNode* Parent);
 	
 	void Catch();
 	void TeleportAwayFromPlayer(sf::Vector2f playerLoc);

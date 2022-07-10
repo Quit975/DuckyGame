@@ -5,16 +5,19 @@
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
+    SceneNode* Root = new SceneNode(this);
+    SceneRoot = std::make_unique<SceneNode>(Root);
+
     bg = std::unique_ptr<Background>(new Background());
-    player = std::unique_ptr<Player>(new Player());
-    frog = std::unique_ptr<Frog>(new Frog());
+    player = std::unique_ptr<Player>(new Player(SceneRoot.get()));
+    frog = std::unique_ptr<Frog>(new Frog(SceneRoot.get()));
 
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(650.f, 200.f)));
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(150.f, 100.f)));
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new BlueEnemy(400.f, 500.f)));
+    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(SceneRoot.get(), 650.f, 200.f)));
+    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(SceneRoot.get(), 150.f, 100.f)));
+    enemies.push_back(std::unique_ptr<EnemyEntity>(new BlueEnemy(SceneRoot.get(), 400.f, 500.f)));
 
-    quackCounter = std::unique_ptr<TextCounter>(new TextCounter(50.f, 50.f, "Quack", sf::Color::Red));
-    frogCounter = std::unique_ptr<TextCounter>(new TextCounter(500.f, 50.f, "Frog", sf::Color::Green));
+    quackCounter = std::unique_ptr<TextCounter>(new TextCounter(SceneRoot.get(), 50.f, 50.f, "Quack", sf::Color::Red));
+    frogCounter = std::unique_ptr<TextCounter>(new TextCounter(SceneRoot.get(), 500.f, 50.f, "Frog", sf::Color::Green));
 
     updateGroup.push_back(player.get());
     updateGroup.push_back(frog.get());

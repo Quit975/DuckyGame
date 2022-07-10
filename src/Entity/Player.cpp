@@ -5,7 +5,8 @@
 #include "Components/SpriteComponent.h"
 
 
-Player::Player()
+Player::Player(SceneNode* Parent) :
+	ScriptEntity(Parent)
 {
 	LoadData();
 
