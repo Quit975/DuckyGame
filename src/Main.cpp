@@ -12,8 +12,7 @@ int main()
     ResourceManager::Get().LoadResources(); 
 
     float dt;
-    sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!");
-
+    sf::RenderWindow window(sf::VideoMode(WindowWidth, WindowHeight), "Ducky Game!", sf::Style::Titlebar | sf::Style::Close);
     MusicPlayer music;
     Scene scene(window);
 
