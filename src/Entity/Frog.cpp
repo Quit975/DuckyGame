@@ -20,7 +20,7 @@ Frog::Frog(SceneNode* Parent) :
     frogSoundComp->SetSound("Frog", true);
     catchSoundComp->SetSound("Catch");
 
-    srand(time(NULL));
+    srand(static_cast<unsigned int>(time(NULL)));
 
     UpdateData();
 }
@@ -45,7 +45,7 @@ void Frog::UpdateData()
     catchSoundComp->SetVolume(catchVolume);
 }
 
-void Frog::Update(const float dt)
+void Frog::OnUpdate(const float dt)
 {
     frogShapeComp->GetShape().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (frogShapeComp->GetPosition().x <= size)
@@ -61,18 +61,6 @@ void Frog::Update(const float dt)
     frogSoundComp->SetPosition(frogShapeComp->GetPosition());
 }
 
-void Frog::Draw(sf::RenderWindow& window)
-{
-#ifndef _RELEASE
-    window.draw(frogShapeComp->GetShape());
-#endif
-}
-
-sf::Vector2f Frog::GetLocation()
-{
-    return frogShapeComp->GetPosition();
-}
-
 void Frog::Catch()
 {
     catchSoundComp->Play();
@@ -84,8 +72,8 @@ void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
 
     while (true) 
     {
-        newFrogLoc.x = rand() % (WindowWidth - 20) + 10;            //weird numbers so that frog spawns wholly within bounds
-        newFrogLoc.y = rand() % (WindowHeight - 20) + 10;
+        newFrogLoc.x = static_cast<float>(rand() % (WindowWidth - 20) + 10);            //weird numbers so that frog spawns wholly within bounds
+        newFrogLoc.y = static_cast<float>(rand() % (WindowHeight - 20) + 10);
 
         float distance = VecLength(newFrogLoc - playerLoc);
         if (distance > safeDistance)

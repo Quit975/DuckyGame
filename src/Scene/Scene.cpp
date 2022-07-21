@@ -5,36 +5,11 @@
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
-    SceneNode* Root = new SceneNode(this);
-    SceneRoot = std::make_unique<SceneNode>(Root);
+    SceneRoot = std::make_unique<SceneNode>(this);
+
+    SceneRoot->SpawnNodeAsChild<Player>();
 
     bg = std::unique_ptr<Background>(new Background());
-    player = std::unique_ptr<Player>(new Player(SceneRoot.get()));
-    frog = std::unique_ptr<Frog>(new Frog(SceneRoot.get()));
-
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(SceneRoot.get(), 650.f, 200.f)));
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(SceneRoot.get(), 150.f, 100.f)));
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new BlueEnemy(SceneRoot.get(), 400.f, 500.f)));
-
-    quackCounter = std::unique_ptr<TextCounter>(new TextCounter(SceneRoot.get(), 50.f, 50.f, "Quack", sf::Color::Red));
-    frogCounter = std::unique_ptr<TextCounter>(new TextCounter(SceneRoot.get(), 500.f, 50.f, "Frog", sf::Color::Green));
-
-    updateGroup.push_back(player.get());
-    updateGroup.push_back(frog.get());
-   
-    drawGroup.push_back(player.get()); // Player* <- Entity*
-    drawGroup.push_back(quackCounter.get());
-    drawGroup.push_back(frogCounter.get());
-
-#ifndef _RELEASE
-    drawGroup.push_back(frog.get());
-#endif // _RELEASE
-
-    for (std::unique_ptr<EnemyEntity>& e : enemies)
-    {
-        updateGroup.push_back(e.get());
-        drawGroup.push_back(e.get());
-    }
 }
 
 Scene::~Scene()
@@ -44,14 +19,15 @@ Scene::~Scene()
 
 void Scene::Update(const float dt)
 {
-    for (Entity* e : updateGroup)
+    for (SceneNode* node : updateGroup)
     {
-        e->Update(dt);
+        node->OnUpdate(dt);
     }
 }
 
 void Scene::CheckCollisions()
 {
+    /*
     // check collisions with enemies
     bool collided = false;
     for (std::unique_ptr<EnemyEntity>& e : enemies)
@@ -77,6 +53,7 @@ void Scene::CheckCollisions()
         frog->Catch();
         frog->TeleportAwayFromPlayer(player->GetLocation());
     }
+    */
 }
 
 bool Scene::EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2)
@@ -91,10 +68,42 @@ void Scene::Draw()
     renderWindow.clear();
     bg->Draw(renderWindow);
     
-    for (Entity* e : drawGroup)
+    for (SceneNode* node : renderGroup)
     {
-        e->Draw(renderWindow);
+        node->OnDraw(renderWindow);
     }
 
     renderWindow.display();
+}
+
+void Scene::RegisterForRendering(SceneNode* Node)
+{
+    renderGroup.push_back(Node);
+}
+
+void Scene::UnregisterFromRendering(SceneNode* Node)
+{
+    for (auto it = renderGroup.begin(); it < renderGroup.end(); it++)
+    {
+        if (*it == Node)
+        {
+            renderGroup.erase(it);
+        }
+    }
+}
+
+void Scene::RegisterForUpdate(SceneNode* Node)
+{
+    updateGroup.push_back(Node);
+}
+
+void Scene::UnregisterFromUpdate(SceneNode* Node)
+{
+    for (auto it = updateGroup.begin(); it < updateGroup.end(); it++)
+    {
+        if (*it == Node)
+        {
+            updateGroup.erase(it);
+        }
+    }
 }

@@ -23,16 +23,6 @@ void TextCounter::Increase()
     counterText.setString(s.str());
 }
 
-void TextCounter::Update(const float dt)
+void TextCounter::OnUpdate(const float dt)
 {
-}
-
-void TextCounter::Draw(sf::RenderWindow& window)
-{
-    window.draw(counterText);
-}
-
-sf::Vector2f TextCounter::GetLocation()
-{
-    return counterText.getPosition();
 }

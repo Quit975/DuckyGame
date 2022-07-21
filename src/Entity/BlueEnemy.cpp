@@ -27,21 +27,11 @@ void BlueEnemy::UpdateData()
     enemyShapeComp->SetRadius(size);
 }
 
-void BlueEnemy::Draw(sf::RenderWindow& window)
-{
-    window.draw(enemyShapeComp->GetShape());
-}
-
-void BlueEnemy::Update(const float dt)
+void BlueEnemy::OnUpdate(const float dt)
 {
     enemyShapeComp->GetShape().move(0.f, speed * yMovementDir * dt);
     if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
     else if (enemyShapeComp->GetPosition().y >= (WindowHeight - size))
         yMovementDir = -1;
-}
-
-sf::Vector2f BlueEnemy::GetLocation()
-{
-    return enemyShapeComp->GetPosition();
 }

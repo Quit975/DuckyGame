@@ -3,8 +3,8 @@
 #include "Scripting/ScriptManager.h"
 #include "ResourceManager.h"
 
-const int WindowWidth = 800.f;
-const int WindowHeight = 600.f;
+const int WindowWidth = 800;
+const int WindowHeight = 600;
 
 int main()
 {
@@ -27,6 +27,11 @@ int main()
     while (window.isOpen())
     {
         dt = clock.getElapsedTime().asSeconds();
+        
+        // tempshit guard against monster dt when debugging
+        if (dt > desiredDt * 3)
+            dt = desiredDt * 3;
+
         while (dt >= desiredDt)
         {
             clock.restart();

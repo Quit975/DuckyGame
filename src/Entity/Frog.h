@@ -16,10 +16,8 @@ public:
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Entity
-	virtual void Update(const float dt) override;
-	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::Vector2f GetLocation() override;
+	// Scene Node
+	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;

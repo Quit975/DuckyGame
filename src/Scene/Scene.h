@@ -9,8 +9,8 @@
 #include "Entity/BlueEnemy.h"
 #include "Entity/Frog.h"
 #include "Entity/TextCounter.h"
-#include "Background.h"
 #include "Entity/EnemyEntity.h"
+#include "Background.h"
 
 
 class Scene
@@ -18,24 +18,26 @@ class Scene
 public:
 	Scene(sf::RenderWindow& window);
 	~Scene();
+
 	void Update(const float dt);
 	void CheckCollisions();
 	void Draw();
 
+	void RegisterForRendering(SceneNode* Node);
+	void UnregisterFromRendering(SceneNode* Node);
+
+	void RegisterForUpdate(SceneNode* Node);
+	void UnregisterFromUpdate(SceneNode* Node);
+
 private:
 	std::unique_ptr<SceneNode> SceneRoot = nullptr;
 
-	std::unique_ptr<Background> bg;
-	std::unique_ptr<Player> player;
-	std::unique_ptr<Frog> frog;
-	std::unique_ptr<TextCounter> frogCounter;
-	std::unique_ptr<TextCounter> quackCounter;
-	std::vector<std::unique_ptr<EnemyEntity>> enemies;
-
-	std::vector<Entity*> updateGroup;
-	std::vector<Entity*> drawGroup;
+	std::vector<SceneNode*> updateGroup;
+	std::vector<SceneNode*> renderGroup;
 
 	sf::RenderWindow& renderWindow;
+
+	std::unique_ptr<Background> bg;
 
 	bool EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2);
 };

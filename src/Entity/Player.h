@@ -8,6 +8,7 @@ class Player : public ScriptEntity
 {
 public:
 	Player(SceneNode* Parent);
+	virtual ~Player();
 
 	void Quack();
 	bool Hit();
@@ -18,9 +19,7 @@ public:
 	virtual void UpdateData() override;
 
 	// Entity
-	virtual void Update(const float dt) override;
-	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::Vector2f GetLocation() override;
+	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;
