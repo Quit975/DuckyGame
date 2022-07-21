@@ -150,30 +150,16 @@ SceneNode* SceneNode::GetParentNode()
 void SceneNode::Move(const sf::Vector2f& vec)
 {
 	LocalTransform.move(vec);
-	/*
-	for (std::unique_ptr<SceneNode>& Child : ChildNodes)
-	{
-		Child->Move(vec);
-	}
-	*/
 }
 
 void SceneNode::Rotate(float angle)
 {
 	LocalTransform.rotate(angle);
-	for (std::unique_ptr<SceneNode>& Child : ChildNodes)
-	{
-		Child->Rotate(angle);
-	}
 }
 
 void SceneNode::Scale(const sf::Vector2f& scale)
 {
 	LocalTransform.scale(scale);
-	for (std::unique_ptr<SceneNode>& Child : ChildNodes)
-	{
-		Child->Scale(scale);
-	}
 }
 
 std::unique_ptr<SceneNode> SceneNode::DetachFromParent()
