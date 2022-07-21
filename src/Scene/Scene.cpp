@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Components/CircleCollisionComponent.h"
 #include "DuckyMath.h"
+#include "Entity/Player.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
@@ -23,44 +24,6 @@ void Scene::Update(const float dt)
     {
         node->OnUpdate(dt);
     }
-}
-
-void Scene::CheckCollisions()
-{
-    /*
-    // check collisions with enemies
-    bool collided = false;
-    for (std::unique_ptr<EnemyEntity>& e : enemies)
-    {
-        if (EntitiesIntersect(player->collisionComp, e->enemyShapeComp))
-        {
-            if (player->Hit())
-            {
-                quackCounter->Increase();
-            }
-            collided = true;
-        }
-    }
-    if (!collided)
-    {
-        player->ResetHit();
-    }
-
-    // check collision with a frog
-    if (EntitiesIntersect(player->collisionComp, frog->frogShapeComp))
-    {
-        frogCounter->Increase();
-        frog->Catch();
-        frog->TeleportAwayFromPlayer(player->GetLocation());
-    }
-    */
-}
-
-bool Scene::EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2)
-{
-    float distanceToCollide = component1->collisionRadius + component2->collisionRadius;
-    float distanceBetweenEntities = VecLength(component1->GetPosition() - component2->GetPosition());
-    return distanceBetweenEntities <= distanceToCollide;
 }
 
 void Scene::Draw()

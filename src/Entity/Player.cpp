@@ -84,24 +84,26 @@ void Player::ResetHit()
 	gequacked = false;
 }
 
-
 void Player::KeepPlayerInBounds()
 {	
 	sf::Vector2f WorldPosition = GetWorldPosition();
+	sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
 
-	if (WorldPosition.x > (WindowWidth - duckyRadius)) {
-		SetWorldPosition({ (WindowWidth - duckyRadius), (WorldPosition.y) });
+	if (WorldPosition.x > (WindowSize.x - duckyRadius)) {
+		WorldPosition.x = WindowSize.x - duckyRadius;
 	}
 
 	else if (WorldPosition.x < duckyRadius){
-		SetWorldPosition({ duckyRadius, (WorldPosition.y) });
+		WorldPosition.x = duckyRadius;
 	}
 
-	if (WorldPosition.y > (WindowHeight - duckyRadius)){
-		SetWorldPosition({ WorldPosition.x, (WindowHeight - duckyRadius) });
+	if (WorldPosition.y > (WindowSize.y - duckyRadius)){
+		WorldPosition.y = WindowSize.y - duckyRadius;
 	}
 
 	else if (WorldPosition.y < duckyRadius){
-		SetWorldPosition({ (WorldPosition.x), duckyRadius });
+		WorldPosition.y = duckyRadius;
 	}
+
+	SetWorldPosition(WorldPosition);
 }

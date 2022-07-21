@@ -32,6 +32,6 @@ void BlueEnemy::OnUpdate(const float dt)
     enemyShapeComp->GetShape().move(0.f, speed * yMovementDir * dt);
     if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
-    else if (enemyShapeComp->GetPosition().y >= (WindowHeight - size))
+    else if (enemyShapeComp->GetPosition().y >= (ScenePtr->GetRenderWindow().getSize().y - size))
         yMovementDir = -1;
 }

@@ -2,9 +2,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <unordered_map>
 #include "Scene/SceneNode.h"
-
-extern const int WindowWidth;
-extern const int WindowHeight;
+#include "Scene/Scene.h"
 
 class EntityComponent;
 

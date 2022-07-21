@@ -1,17 +1,8 @@
 #pragma once
 #include <vector>
 #include <memory>
-
 #include "SceneNode.h"
-
-#include "Entity/Player.h"
-#include "Entity/GreenEnemy.h"
-#include "Entity/BlueEnemy.h"
-#include "Entity/Frog.h"
-#include "Entity/TextCounter.h"
-#include "Entity/EnemyEntity.h"
 #include "Background.h"
-
 
 class Scene
 {
@@ -20,7 +11,6 @@ public:
 	~Scene();
 
 	void Update(const float dt);
-	void CheckCollisions();
 	void Draw();
 
 	void RegisterForRendering(SceneNode* Node);
@@ -28,6 +18,8 @@ public:
 
 	void RegisterForUpdate(SceneNode* Node);
 	void UnregisterFromUpdate(SceneNode* Node);
+
+	sf::RenderWindow& GetRenderWindow() { return renderWindow; }
 
 private:
 	std::unique_ptr<SceneNode> SceneRoot = nullptr;
@@ -38,7 +30,5 @@ private:
 	sf::RenderWindow& renderWindow;
 
 	std::unique_ptr<Background> bg;
-
-	bool EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2);
 };
 

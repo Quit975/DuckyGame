@@ -30,15 +30,17 @@ void GreenEnemy::UpdateData()
 
 void GreenEnemy::OnUpdate(const float dt)
 {
+    sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
+
     enemyShapeComp->GetShape().rotate(rotationSpeed);
     enemyShapeComp->GetShape().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
     if (enemyShapeComp->GetPosition().x <= size)
         xMovementDir = 1;
-    else if (enemyShapeComp->GetPosition().x >= (WindowWidth- size))
+    else if (enemyShapeComp->GetPosition().x >= (WindowSize.x - size))
         xMovementDir = -1;
 
     if (enemyShapeComp->GetPosition().y <= size)
         yMovementDir = 1;
-    else if (enemyShapeComp->GetPosition().y >= (WindowHeight- size))
+    else if (enemyShapeComp->GetPosition().y >= (WindowSize.y - size))
         yMovementDir = -1;
 }
