@@ -8,11 +8,14 @@
 #include "Entity/BlueEnemy.h"
 #include "Entity/Frog.h"
 #include "Entity/TextCounter.h"
+#include "Entity/StaticImage.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
     SceneRoot = std::make_unique<SceneNode>(this);
+
+    SpawnNodeOnScene<StaticImage>()->SetImageTexture("Meadow")->SetWorldPosition({ 400.f, 300.f });
 
     SpawnNodeOnScene<Player>()->SetNodeID("Player");
     SpawnNodeOnScene<GreenEnemy>(300.f, 400.f);
@@ -22,8 +25,6 @@ Scene::Scene(sf::RenderWindow& window):
 
     SpawnNodeOnScene<TextCounter>(100.f, 0.f)->SetText("Times hit")->SetColor(sf::Color::Red)->SetNodeID("HitCounter");
     SpawnNodeOnScene<TextCounter>(450.f, 0.f)->SetText("Frogs caught")->SetColor(sf::Color::Blue)->SetNodeID("CatchCounter");
-
-    bg = std::unique_ptr<Background>(new Background());
 
     SceneRoot->PropagateOnSceneReady();
 }
@@ -84,7 +85,6 @@ void Scene::CheckCollisions()
 void Scene::Draw()
 {
     renderWindow.clear();
-    bg->Draw(renderWindow);
     
     for (IRenderable* renderable : renderGroup)
     {

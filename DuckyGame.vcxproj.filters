@@ -110,9 +110,6 @@
     <ClInclude Include="src\Scripting\ScriptManager.h">
       <Filter>Code\Scripting</Filter>
     </ClInclude>
-    <ClInclude Include="src\Background.h">
-      <Filter>Code</Filter>
-    </ClInclude>
     <ClInclude Include="src\Entity\ScriptEntity.h">
       <Filter>Code\Entity</Filter>
     </ClInclude>
@@ -127,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="src\Scene\ICollideable.h">
       <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\StaticImage.h">
+      <Filter>Code\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +172,6 @@
     <ClCompile Include="src\Scripting\ScriptManager.cpp">
       <Filter>Code\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="src\Background.cpp">
-      <Filter>Code</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\SceneNode.cpp">
       <Filter>Code\Scene</Filter>
     </ClCompile>
@@ -186,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="src\Scene\ICollideable.cpp">
       <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\StaticImage.cpp">
+      <Filter>Code\Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

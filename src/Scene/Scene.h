@@ -2,7 +2,6 @@
 #include <vector>
 #include <memory>
 #include "SceneNode.h"
-#include "Background.h"
 
 class IRenderable;
 class IUpdateable;
@@ -48,7 +47,5 @@ private:
 	std::vector<ICollideable*> collisionGroup;
 
 	sf::RenderWindow& renderWindow;
-
-	std::unique_ptr<Background> bg;
 };
 

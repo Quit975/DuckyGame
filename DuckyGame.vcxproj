@@ -27,7 +27,6 @@
     <None Include="scripts\player.lua" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\Components\CircleCollisionComponent.h" />
     <ClInclude Include="src\Components\CollisionComponent.h" />
     <ClInclude Include="src\Components\EntityComponent.h" />
@@ -41,6 +40,7 @@
     <ClInclude Include="src\Entity\GreenEnemy.h" />
     <ClInclude Include="src\Entity\Player.h" />
     <ClInclude Include="src\Entity\ScriptEntity.h" />
+    <ClInclude Include="src\Entity\StaticImage.h" />
     <ClInclude Include="src\Entity\TextCounter.h" />
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\ResourceManager.h" />
@@ -53,7 +53,6 @@
     <ClInclude Include="src\Scripting\ScriptManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\Components\CircleCollisionComponent.cpp" />
     <ClCompile Include="src\Components\SoundComponent.cpp" />
     <ClCompile Include="src\Components\SpriteComponent.cpp" />
@@ -61,6 +60,7 @@
     <ClCompile Include="src\Entity\Frog.cpp" />
     <ClCompile Include="src\Entity\GreenEnemy.cpp" />
     <ClCompile Include="src\Entity\Player.cpp" />
+    <ClCompile Include="src\Entity\StaticImage.cpp" />
     <ClCompile Include="src\Entity\TextCounter.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
