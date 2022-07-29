@@ -14,6 +14,15 @@ SceneNode::SceneNode(SceneNode* Parent)
 	ScenePtr = ParentNode->GetScene();
 }
 
+void SceneNode::PropagateOnSceneReady()
+{
+	OnSceneReady();
+	for (std::unique_ptr<SceneNode>& Child : ChildNodes)
+	{
+		Child->PropagateOnSceneReady();
+	}
+}
+
 sf::Transformable SceneNode::GetLocalTransform() const
 {
 	return LocalTransform;
@@ -125,6 +134,27 @@ Scene* SceneNode::GetScene() const
 SceneNode* SceneNode::GetParentNode() const
 {
 	return ParentNode;
+}
+
+SceneNode* SceneNode::FindNodeByID(const char* ID)
+{
+	if (NodeID == ID)
+	{
+		return this;
+	}
+
+	SceneNode* foundNode = nullptr;
+	
+	for (std::unique_ptr<SceneNode>& Child : ChildNodes)
+	{
+		foundNode = Child->FindNodeByID(ID);
+		if (foundNode)
+		{
+			return foundNode;
+		}
+	}
+	
+	return foundNode;
 }
 
 void SceneNode::Move(const sf::Vector2f& vec)

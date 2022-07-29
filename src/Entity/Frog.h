@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
-#include "Components/SoundComponent.h"
+#include "Scene/IUpdateable.h"
 
 class CircleCollisionComponent;
+class SoundComponent;
 
-class Frog : public ScriptEntity
+class Frog : public ScriptEntity, public IUpdateable
 {
 public:
 	Frog(SceneNode* Parent);

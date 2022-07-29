@@ -23,6 +23,8 @@ public:
 		return Node;
 	}
 
+	SceneNode* FindNodeByID(const char* ID);
+
 	void Update(const float dt);
 	void CheckCollisions();
 	void Draw();

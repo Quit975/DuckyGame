@@ -1,12 +1,15 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
+#include "Scene/IUpdateable.h"
 
 class CircleCollisionComponent;
 class SpriteComponent;
 class SoundComponent;
 
-class Player : public ScriptEntity
+class TextCounter;
+
+class Player : public ScriptEntity, public IUpdateable
 {
 public:
 	Player(SceneNode* Parent);
@@ -15,6 +18,9 @@ public:
 	void Quack();
 	void Hit();
 	void KeepPlayerInBounds();
+
+	// SceneNode
+	virtual void OnSceneReady() override;
 
 	// ScriptEntity
 	virtual void UpdateData() override;
@@ -29,6 +35,9 @@ private:
 	SpriteComponent* spriteComp;
 	SoundComponent* quackComp;
 	CircleCollisionComponent* collisionComp;
+
+	TextCounter* QuackCounterCache = nullptr;
+	TextCounter* FrogCounterCache = nullptr;
 
 	void OnCollisionBegin(ICollideable* Other);
 	void OnCollisionEnd(ICollideable* Other);

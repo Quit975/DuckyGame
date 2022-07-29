@@ -1,28 +1,38 @@
 #include "TextCounter.h"
 #include "ResourceManager.h"
 
-TextCounter::TextCounter(SceneNode* Parent, float x, float y, const char* text, sf::Color color):
+TextCounter::TextCounter(SceneNode* Parent):
     Entity(Parent),
-    counterName{text}
+    IRenderable(Parent->GetScene())
 {
-    s << counterName << " count : " << counter;
-
     counterText.setFont(ResourceManager::Get().GetFont("Text"));
-    counterText.setString(s.str());
     counterText.setCharacterSize(24);
-    counterText.setFillColor(color);
     counterText.setStyle(sf::Text::Bold | sf::Text::Underlined);
-    counterText.setPosition(x, y);
+}
+
+TextCounter* TextCounter::SetText(const char* NewText)
+{
+    counterName = NewText;
+    s << counterName << " : " << counter;
+    counterText.setString(s.str());
+    return this;
+}
+
+TextCounter* TextCounter::SetColor(sf::Color NewColor)
+{
+    counterText.setFillColor(NewColor);
+    return this;
 }
 
 void TextCounter::Increase()
 {
     counter++;
     s.str(std::string());
-    s << counterName << " count : " << counter;
+    s << counterName << " : " << counter;
     counterText.setString(s.str());
 }
 
-void TextCounter::OnUpdate(const float dt)
+void TextCounter::OnDraw(sf::RenderTarget& target)
 {
+    target.draw(counterText, GetWorldTransform().getTransform());
 }

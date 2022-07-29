@@ -3,10 +3,13 @@
 #include <vector>
 #include <memory>
 
-class Scene;
-
 class SceneNode
 {
+	friend class Scene;
+
+private:
+	const char* NodeID = "";
+
 public:
 	//For Scene to create the root node
 	SceneNode(Scene* Scene);
@@ -44,6 +47,10 @@ public:
 	Scene* GetScene() const;
 	SceneNode* GetParentNode() const;
 
+	void SetNodeID(const char* NewID) { NodeID = NewID; }
+	const char* GetNodeID() const { return NodeID; }
+	SceneNode* FindNodeByID(const char* ID);
+
 	template<typename T>
 	T* SpawnNodeAsChild()
 	{
@@ -64,5 +71,10 @@ protected:
 
 	sf::Transformable LocalTransform = sf::Transformable();
 
+	virtual void OnSceneReady() {};
+
 	std::unique_ptr<SceneNode> DetachChildNode(SceneNode* Node);
+
+private:
+	void PropagateOnSceneReady();
 };

@@ -7,24 +7,35 @@
 #include "Entity/GreenEnemy.h"
 #include "Entity/BlueEnemy.h"
 #include "Entity/Frog.h"
+#include "Entity/TextCounter.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
     SceneRoot = std::make_unique<SceneNode>(this);
 
-    SpawnNodeOnScene<Player>();
+    SpawnNodeOnScene<Player>()->SetNodeID("Player");
     SpawnNodeOnScene<GreenEnemy>(300.f, 400.f);
     SpawnNodeOnScene<GreenEnemy>(600.f, 200.f);
     SpawnNodeOnScene<BlueEnemy>(400.f, 200.f);
-    SpawnNodeOnScene<Frog>(550.f, 250.f);
+    SpawnNodeOnScene<Frog>(550.f, 250.f)->SetNodeID("Frog");
+
+    SpawnNodeOnScene<TextCounter>(100.f, 0.f)->SetText("Times hit")->SetColor(sf::Color::Red)->SetNodeID("HitCounter");
+    SpawnNodeOnScene<TextCounter>(450.f, 0.f)->SetText("Frogs caught")->SetColor(sf::Color::Blue)->SetNodeID("CatchCounter");
 
     bg = std::unique_ptr<Background>(new Background());
+
+    SceneRoot->PropagateOnSceneReady();
 }
 
 Scene::~Scene()
 {
     
+}
+
+SceneNode* Scene::FindNodeByID(const char* ID)
+{
+    return SceneRoot->FindNodeByID(ID);
 }
 
 void Scene::Update(const float dt)

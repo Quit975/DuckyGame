@@ -5,9 +5,11 @@
 #include "Components/SpriteComponent.h"
 
 #include "Entity/Frog.h"
+#include "Entity/TextCounter.h"
 
 Player::Player(SceneNode* Parent) :
-	ScriptEntity(Parent)
+	ScriptEntity(Parent),
+	IUpdateable(Parent->GetScene())
 {
 	LoadData();
 
@@ -42,6 +44,12 @@ Player::~Player()
 {
 }
 
+void Player::OnSceneReady()
+{
+	QuackCounterCache = static_cast<TextCounter*>(ScenePtr->FindNodeByID("HitCounter"));
+	FrogCounterCache = static_cast<TextCounter*>(ScenePtr->FindNodeByID("CatchCounter"));
+}
+
 void Player::LoadData()
 {
 	lua_State* L = ScriptManager::Get().GetState();
@@ -67,6 +75,7 @@ void Player::OnCollisionBegin(ICollideable* Other)
 		{
 			frog->Catch();
 			frog->TeleportAwayFromPlayer(GetWorldPosition());
+			FrogCounterCache->Increase();
 		}
 		break;
 	}
@@ -124,7 +133,7 @@ void Player::Quack()
 void Player::Hit()
 {
 	Quack();
-	// Update counter
+	QuackCounterCache->Increase();
 }
 
 void Player::KeepPlayerInBounds()

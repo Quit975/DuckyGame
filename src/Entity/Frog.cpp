@@ -1,11 +1,13 @@
 #include "Frog.h"
 #include "DuckyMath.h"
 #include "Components/CircleCollisionComponent.h"
+#include "Components/SoundComponent.h"
 #include <stdlib.h>
 #include <time.h>
 
 Frog::Frog(SceneNode* Parent) :
-    ScriptEntity(Parent)
+    ScriptEntity(Parent),
+    IUpdateable(Parent->GetScene())
 {
     LoadData();
 
