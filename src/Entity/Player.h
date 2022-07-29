@@ -15,8 +15,7 @@ public:
 	Player(SceneNode* Parent);
 	virtual ~Player();
 
-	void Quack();
-	void Hit();
+	void OnEnemyHit();
 	void KeepPlayerInBounds();
 
 	// SceneNode
@@ -40,9 +39,9 @@ private:
 	TextCounter* FrogCounterCache = nullptr;
 
 	void OnCollisionBegin(ICollideable* Other);
-	void OnCollisionEnd(ICollideable* Other);
 	
-	float duckyRadius = 45.f; //desired ducky radius, this can be temporary, but I haven't yet figured out how to get the right size from sprite or texture
+	//Ducky Texture is 90x90
+	float duckyRadius = 45.f;
 
 	// scriptable properties
 	float speed = 220.f;

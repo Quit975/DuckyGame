@@ -3,7 +3,6 @@
 #include "Components/CircleCollisionComponent.h"
 #include "Components/SoundComponent.h"
 #include "Components/SpriteComponent.h"
-
 #include "Entity/Frog.h"
 #include "Entity/TextCounter.h"
 
@@ -20,22 +19,20 @@ Player::Player(SceneNode* Parent) :
 	quackComp->SetSound("Quack");
 
 	spriteComp->SetTexture("Duck");
-	spriteComp->SetLocalScale({ 0.5f, 0.5f });
 
 	collisionComp->SetColor(sf::Color::Cyan);
-	collisionComp->SetRadius(45.f);
+	collisionComp->SetRadius(duckyRadius);
 	collisionComp->SetCollisionProfile(CollisionMask::PLAYER);
 	collisionComp->AddToActiveCollisionsMask(CollisionMask::ENEMY);
 	collisionComp->AddToActiveCollisionsMask(CollisionMask::FROG);
 
-#ifndef _RELEASE
-	collisionComp->EnableRendering();
-#endif // !_RELEASE
-
-
 	collisionComp->BindOnOverlapBegin([this](ICollideable* Other) {
 		OnCollisionBegin(Other);
 		});
+
+#ifndef _RELEASE
+	collisionComp->EnableRendering();
+#endif // !_RELEASE
 
 	UpdateData();
 }
@@ -58,13 +55,18 @@ void Player::LoadData()
 	ReadFloat(L, "player", "quackVolume", quackVolume);
 }
 
+void Player::UpdateData()
+{
+	quackComp->SetVolume(quackVolume);
+}
+
 void Player::OnCollisionBegin(ICollideable* Other)
 {
 	switch (Other->GetCollisionProfile())
 	{
 	case CollisionMask::ENEMY:
 	{
-		Hit();
+		OnEnemyHit();
 		break;
 	}
 
@@ -83,26 +85,6 @@ void Player::OnCollisionBegin(ICollideable* Other)
 	default:
 		break;
 	}
-}
-
-void Player::OnCollisionEnd(ICollideable* Other)
-{
-	switch (Other->GetCollisionProfile())
-	{
-	case CollisionMask::ENEMY:
-		break;
-
-	case CollisionMask::FROG:
-		break;
-
-	default:
-		break;
-	}
-}
-
-void Player::UpdateData()
-{
-	quackComp->SetVolume(quackVolume);
 }
 
 void Player::OnUpdate(const float dt)
@@ -125,14 +107,9 @@ void Player::OnUpdate(const float dt)
 	sf::Listener::setPosition(WorldPosition.x, WorldPosition.y, 0.f);
 }
 
-void Player::Quack()
+void Player::OnEnemyHit()
 {
 	quackComp->Play();
-}
-
-void Player::Hit()
-{
-	Quack();
 	QuackCounterCache->Increase();
 }
 

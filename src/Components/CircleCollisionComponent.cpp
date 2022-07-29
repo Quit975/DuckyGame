@@ -5,6 +5,7 @@ CircleCollisionComponent::CircleCollisionComponent(SceneNode* Parent) :
 	IRenderable(Parent->GetScene(), false)
 {
 	SetOuter(Parent);
+	CircleCollision.setOutlineThickness(5.f);
 }
 
 CollisionInfo CircleCollisionComponent::GetCollisionInfo() const
@@ -20,13 +21,14 @@ void CircleCollisionComponent::OnDraw(sf::RenderTarget& target)
 
 void CircleCollisionComponent::SetColor(sf::Color color)
 {
-	CircleCollision.setFillColor(color);
+	CircleCollision.setOutlineColor(color);
+	CircleCollision.setFillColor(sf::Color::Transparent);
 }
 
 void CircleCollisionComponent::SetRadius(float radius)
 {
 	collisionRadius = radius;
-	CircleCollision.setRadius(radius);
-	//CircleCollision.setOrigin(radius, radius);
-	LocalTransform.setOrigin(radius, radius);
+	// minus thickness
+	CircleCollision.setRadius(collisionRadius - 5);
+	LocalTransform.setOrigin(collisionRadius - 5, collisionRadius - 5);
 }
