@@ -5,6 +5,7 @@ MusicPlayer::MusicPlayer()
     music.openFromFile("Res/PPPolka.ogg");
     music.setVolume(10.f);
     music.play();
+    music.setLoop(true);
 }
 
 void MusicPlayer::Toggle() {
