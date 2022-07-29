@@ -14,7 +14,7 @@ SceneNode::SceneNode(SceneNode* Parent)
 	ScenePtr = ParentNode->GetScene();
 }
 
-sf::Transformable SceneNode::GetLocalTransform()
+sf::Transformable SceneNode::GetLocalTransform() const
 {
 	return LocalTransform;
 }
@@ -24,7 +24,7 @@ void SceneNode::SetLocalTransform(const sf::Transformable& t)
 	LocalTransform = t;
 }
 
-sf::Vector2f SceneNode::GetLocalPosition()
+sf::Vector2f SceneNode::GetLocalPosition() const
 {
 	return LocalTransform.getPosition();
 }
@@ -34,7 +34,7 @@ void SceneNode::SetLocalPosition(const sf::Vector2f& p)
 	LocalTransform.setPosition(p);
 }
 
-float SceneNode::GetLocalRotation()
+float SceneNode::GetLocalRotation() const
 {
 	return LocalTransform.getRotation();
 }
@@ -44,7 +44,7 @@ void SceneNode::SetLocalRotation(float r)
 	LocalTransform.setRotation(r);
 }
 
-sf::Vector2f SceneNode::GetLocalScale()
+sf::Vector2f SceneNode::GetLocalScale() const
 {
 	return LocalTransform.getScale();
 }
@@ -54,7 +54,7 @@ void SceneNode::SetLocalScale(const sf::Vector2f& s)
 	LocalTransform.setScale(s);
 }
 
-sf::Transformable SceneNode::GetWorldTransform()
+sf::Transformable SceneNode::GetWorldTransform() const
 {
 	if (ParentNode)
 	{
@@ -87,7 +87,7 @@ void SceneNode::SetWorldTransform(const sf::Transformable& t)
 	}
 }
 
-sf::Vector2f SceneNode::GetWorldPosition()
+sf::Vector2f SceneNode::GetWorldPosition() const
 {
 	return GetWorldTransform().getPosition();
 }
@@ -97,7 +97,7 @@ void SceneNode::SetWorldPosition(const sf::Vector2f& p)
 	LocalTransform.setPosition(p - ParentNode->GetWorldPosition());
 }
 
-float SceneNode::GetWorldRotation()
+float SceneNode::GetWorldRotation() const
 {
 	return GetWorldTransform().getRotation();
 }
@@ -107,7 +107,7 @@ void SceneNode::SetWorldRotation(float r)
 	LocalTransform.setRotation(r - ParentNode->GetWorldRotation());
 }
 
-sf::Vector2f SceneNode::GetWorldScale()
+sf::Vector2f SceneNode::GetWorldScale() const
 {
 	return GetWorldTransform().getScale();
 }
@@ -117,32 +117,12 @@ void SceneNode::SetWorldScale(const sf::Vector2f& s)
 	LocalTransform.setScale(s - ParentNode->GetWorldScale());
 }
 
-void SceneNode::RegisterForUpdate()
-{
-	ScenePtr->RegisterForUpdate(this);
-}
-
-void SceneNode::UnregisterFromUpdate()
-{
-	ScenePtr->UnregisterFromUpdate(this);
-}
-
-void SceneNode::RegisterForRendering()
-{
-	ScenePtr->RegisterForRendering(this);
-}
-
-void SceneNode::UnregisterFromRendering()
-{
-	ScenePtr->UnregisterFromRendering(this);
-}
-
-Scene* SceneNode::GetScene()
+Scene* SceneNode::GetScene() const
 {
 	return ScenePtr;
 }
 
-SceneNode* SceneNode::GetParentNode()
+SceneNode* SceneNode::GetParentNode() const
 {
 	return ParentNode;
 }

@@ -15,22 +15,22 @@ public:
 	virtual ~SceneNode() {};
 
 	//////////////////////////////////// TRANSFORMS ////////////////////////////////////////
-	sf::Transformable GetLocalTransform();
+	sf::Transformable GetLocalTransform() const;
 	void SetLocalTransform(const sf::Transformable& t);
-	sf::Vector2f GetLocalPosition();
+	sf::Vector2f GetLocalPosition() const;
 	void SetLocalPosition(const sf::Vector2f& p);
-	float GetLocalRotation();
+	float GetLocalRotation() const;
 	void SetLocalRotation(float r);
-	sf::Vector2f GetLocalScale();
+	sf::Vector2f GetLocalScale() const;
 	void SetLocalScale(const sf::Vector2f& s);
 
-	sf::Transformable GetWorldTransform();
+	sf::Transformable GetWorldTransform() const;
 	void SetWorldTransform(const sf::Transformable& t);
-	sf::Vector2f GetWorldPosition();
+	sf::Vector2f GetWorldPosition() const;
 	void SetWorldPosition(const sf::Vector2f& p);
-	float GetWorldRotation();
+	float GetWorldRotation() const;
 	void SetWorldRotation(float r);
-	sf::Vector2f GetWorldScale();
+	sf::Vector2f GetWorldScale() const;
 	void SetWorldScale(const sf::Vector2f& s);
 
 	void Move(const sf::Vector2f& vec);
@@ -41,16 +41,8 @@ public:
 
 
 	////////////////////////////////////// SCENE  //////////////////////////////////////////
-	virtual void OnUpdate(const float dt) {};
-	virtual void OnDraw(sf::RenderTarget& target) {};
-
-	void RegisterForUpdate();
-	void UnregisterFromUpdate();
-	void RegisterForRendering();
-	void UnregisterFromRendering();
-
-	Scene* GetScene();
-	SceneNode* GetParentNode();
+	Scene* GetScene() const;
+	SceneNode* GetParentNode() const;
 
 	template<typename T>
 	T* SpawnNodeAsChild()

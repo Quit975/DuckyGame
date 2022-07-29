@@ -3,14 +3,16 @@
 #include <unordered_map>
 #include "Scene/SceneNode.h"
 #include "Scene/Scene.h"
+#include "Scene/IUpdateable.h"
 
 class EntityComponent;
 
-class Entity : public SceneNode
+class Entity : public SceneNode, public IUpdateable
 {
 public:
 	Entity(SceneNode* Parent) :
-		SceneNode(Parent) {};
+		SceneNode(Parent),
+		IUpdateable(Parent->GetScene()) {};
 	virtual ~Entity() {};
 
 	template <class T>

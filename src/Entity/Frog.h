@@ -16,17 +16,17 @@ public:
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Scene Node
+	// Updateable
 	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
-	CircleCollisionComponent* frogShapeComp;
 
 private:
 	SoundComponent* frogSoundComp;
 	SoundComponent* catchSoundComp;
+	CircleCollisionComponent* frogShapeComp;
 	
 	int xMovementDir = 1;
 	int yMovementDir = 1;

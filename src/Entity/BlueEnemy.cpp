@@ -1,7 +1,7 @@
 #include "BlueEnemy.h"
 #include "Components/CircleCollisionComponent.h"
 
-BlueEnemy::BlueEnemy(SceneNode* Parent, float x, float y) :
+BlueEnemy::BlueEnemy(SceneNode* Parent) :
     EnemyEntity(Parent)
 {
     LoadData();
@@ -9,7 +9,8 @@ BlueEnemy::BlueEnemy(SceneNode* Parent, float x, float y) :
     enemyShapeComp = CreateComponent<CircleCollisionComponent>("EnemyCollision");
     enemyShapeComp->SetColor(sf::Color::Blue);
     enemyShapeComp->SetRadius(size);
-    enemyShapeComp->SetPosition(x, y);
+    enemyShapeComp->SetCollisionProfile(CollisionMask::ENEMY);
+    enemyShapeComp->EnableRendering();
 
     UpdateData();
 }
@@ -29,9 +30,12 @@ void BlueEnemy::UpdateData()
 
 void BlueEnemy::OnUpdate(const float dt)
 {
-    enemyShapeComp->GetShape().move(0.f, speed * yMovementDir * dt);
-    if (enemyShapeComp->GetPosition().y <= size)
+    sf::Vector2f WorldPosition = GetWorldPosition();
+    sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
+
+    Move({ 0.f, speed * yMovementDir * dt });
+    if (WorldPosition.y <= size)
         yMovementDir = 1;
-    else if (enemyShapeComp->GetPosition().y >= (ScenePtr->GetRenderWindow().getSize().y - size))
+    else if (WorldPosition.y >= (WindowSize.y - size))
         yMovementDir = -1;
 }

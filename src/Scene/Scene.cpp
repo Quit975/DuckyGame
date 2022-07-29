@@ -1,14 +1,23 @@
 #include "Scene.h"
-#include "Components/CircleCollisionComponent.h"
+#include "IRenderable.h"
+#include "IUpdateable.h"
+#include "ICollideable.h"
 #include "DuckyMath.h"
 #include "Entity/Player.h"
+#include "Entity/GreenEnemy.h"
+#include "Entity/BlueEnemy.h"
+#include "Entity/Frog.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
     SceneRoot = std::make_unique<SceneNode>(this);
 
-    SceneRoot->SpawnNodeAsChild<Player>();
+    SpawnNodeOnScene<Player>();
+    SpawnNodeOnScene<GreenEnemy>(300.f, 400.f);
+    SpawnNodeOnScene<GreenEnemy>(600.f, 200.f);
+    SpawnNodeOnScene<BlueEnemy>(400.f, 200.f);
+    SpawnNodeOnScene<Frog>(550.f, 250.f);
 
     bg = std::unique_ptr<Background>(new Background());
 }
@@ -20,9 +29,44 @@ Scene::~Scene()
 
 void Scene::Update(const float dt)
 {
-    for (SceneNode* node : updateGroup)
+    for (IUpdateable* updateable : updateGroup)
     {
-        node->OnUpdate(dt);
+        updateable->OnUpdate(dt);
+    }
+}
+
+void Scene::CheckCollisions()
+{
+    if (collisionGroup.size() > 1)
+    {
+        for (unsigned int i = 0; i < collisionGroup.size() - 1; i++)
+        {
+            ICollideable* A = collisionGroup[i];
+            CollisionInfo AInfo = A->GetCollisionInfo();
+
+            for (unsigned int j = i + 1; j < collisionGroup.size(); j++)
+            {
+                ICollideable* B = collisionGroup[j];
+                CollisionInfo BInfo = B->GetCollisionInfo();
+
+                sf::Vector2f vecA{ AInfo.X, AInfo.Y };
+                sf::Vector2f vecB{ BInfo.X, BInfo.Y };
+                sf::Vector2f diff = vecA - vecB;
+
+                float len = VecLength(diff);
+
+                if (len <= AInfo.radius + BInfo.radius)
+                {
+                    A->Collide(B);
+                    B->Collide(A);
+                }
+            }
+
+            A->ResolveCollisions();
+            A->CacheCollisions();
+        }
+        collisionGroup.back()->ResolveCollisions();
+        collisionGroup.back()->CacheCollisions();
     }
 }
 
@@ -31,42 +75,58 @@ void Scene::Draw()
     renderWindow.clear();
     bg->Draw(renderWindow);
     
-    for (SceneNode* node : renderGroup)
+    for (IRenderable* renderable : renderGroup)
     {
-        node->OnDraw(renderWindow);
+        renderable->OnDraw(renderWindow);
     }
 
     renderWindow.display();
 }
 
-void Scene::RegisterForRendering(SceneNode* Node)
+void Scene::RegisterForRendering(IRenderable* renderable)
 {
-    renderGroup.push_back(Node);
+    renderGroup.push_back(renderable);
 }
 
-void Scene::UnregisterFromRendering(SceneNode* Node)
+void Scene::UnregisterFromRendering(IRenderable* renderable)
 {
     for (auto it = renderGroup.begin(); it < renderGroup.end(); it++)
     {
-        if (*it == Node)
+        if (*it == renderable)
         {
             renderGroup.erase(it);
         }
     }
 }
 
-void Scene::RegisterForUpdate(SceneNode* Node)
+void Scene::RegisterForUpdate(IUpdateable* Updateable)
 {
-    updateGroup.push_back(Node);
+    updateGroup.push_back(Updateable);
 }
 
-void Scene::UnregisterFromUpdate(SceneNode* Node)
+void Scene::UnregisterFromUpdate(IUpdateable* Updateable)
 {
     for (auto it = updateGroup.begin(); it < updateGroup.end(); it++)
     {
-        if (*it == Node)
+        if (*it == Updateable)
         {
             updateGroup.erase(it);
+        }
+    }
+}
+
+void Scene::RegisterForCollisions(ICollideable* Collideable)
+{
+    collisionGroup.push_back(Collideable);
+}
+
+void Scene::UnregisterFromCollisions(ICollideable* Collideable)
+{
+    for (auto it = collisionGroup.begin(); it < collisionGroup.end(); it++)
+    {
+        if (*it == Collideable)
+        {
+            collisionGroup.erase(it);
         }
     }
 }

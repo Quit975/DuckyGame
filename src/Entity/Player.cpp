@@ -4,6 +4,8 @@
 #include "Components/SoundComponent.h"
 #include "Components/SpriteComponent.h"
 
+#include "Entity/Frog.h"
+
 Player::Player(SceneNode* Parent) :
 	ScriptEntity(Parent)
 {
@@ -14,20 +16,30 @@ Player::Player(SceneNode* Parent) :
 	collisionComp = CreateComponent<CircleCollisionComponent>("collisionComp");
 
 	quackComp->SetSound("Quack");
-	spriteComp->SetTexture("Duck");
 
+	spriteComp->SetTexture("Duck");
 	spriteComp->SetLocalScale({ 0.5f, 0.5f });
+
 	collisionComp->SetColor(sf::Color::Cyan);
 	collisionComp->SetRadius(45.f);
+	collisionComp->SetCollisionProfile(CollisionMask::PLAYER);
+	collisionComp->AddToActiveCollisionsMask(CollisionMask::ENEMY);
+	collisionComp->AddToActiveCollisionsMask(CollisionMask::FROG);
+
+#ifndef _RELEASE
+	collisionComp->EnableRendering();
+#endif // !_RELEASE
+
+
+	collisionComp->BindOnOverlapBegin([this](ICollideable* Other) {
+		OnCollisionBegin(Other);
+		});
 
 	UpdateData();
-
-	RegisterForUpdate();
 }
 
 Player::~Player()
 {
-	UnregisterFromUpdate();
 }
 
 void Player::LoadData()
@@ -36,6 +48,47 @@ void Player::LoadData()
 
 	ReadFloat(L, "player", "speed", speed);
 	ReadFloat(L, "player", "quackVolume", quackVolume);
+}
+
+void Player::OnCollisionBegin(ICollideable* Other)
+{
+	switch (Other->GetCollisionProfile())
+	{
+	case CollisionMask::ENEMY:
+	{
+		Hit();
+		break;
+	}
+
+	case CollisionMask::FROG:
+	{
+		Frog* frog = static_cast<Frog*>(Other->GetOuter());
+		if (frog)
+		{
+			frog->Catch();
+			frog->TeleportAwayFromPlayer(GetWorldPosition());
+		}
+		break;
+	}
+
+	default:
+		break;
+	}
+}
+
+void Player::OnCollisionEnd(ICollideable* Other)
+{
+	switch (Other->GetCollisionProfile())
+	{
+	case CollisionMask::ENEMY:
+		break;
+
+	case CollisionMask::FROG:
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Player::UpdateData()
@@ -68,20 +121,10 @@ void Player::Quack()
 	quackComp->Play();
 }
 
-bool Player::Hit()
+void Player::Hit()
 {
-	if (!gequacked)
-	{
-		gequacked = true;
-		Quack();
-		return true;
-	}
-	return false;
-}
-
-void Player::ResetHit()
-{
-	gequacked = false;
+	Quack();
+	// Update counter
 }
 
 void Player::KeepPlayerInBounds()

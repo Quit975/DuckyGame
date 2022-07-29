@@ -4,12 +4,12 @@
 class GreenEnemy : public EnemyEntity
 {
 public:
-	GreenEnemy(SceneNode* Parent, float x, float y);
+	GreenEnemy(SceneNode* Parent);
 
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Scene Node
+	// Updateable
 	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable

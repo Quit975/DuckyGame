@@ -1,8 +1,9 @@
 #pragma once
-#include "EntityComponent.h"
 #include <SFML/Graphics.hpp>
+#include "EntityComponent.h"
+#include "Scene/IRenderable.h"
 
-class SpriteComponent : public EntityComponent
+class SpriteComponent : public EntityComponent, public IRenderable
 {
 public:
 	SpriteComponent(SceneNode* Parent);
@@ -12,8 +13,6 @@ public:
 
 	void SetTexture(const char* path);
 	void SetSmooth(const char* name, bool smooth);
-
-	inline sf::Sprite &GetSprite() { return Sprite; }
 
 private:
 	sf::Sprite Sprite;

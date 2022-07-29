@@ -1,7 +1,7 @@
 #include "GreenEnemy.h"
 #include "Components/CircleCollisionComponent.h"
 
-GreenEnemy::GreenEnemy(SceneNode* Parent, float x, float y) :
+GreenEnemy::GreenEnemy(SceneNode* Parent) :
     EnemyEntity(Parent)
 {
     LoadData();
@@ -9,7 +9,8 @@ GreenEnemy::GreenEnemy(SceneNode* Parent, float x, float y) :
     enemyShapeComp = CreateComponent<CircleCollisionComponent>("enemyCollision");
     enemyShapeComp->SetColor(sf::Color::Green);
     enemyShapeComp->SetRadius(size);
-    enemyShapeComp->SetPosition(x, y);
+    enemyShapeComp->SetCollisionProfile(CollisionMask::ENEMY);
+    enemyShapeComp->EnableRendering();
 
     UpdateData();
 }
@@ -32,15 +33,18 @@ void GreenEnemy::OnUpdate(const float dt)
 {
     sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
 
-    enemyShapeComp->GetShape().rotate(rotationSpeed);
-    enemyShapeComp->GetShape().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
-    if (enemyShapeComp->GetPosition().x <= size)
+    Rotate(rotationSpeed);
+    Move({ speed * xMovementDir * dt, speed * yMovementDir * dt });
+
+    sf::Vector2f WorldPosition = GetWorldPosition();
+
+    if (WorldPosition.x <= size)
         xMovementDir = 1;
-    else if (enemyShapeComp->GetPosition().x >= (WindowSize.x - size))
+    else if (WorldPosition.x >= (WindowSize.x - size))
         xMovementDir = -1;
 
-    if (enemyShapeComp->GetPosition().y <= size)
+    if (WorldPosition.y <= size)
         yMovementDir = 1;
-    else if (enemyShapeComp->GetPosition().y >= (WindowSize.y - size))
+    else if (WorldPosition.y >= (WindowSize.y - size))
         yMovementDir = -1;
 }

@@ -119,6 +119,15 @@
     <ClInclude Include="src\Scene\SceneNode.h">
       <Filter>Code\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Scene\IRenderable.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\IUpdateable.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\ICollideable.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -167,6 +176,15 @@
       <Filter>Code</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\SceneNode.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\IRenderable.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\IUpdateable.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\ICollideable.cpp">
       <Filter>Code\Scene</Filter>
     </ClCompile>
   </ItemGroup>

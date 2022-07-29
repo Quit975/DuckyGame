@@ -3,6 +3,8 @@
 #include "ScriptEntity.h"
 
 class CircleCollisionComponent;
+class SpriteComponent;
+class SoundComponent;
 
 class Player : public ScriptEntity
 {
@@ -11,27 +13,27 @@ public:
 	virtual ~Player();
 
 	void Quack();
-	bool Hit();
-	void ResetHit();
+	void Hit();
 	void KeepPlayerInBounds();
 
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Entity
+	// Updateable
 	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
-	class CircleCollisionComponent* collisionComp;
-
 private:
-	class SpriteComponent* spriteComp;
-	class SoundComponent* quackComp;
+	SpriteComponent* spriteComp;
+	SoundComponent* quackComp;
+	CircleCollisionComponent* collisionComp;
+
+	void OnCollisionBegin(ICollideable* Other);
+	void OnCollisionEnd(ICollideable* Other);
 	
 	float duckyRadius = 45.f; //desired ducky radius, this can be temporary, but I haven't yet figured out how to get the right size from sprite or texture
-	bool gequacked = false;
 
 	// scriptable properties
 	float speed = 220.f;

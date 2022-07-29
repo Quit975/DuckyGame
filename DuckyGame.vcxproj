@@ -44,6 +44,9 @@
     <ClInclude Include="src\Entity\TextCounter.h" />
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\Scene\ICollideable.h" />
+    <ClInclude Include="src\Scene\IRenderable.h" />
+    <ClInclude Include="src\Scene\IUpdateable.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Scene\SceneNode.h" />
     <ClInclude Include="src\Scripting\Scriptable.h" />
@@ -62,6 +65,9 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\Scene\ICollideable.cpp" />
+    <ClCompile Include="src\Scene\IRenderable.cpp" />
+    <ClCompile Include="src\Scene\IUpdateable.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\SceneNode.cpp" />
     <ClCompile Include="src\Scripting\Scriptable.cpp" />

@@ -11,5 +11,6 @@ public:
 
 	virtual ~EnemyEntity() {};
 
+protected:
 	CircleCollisionComponent* enemyShapeComp;
 };
