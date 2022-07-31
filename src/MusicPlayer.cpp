@@ -16,6 +16,7 @@ void MusicPlayer::Toggle() {
         music.play();
     }
 }
+
 void MusicPlayer::Play() {
     if (music.getStatus() != sf::SoundSource::Status::Playing) {
         music.play();

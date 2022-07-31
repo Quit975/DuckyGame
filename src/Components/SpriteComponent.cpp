@@ -2,21 +2,26 @@
 #include "DuckyMath.h"
 #include "ResourceManager.h"
 
+SpriteComponent::SpriteComponent(SceneNode* Parent) :
+	EntityComponent(Parent),
+	IRenderable(Parent->GetScene())
+{
+}
+
+SpriteComponent::~SpriteComponent()
+{
+}
+
+void SpriteComponent::OnDraw(sf::RenderTarget& target)
+{
+	target.draw(Sprite, GetWorldTransform().getTransform());
+}
 
 void SpriteComponent::SetTexture(const char* name)
 {
-	Sprite.setTexture(ResourceManager::Get().GetTexture(name));
-	Sprite.setOrigin(static_cast<sf::Vector2f>(ResourceManager::Get().GetTexture(name).getSize() / 2));
-}
-
-void SpriteComponent::SetScale(float scale)
-{
-	Sprite.setScale(scale, scale);
-}
-
-void SpriteComponent::SetPosition(float x, float y)
-{
-	Sprite.setPosition(x, y);
+	sf::Texture& tex = ResourceManager::Get().GetTexture(name);
+	Sprite.setTexture(tex);
+	LocalTransform.setOrigin(static_cast<sf::Vector2f>(tex.getSize() / 2));
 }
 
 void SpriteComponent::SetSmooth(const char* name, bool smooth)

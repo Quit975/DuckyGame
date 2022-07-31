@@ -1,14 +1,15 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
-#include "Components/SoundComponent.h"
+#include "Scene/IUpdateable.h"
 
 class CircleCollisionComponent;
+class SoundComponent;
 
-class Frog : public ScriptEntity
+class Frog : public ScriptEntity, public IUpdateable
 {
 public:
-	Frog();
+	Frog(SceneNode* Parent);
 	
 	void Catch();
 	void TeleportAwayFromPlayer(sf::Vector2f playerLoc);
@@ -16,19 +17,17 @@ public:
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Entity
-	virtual void Update(const float dt) override;
-	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::Vector2f GetLocation() override;
+	// Updateable
+	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
-	CircleCollisionComponent* frogShapeComp;
 
 private:
 	SoundComponent* frogSoundComp;
 	SoundComponent* catchSoundComp;
+	CircleCollisionComponent* frogShapeComp;
 	
 	int xMovementDir = 1;
 	int yMovementDir = 1;

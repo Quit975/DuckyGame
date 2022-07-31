@@ -3,9 +3,12 @@
 #include "Components/CircleCollisionComponent.h"
 #include "Components/SoundComponent.h"
 #include "Components/SpriteComponent.h"
+#include "Entity/Frog.h"
+#include "Entity/TextCounter.h"
 
-
-Player::Player()
+Player::Player(SceneNode* Parent) :
+	ScriptEntity(Parent),
+	IUpdateable(Parent->GetScene())
 {
 	LoadData();
 
@@ -14,13 +17,34 @@ Player::Player()
 	collisionComp = CreateComponent<CircleCollisionComponent>("collisionComp");
 
 	quackComp->SetSound("Quack");
+
 	spriteComp->SetTexture("Duck");
 
-	spriteComp->SetScale(0.5f);
 	collisionComp->SetColor(sf::Color::Cyan);
-	collisionComp->SetRadius(45.f);
+	collisionComp->SetRadius(duckyRadius);
+	collisionComp->SetCollisionProfile(CollisionMask::PLAYER);
+	collisionComp->AddToActiveCollisionsMask(CollisionMask::ENEMY);
+	collisionComp->AddToActiveCollisionsMask(CollisionMask::FROG);
+
+	collisionComp->BindOnOverlapBegin([this](ICollideable* Other) {
+		OnCollisionBegin(Other);
+		});
+
+#ifndef _RELEASE
+	collisionComp->EnableRendering();
+#endif // !_RELEASE
 
 	UpdateData();
+}
+
+Player::~Player()
+{
+}
+
+void Player::OnSceneReady()
+{
+	QuackCounterCache = static_cast<TextCounter*>(ScenePtr->FindNodeByID("HitCounter"));
+	FrogCounterCache = static_cast<TextCounter*>(ScenePtr->FindNodeByID("CatchCounter"));
 }
 
 void Player::LoadData()
@@ -36,76 +60,79 @@ void Player::UpdateData()
 	quackComp->SetVolume(quackVolume);
 }
 
-void Player::Update(const float dt)
+void Player::OnCollisionBegin(ICollideable* Other)
+{
+	switch (Other->GetCollisionProfile())
+	{
+	case CollisionMask::ENEMY:
+	{
+		OnEnemyHit();
+		break;
+	}
+
+	case CollisionMask::FROG:
+	{
+		Frog* frog = static_cast<Frog*>(Other->GetOuter());
+		if (frog)
+		{
+			frog->Catch();
+			frog->TeleportAwayFromPlayer(GetWorldPosition());
+			FrogCounterCache->Increase();
+		}
+		break;
+	}
+
+	default:
+		break;
+	}
+}
+
+void Player::OnUpdate(const float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
-		spriteComp->GetSprite().move(-speed * dt, 0.f);
+		Move({ -speed * dt, 0.f });
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
-		spriteComp->GetSprite().move(speed * dt, 0.f);
+		Move({ speed * dt, 0.f });
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
-		spriteComp->GetSprite().move(0.f, -speed * dt);
+		Move({ 0.f, -speed * dt });
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
-		spriteComp->GetSprite().move(0.f, speed * dt);
+		Move({ 0.f, speed * dt });
 
 	KeepPlayerInBounds();
-	collisionComp->SetPosition(spriteComp->GetPosition());
-	sf::Listener::setPosition(spriteComp->GetPosition().x, spriteComp->GetPosition().y, 0.f);
+
+	sf::Vector2f WorldPosition = GetWorldPosition();
+	sf::Listener::setPosition(WorldPosition.x, WorldPosition.y, 0.f);
 }
 
-void Player::Draw(sf::RenderWindow& window)
-{
-	window.draw(spriteComp->GetSprite());
-
-#ifndef _RELEASE
-	window.draw(collisionComp->GetShape());	//Where does the duck go in the configuration Debug? Maybe Duck doesn't like him :thinking: I don't know *kwa*
-#endif // _RELEASE
-}
-
-void Player::Quack()
+void Player::OnEnemyHit()
 {
 	quackComp->Play();
+	QuackCounterCache->Increase();
 }
-
-bool Player::Hit()
-{
-	if (!gequacked)
-	{
-		gequacked = true;
-		Quack();
-		return true;
-	}
-	return false;
-}
-
-void Player::ResetHit()
-{
-	gequacked = false;
-}
-
-sf::Vector2f Player::GetLocation()
-{
-	return spriteComp->GetPosition();
-}
-
 
 void Player::KeepPlayerInBounds()
 {	
-	if (spriteComp->GetPosition().x > (WindowWidth - duckyRadius)){
-		spriteComp->SetPosition((WindowWidth - duckyRadius), (spriteComp->GetPosition().y));
+	sf::Vector2f WorldPosition = GetWorldPosition();
+	sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
+
+	if (WorldPosition.x > (WindowSize.x - duckyRadius)) {
+		WorldPosition.x = WindowSize.x - duckyRadius;
 	}
 
-	else if (spriteComp->GetPosition().x < duckyRadius){
-		spriteComp->SetPosition(duckyRadius, (spriteComp->GetPosition().y));
+	else if (WorldPosition.x < duckyRadius){
+		WorldPosition.x = duckyRadius;
 	}
 
-	if (spriteComp->GetPosition().y > (WindowHeight - duckyRadius)){
-		spriteComp->SetPosition(spriteComp->GetPosition().x, (WindowHeight - duckyRadius));
+	if (WorldPosition.y > (WindowSize.y - duckyRadius)){
+		WorldPosition.y = WindowSize.y - duckyRadius;
 	}
 
-	else if (spriteComp->GetPosition().y < duckyRadius){
-		spriteComp->SetPosition((spriteComp->GetPosition().x), duckyRadius);
+	else if (WorldPosition.y < duckyRadius){
+		WorldPosition.y = duckyRadius;
 	}
+
+	SetWorldPosition(WorldPosition);
 }

@@ -4,15 +4,13 @@
 class GreenEnemy : public EnemyEntity
 {
 public:
-	GreenEnemy(float x, float y);
+	GreenEnemy(SceneNode* Parent);
 
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Entity
-	virtual void Draw(sf::RenderWindow& window) override;
-	virtual void Update(const float dt) override;
-	virtual sf::Vector2f GetLocation() override;
+	// Updateable
+	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;
@@ -24,6 +22,6 @@ private:
 	// scriptable properties
 	float speed = 150.f;
 	float size = 50.f;
-	float rotationSpeed = 0.05;
+	float rotationSpeed = 0.05f;
 };
 

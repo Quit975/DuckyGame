@@ -1,30 +1,34 @@
 #include "CircleCollisionComponent.h"
 
+CircleCollisionComponent::CircleCollisionComponent(SceneNode* Parent) :
+	CollisionComponent(Parent),
+	IRenderable(Parent->GetScene(), false)
+{
+	SetOuter(Parent);
+	CircleCollision.setOutlineThickness(5.f);
+}
+
+CollisionInfo CircleCollisionComponent::GetCollisionInfo() const
+{
+	sf::Vector2f WorldPosition = GetWorldPosition();
+	return CollisionInfo(WorldPosition.x, WorldPosition.y, collisionRadius);
+}
+
+void CircleCollisionComponent::OnDraw(sf::RenderTarget& target)
+{
+	target.draw(CircleCollision, GetWorldTransform().getTransform());
+}
+
 void CircleCollisionComponent::SetColor(sf::Color color)
 {
-	CircleCollision.setFillColor(color);
+	CircleCollision.setOutlineColor(color);
+	CircleCollision.setFillColor(sf::Color::Transparent);
 }
 
 void CircleCollisionComponent::SetRadius(float radius)
 {
 	collisionRadius = radius;
-	CircleCollision.setRadius(radius);
-	CircleCollision.setOrigin(radius, radius);
-}
-
-
-void CircleCollisionComponent::SetPosition(sf::Vector2f position)
-{
-	CircleCollision.setPosition(position);
-}
-
-void CircleCollisionComponent::SetPosition(float x, float y)
-{
-	CircleCollision.setPosition(x, y);
-}
-
-sf::Vector2f CircleCollisionComponent::GetPosition()
-{
-	return CircleCollision.getPosition();
-
+	// minus thickness
+	CircleCollision.setRadius(collisionRadius - 5);
+	LocalTransform.setOrigin(collisionRadius - 5, collisionRadius - 5);
 }

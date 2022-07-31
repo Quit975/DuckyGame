@@ -1,16 +1,20 @@
 #pragma once
 #include "Entity.h"
+#include "Scene/IRenderable.h"
 #include <sstream>
+#include <SFML/Graphics/Text.hpp>
 
-class TextCounter : public Entity
+class TextCounter : public Entity, public IRenderable
 {
 public: 
-    TextCounter(float x, float y, const char* text, sf::Color color);
+    TextCounter(SceneNode* Parent);
+
+    TextCounter* SetText(const char* NewText);
+    TextCounter* SetColor(sf::Color NewColor);
     void Increase();
 
-    virtual void Update(const float dt) override;
-    virtual void Draw(sf::RenderWindow& window) override;
-    virtual sf::Vector2f GetLocation() override;
+    //IRenderable
+    virtual void OnDraw(sf::RenderTarget& target) override;
 
 private:
     const char* counterName;

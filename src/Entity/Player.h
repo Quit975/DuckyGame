@@ -1,38 +1,47 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "ScriptEntity.h"
+#include "Scene/IUpdateable.h"
 
 class CircleCollisionComponent;
+class SpriteComponent;
+class SoundComponent;
 
-class Player : public ScriptEntity
+class TextCounter;
+
+class Player : public ScriptEntity, public IUpdateable
 {
 public:
-	Player();
+	Player(SceneNode* Parent);
+	virtual ~Player();
 
-	void Quack();
-	bool Hit();
-	void ResetHit();
+	void OnEnemyHit();
 	void KeepPlayerInBounds();
+
+	// SceneNode
+	virtual void OnSceneReady() override;
 
 	// ScriptEntity
 	virtual void UpdateData() override;
 
-	// Entity
-	virtual void Update(const float dt) override;
-	virtual void Draw(sf::RenderWindow& window) override;
-	virtual sf::Vector2f GetLocation() override;
+	// Updateable
+	virtual void OnUpdate(const float dt) override;
 
 	// Scriptable
 	virtual void LoadData() override;
 
-	class CircleCollisionComponent* collisionComp;
-
 private:
-	class SpriteComponent* spriteComp;
-	class SoundComponent* quackComp;
+	SpriteComponent* spriteComp;
+	SoundComponent* quackComp;
+	CircleCollisionComponent* collisionComp;
+
+	TextCounter* QuackCounterCache = nullptr;
+	TextCounter* FrogCounterCache = nullptr;
+
+	void OnCollisionBegin(ICollideable* Other);
 	
-	float duckyRadius = 45.f; //desired ducky radius, this can be temporary, but I haven't yet figured out how to get the right size from sprite or texture
-	bool gequacked = false;
+	//Ducky Texture is 90x90
+	float duckyRadius = 45.f;
 
 	// scriptable properties
 	float speed = 220.f;

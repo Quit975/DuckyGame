@@ -1,6 +1,12 @@
 #include "SoundComponent.h"
 #include "ResourceManager.h"
 
+SoundComponent::SoundComponent(SceneNode* Parent) :
+	EntityComponent(Parent),
+	IUpdateable(Parent->GetScene(), false)
+{
+}
+
 void SoundComponent::SetSound(const char* name, bool looping)
 {
 	Sound.setBuffer(ResourceManager::Get().GetBuffer(name));
@@ -9,8 +15,13 @@ void SoundComponent::SetSound(const char* name, bool looping)
 	if (looping)
 	{
 		Sound.setLoop(true);
-		Sound.play();
 	}
+}
+
+void SoundComponent::OnUpdate(const float dt)
+{
+	sf::Vector2f WorldPosition = GetWorldPosition();
+	Sound.setPosition(WorldPosition.x, WorldPosition.y, 0.f);
 }
 
 void SoundComponent::Play()
@@ -27,11 +38,12 @@ void SoundComponent::SetAttenuation(float attenuation, float distance)
 {
 	Sound.setAttenuation(attenuation);
 	if (attenuation != 0.f)
+	{
 		Sound.setMinDistance(distance);
-}
-
-
-void SoundComponent::SetPosition(sf::Vector2f position)
-{
-	Sound.setPosition(position.x, position.y, 0.f);
+		EnableUpdating();
+	}
+	else
+	{
+		DisableUpdating();
+	}
 }

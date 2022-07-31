@@ -1,37 +1,32 @@
 #include "Scene.h"
-#include "Components/CircleCollisionComponent.h"
+#include "IRenderable.h"
+#include "IUpdateable.h"
+#include "ICollideable.h"
 #include "DuckyMath.h"
+#include "Entity/Player.h"
+#include "Entity/GreenEnemy.h"
+#include "Entity/BlueEnemy.h"
+#include "Entity/Frog.h"
+#include "Entity/TextCounter.h"
+#include "Entity/StaticImage.h"
 
 Scene::Scene(sf::RenderWindow& window):
     renderWindow{window}
 {
-    bg = std::unique_ptr<Background>(new Background());
-    player = std::unique_ptr<Player>(new Player());
-    frog = std::unique_ptr<Frog>(new Frog());
+    SceneRoot = std::make_unique<SceneNode>(this);
 
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(650.f, 200.f)));
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new GreenEnemy(150.f, 100.f)));
-    enemies.push_back(std::unique_ptr<EnemyEntity>(new BlueEnemy(400.f, 500.f)));
+    SpawnNodeOnScene<StaticImage>()->SetImageTexture("Meadow")->SetWorldPosition({ 400.f, 300.f });
 
-    quackCounter = std::unique_ptr<TextCounter>(new TextCounter(50.f, 50.f, "Quack", sf::Color::Red));
-    frogCounter = std::unique_ptr<TextCounter>(new TextCounter(500.f, 50.f, "Frog", sf::Color::Green));
+    SpawnNodeOnScene<Player>()->SetNodeID("Player");
+    SpawnNodeOnScene<GreenEnemy>(300.f, 400.f);
+    SpawnNodeOnScene<GreenEnemy>(600.f, 200.f);
+    SpawnNodeOnScene<BlueEnemy>(400.f, 200.f);
+    SpawnNodeOnScene<Frog>(550.f, 250.f)->SetNodeID("Frog");
 
-    updateGroup.push_back(player.get());
-    updateGroup.push_back(frog.get());
-   
-    drawGroup.push_back(player.get()); // Player* <- Entity*
-    drawGroup.push_back(quackCounter.get());
-    drawGroup.push_back(frogCounter.get());
+    SpawnNodeOnScene<TextCounter>(100.f, 0.f)->SetText("Times hit")->SetColor(sf::Color::Red)->SetNodeID("HitCounter");
+    SpawnNodeOnScene<TextCounter>(450.f, 0.f)->SetText("Frogs caught")->SetColor(sf::Color::Blue)->SetNodeID("CatchCounter");
 
-#ifndef _RELEASE
-    drawGroup.push_back(frog.get());
-#endif // _RELEASE
-
-    for (std::unique_ptr<EnemyEntity>& e : enemies)
-    {
-        updateGroup.push_back(e.get());
-        drawGroup.push_back(e.get());
-    }
+    SceneRoot->PropagateOnSceneReady();
 }
 
 Scene::~Scene()
@@ -39,59 +34,110 @@ Scene::~Scene()
     
 }
 
+SceneNode* Scene::FindNodeByID(const char* ID)
+{
+    return SceneRoot->FindNodeByID(ID);
+}
+
 void Scene::Update(const float dt)
 {
-    for (Entity* e : updateGroup)
+    for (IUpdateable* updateable : updateGroup)
     {
-        e->Update(dt);
+        updateable->OnUpdate(dt);
     }
 }
 
 void Scene::CheckCollisions()
 {
-    // check collisions with enemies
-    bool collided = false;
-    for (std::unique_ptr<EnemyEntity>& e : enemies)
+    if (collisionGroup.size() > 1)
     {
-        if (EntitiesIntersect(player->collisionComp, e->enemyShapeComp))
+        for (unsigned int i = 0; i < collisionGroup.size() - 1; i++)
         {
-            if (player->Hit())
+            ICollideable* A = collisionGroup[i];
+            CollisionInfo AInfo = A->GetCollisionInfo();
+
+            for (unsigned int j = i + 1; j < collisionGroup.size(); j++)
             {
-                quackCounter->Increase();
+                ICollideable* B = collisionGroup[j];
+                CollisionInfo BInfo = B->GetCollisionInfo();
+
+                sf::Vector2f vecA{ AInfo.X, AInfo.Y };
+                sf::Vector2f vecB{ BInfo.X, BInfo.Y };
+                sf::Vector2f diff = vecA - vecB;
+
+                float len = VecLength(diff);
+
+                if (len <= AInfo.radius + BInfo.radius)
+                {
+                    A->Collide(B);
+                    B->Collide(A);
+                }
             }
-            collided = true;
+
+            A->ResolveCollisions();
+            A->CacheCollisions();
         }
+        collisionGroup.back()->ResolveCollisions();
+        collisionGroup.back()->CacheCollisions();
     }
-    if (!collided)
-    {
-        player->ResetHit();
-    }
-
-    // check collision with a frog
-    if (EntitiesIntersect(player->collisionComp, frog->frogShapeComp))
-    {
-        frogCounter->Increase();
-        frog->Catch();
-        frog->TeleportAwayFromPlayer(player->GetLocation());
-    }
-}
-
-bool Scene::EntitiesIntersect(CircleCollisionComponent* component1, CircleCollisionComponent* component2)
-{
-    float distanceToCollide = component1->collisionRadius + component2->collisionRadius;
-    float distanceBetweenEntities = VecLength(component1->GetPosition() - component2->GetPosition());
-    return distanceBetweenEntities <= distanceToCollide;
 }
 
 void Scene::Draw()
 {
     renderWindow.clear();
-    bg->Draw(renderWindow);
     
-    for (Entity* e : drawGroup)
+    for (IRenderable* renderable : renderGroup)
     {
-        e->Draw(renderWindow);
+        renderable->OnDraw(renderWindow);
     }
 
     renderWindow.display();
+}
+
+void Scene::RegisterForRendering(IRenderable* renderable)
+{
+    renderGroup.push_back(renderable);
+}
+
+void Scene::UnregisterFromRendering(IRenderable* renderable)
+{
+    for (auto it = renderGroup.begin(); it < renderGroup.end(); it++)
+    {
+        if (*it == renderable)
+        {
+            renderGroup.erase(it);
+        }
+    }
+}
+
+void Scene::RegisterForUpdate(IUpdateable* Updateable)
+{
+    updateGroup.push_back(Updateable);
+}
+
+void Scene::UnregisterFromUpdate(IUpdateable* Updateable)
+{
+    for (auto it = updateGroup.begin(); it < updateGroup.end(); it++)
+    {
+        if (*it == Updateable)
+        {
+            updateGroup.erase(it);
+        }
+    }
+}
+
+void Scene::RegisterForCollisions(ICollideable* Collideable)
+{
+    collisionGroup.push_back(Collideable);
+}
+
+void Scene::UnregisterFromCollisions(ICollideable* Collideable)
+{
+    for (auto it = collisionGroup.begin(); it < collisionGroup.end(); it++)
+    {
+        if (*it == Collideable)
+        {
+            collisionGroup.erase(it);
+        }
+    }
 }

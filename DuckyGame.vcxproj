@@ -27,7 +27,6 @@
     <None Include="scripts\player.lua" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Background.h" />
     <ClInclude Include="src\Components\CircleCollisionComponent.h" />
     <ClInclude Include="src\Components\CollisionComponent.h" />
     <ClInclude Include="src\Components\EntityComponent.h" />
@@ -41,15 +40,19 @@
     <ClInclude Include="src\Entity\GreenEnemy.h" />
     <ClInclude Include="src\Entity\Player.h" />
     <ClInclude Include="src\Entity\ScriptEntity.h" />
+    <ClInclude Include="src\Entity\StaticImage.h" />
     <ClInclude Include="src\Entity\TextCounter.h" />
     <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\Scene\ICollideable.h" />
+    <ClInclude Include="src\Scene\IRenderable.h" />
+    <ClInclude Include="src\Scene\IUpdateable.h" />
     <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\SceneNode.h" />
     <ClInclude Include="src\Scripting\Scriptable.h" />
     <ClInclude Include="src\Scripting\ScriptManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\Components\CircleCollisionComponent.cpp" />
     <ClCompile Include="src\Components\SoundComponent.cpp" />
     <ClCompile Include="src\Components\SpriteComponent.cpp" />
@@ -57,11 +60,16 @@
     <ClCompile Include="src\Entity\Frog.cpp" />
     <ClCompile Include="src\Entity\GreenEnemy.cpp" />
     <ClCompile Include="src\Entity\Player.cpp" />
+    <ClCompile Include="src\Entity\StaticImage.cpp" />
     <ClCompile Include="src\Entity\TextCounter.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\Scene\ICollideable.cpp" />
+    <ClCompile Include="src\Scene\IRenderable.cpp" />
+    <ClCompile Include="src\Scene\IUpdateable.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\SceneNode.cpp" />
     <ClCompile Include="src\Scripting\Scriptable.cpp" />
     <ClCompile Include="src\Scripting\ScriptManager.cpp" />
   </ItemGroup>

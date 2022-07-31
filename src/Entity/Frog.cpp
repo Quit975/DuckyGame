@@ -1,10 +1,13 @@
 #include "Frog.h"
 #include "DuckyMath.h"
 #include "Components/CircleCollisionComponent.h"
+#include "Components/SoundComponent.h"
 #include <stdlib.h>
 #include <time.h>
 
-Frog::Frog()
+Frog::Frog(SceneNode* Parent) :
+    ScriptEntity(Parent),
+    IUpdateable(Parent->GetScene())
 {
     LoadData();
 
@@ -13,13 +16,17 @@ Frog::Frog()
     catchSoundComp = CreateComponent<SoundComponent>("catchSound");
 
     frogShapeComp->SetColor(sf::Color::Magenta);
-    frogShapeComp->SetPosition(sf::Vector2f(400, 300));
     frogShapeComp->SetRadius(size);
+    frogShapeComp->SetCollisionProfile(CollisionMask::FROG);
+#ifndef _RELEASE
+    frogShapeComp->EnableRendering();
+#endif // !_RELEASE
 
     frogSoundComp->SetSound("Frog", true);
+    frogSoundComp->Play();
     catchSoundComp->SetSound("Catch");
 
-    srand(time(NULL));
+    srand(static_cast<unsigned int>(time(NULL)));
 
     UpdateData();
 }
@@ -44,32 +51,22 @@ void Frog::UpdateData()
     catchSoundComp->SetVolume(catchVolume);
 }
 
-void Frog::Update(const float dt)
+void Frog::OnUpdate(const float dt)
 {
-    frogShapeComp->GetShape().move(speed * xMovementDir * dt, speed * yMovementDir * dt);
-    if (frogShapeComp->GetPosition().x <= size)
+    sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
+
+    Move({ speed * xMovementDir * dt, speed * yMovementDir * dt });
+
+    sf::Vector2f WorldPosition = GetWorldPosition();
+    if (WorldPosition.x <= size)
         xMovementDir = 1;
-    else if (frogShapeComp->GetPosition().x >= (WindowWidth - size))
+    else if (WorldPosition.x >= (WindowSize.x - size))
         xMovementDir = -1;
 
-    if (frogShapeComp->GetPosition().y <= size)
+    if (WorldPosition.y <= size)
         yMovementDir = 1;
-    else if (frogShapeComp->GetPosition().y >= (WindowHeight - size))
+    else if (WorldPosition.y >= (WindowSize.y - size))
         yMovementDir = -1;
-
-    frogSoundComp->SetPosition(frogShapeComp->GetPosition());
-}
-
-void Frog::Draw(sf::RenderWindow& window)
-{
-#ifndef _RELEASE
-    window.draw(frogShapeComp->GetShape());
-#endif
-}
-
-sf::Vector2f Frog::GetLocation()
-{
-    return frogShapeComp->GetPosition();
 }
 
 void Frog::Catch()
@@ -80,16 +77,17 @@ void Frog::Catch()
 void Frog::TeleportAwayFromPlayer(sf::Vector2f playerLoc)
 {
     sf::Vector2<float> newFrogLoc{};
+    sf::Vector2u WindowSize = ScenePtr->GetRenderWindow().getSize();
 
     while (true) 
     {
-        newFrogLoc.x = rand() % (WindowWidth - 20) + 10;            //weird numbers so that frog spawns wholly within bounds
-        newFrogLoc.y = rand() % (WindowHeight - 20) + 10;
+        newFrogLoc.x = static_cast<float>(rand() % (WindowSize.x - 20) + 10);            //weird numbers so that frog spawns wholly within bounds
+        newFrogLoc.y = static_cast<float>(rand() % (WindowSize.y - 20) + 10);
 
         float distance = VecLength(newFrogLoc - playerLoc);
         if (distance > safeDistance)
             break;
     }
-    frogShapeComp->SetPosition(newFrogLoc);
+    SetWorldPosition(newFrogLoc);
 }
 

@@ -8,8 +8,8 @@ const float VecLength(sf::Vector2<T> vec)
 	return std::sqrt(vec.x * vec.x + vec.y * vec.y);
 }
 
-template <typename T>
-sf::Vector2<T> operator/(sf::Vector2<T> lhs, float rhs)
+template <typename T, typename D>
+sf::Vector2<T> operator/(sf::Vector2<T> lhs, D rhs)
 {
 	if (rhs == 0.f)
 		assert(false && "Division by zero!");
